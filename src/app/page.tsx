@@ -6,11 +6,17 @@ import { Button } from "./components/ui/Button";
 import logoSmall from "../../public/assets/logo_sm.svg";
 import logoLarge from "../../public/assets/logo_lg.svg"
 import Image from "next/image";
+import { SearchBar } from "./components/ui/SearchBar";
 
 export default function Home() {
   return (
     <div className="flex flex-col items-start gap-8 p-8">
       <p className="text-violet-50">Componentes</p>
+
+      <SearchBar
+        placeholder="Pesquisar alunos, empresas ou oportunidades"
+        onFilterClick={() => { }}
+      />
 
       <div className="flex gap-4">
         <Image src={logoSmall} alt="" />
@@ -20,7 +26,7 @@ export default function Home() {
       <div className="flex gap-4">
         <Button>Button</Button>
         <Button Icon={Sparkles}>With icon</Button>
-        <Button variant="disabled" Icon={Sparkles}>
+        <Button variant="ghost" Icon={Sparkles}>
           Disabled with icon
         </Button>
         <Button variant="outline_white">Outline button white</Button>

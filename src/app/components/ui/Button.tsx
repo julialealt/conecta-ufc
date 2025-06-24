@@ -13,7 +13,7 @@ const buttonVariants = cva(
           "border border-zinc-100 bg-transparent text-zinc-100 hover:bg-zinc-100/10",
         outline_violet:
           "border border-violet-500 bg-transparent text-violet-500 hover:bg-violet-500/10",
-        disabled:
+        ghost:
           "border border-zinc-500 bg-black text-zinc-400 hover:bg-violet-600 hover:text-violet-50",
         text:
           "bg-transparent text-violet-50 hover:bg-zinc-800 hover:text-zinc-50",
