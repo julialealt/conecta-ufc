@@ -9,15 +9,15 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <div className="flex flex-col items-start gap-4 p-8">
+    <div className="flex flex-col items-start gap-8 p-8">
       <p className="text-violet-50">Componentes</p>
 
-      <div className="flex gap-2">
+      <div className="flex gap-4">
         <Image src={logoSmall} alt="" />
         <Image src={logoLarge} alt="" />
       </div>
 
-      <div className="flex gap-2">
+      <div className="flex gap-4">
         <Button>Button</Button>
         <Button Icon={Sparkles}>With icon</Button>
         <Button variant="disabled" Icon={Sparkles}>
