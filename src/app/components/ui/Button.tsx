@@ -15,10 +15,13 @@ const buttonVariants = cva(
           "border border-violet-500 bg-transparent text-violet-500 hover:bg-violet-500/10",
         disabled:
           "border border-zinc-500 bg-black text-zinc-400 hover:bg-violet-600 hover:text-violet-50",
+        text:
+          "bg-transparent text-violet-50 hover:bg-zinc-800 hover:text-zinc-50",
       },
       size: {
         default: "h-10 px-4 py-2.5 gap-2", // 10px = py-2.5
         icon: "h-10 w-10",
+        small: "h-8 w-8",
       },
     },
     defaultVariants: {
@@ -43,7 +46,6 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         {...props}
       >
         {Icon && <Icon className="h-4 w-4" />}
-        {/* Renderiza o texto apenas se não for um botão 'icon only' */}
         {size !== "icon" && children}
       </button>
     )
