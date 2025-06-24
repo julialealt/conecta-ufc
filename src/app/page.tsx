@@ -1,14 +1,39 @@
 "use client";
+import { Pencil, Plus, Sparkles } from "lucide-react";
 import DescriptionInput from "./components/descriptionInput/DescriptionInput";
 import Header from "./components/header/Header";
-import Input from "./components/Input/input";
+import Input from "./components/input/input";
 import SearchBar from "./components/searchBar/SearchBar";
+import { Button } from "./components/ui/Button";
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <p>alkdjalskdjlk</p>
+    <div className="flex flex-col items-start gap-4 p-8">
+      <p className="text-violet-50">Componentes</p>
+
+      <Button>Button</Button>
+
+      <Button Icon={Sparkles}>With icon</Button>
+
+      <Button variant="disabled" Icon={Sparkles}>
+        Disabled with icon
+      </Button>
+
+      <Button variant="outline_white">Outline button white</Button>
+
+      <Button variant="outline_violet">Outline button violet</Button>
+
+      <Button variant="outline_violet" Icon={Plus}>
+        Outline button violet with icon
+      </Button>
+
+      <Button variant="outline_violet" size="icon" aria-label="Edit" Icon={Pencil} />
+
+      <Header />
+      <SearchBar />
+      <Input placeholder="Digite algo" />
       <DescriptionInput placeholder="TESTE" />
+
     </div>
   );
 }
