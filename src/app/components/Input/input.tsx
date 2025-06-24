@@ -4,6 +4,8 @@ import EyeIcon from "../../icons/eye/Eye";
 import EyeOffIcon from "@/app/icons/eyeOff/EyeOff";
 
 type InputProps = {
+  label: string;
+  required?: boolean;
   isPassword?: boolean;
   value?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -15,6 +17,8 @@ type InputProps = {
 };
 
 const Input: React.FC<InputProps> = ({
+  label,
+  required,
   isPassword = false,
   value,
   onChange,
@@ -28,6 +32,13 @@ const Input: React.FC<InputProps> = ({
 
   return (
     <div className={`flex flex-col text-zinc-400 ${classesRoot}`}>
+      <label
+        htmlFor={id}
+        className="block text-sm font-medium text-zinc-300 mb-1.5"
+      >
+        {label}
+        {required && <span className="text-red-500 ml-0.5">*</span>}
+      </label>
       <div className="relative">
         <input
           id={id}
