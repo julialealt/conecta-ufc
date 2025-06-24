@@ -1,7 +1,6 @@
 "use client";
 import { Bell, Pencil, Plus, Sparkles } from "lucide-react";
 import DescriptionInput from "./components/descriptionInput/DescriptionInput";
-import Input from "./components/input/input";
 import { Button } from "./components/ui/Button";
 import logoSmall from "../../public/assets/logo_sm.svg";
 import logoLarge from "../../public/assets/logo_lg.svg"
@@ -12,6 +11,7 @@ import ApplicantCard from "./components/applicantCard/applicantCard";
 import Avatar from "./components/avatar/avatar";
 import JobCard from "./components/jobCard/jobCard";
 import { InfoCard } from "./components/infoCard/infoCard";
+import Input from "./components/Input/input";
 
 export default function Home() {
   return (
