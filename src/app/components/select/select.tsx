@@ -27,13 +27,13 @@ const Select: React.FC<SelectProps> = ({
   options,
   placeholder,
   required = false,
-  className = "",
+  className,
 }) => {
   const textColor = value ? 'text-zinc-300' : 'text-zinc-500';
 
   return (
     <div className={`flex flex-col w-full ${className}`}>
-      <label htmlFor={id} className="block text-sm font-medium text-zinc-300 mb-1">
+      <label htmlFor={id} className="block text-sm font-medium text-zinc-400 mb-1">
         {label}
         {required && <span className="text-red-500 ml-0.5">*</span>}
       </label>
@@ -46,19 +46,18 @@ const Select: React.FC<SelectProps> = ({
           onChange={onChange}
           required={required}
           className={`
-            w-full bg-black border border-zinc-800 rounded-lg px-4 py-2.5
+            w-full text-sm bg-black border border-zinc-600 rounded-lg px-4 py-2.5
             outline-none appearance-none cursor-pointer
-            focus:ring-2 focus:ring-blue-600 focus:border-blue-600
-            transition-colors
+            transition-colors hover:border-zinc-500 placeholder:text-zinc-400
             ${textColor} 
           `}
         >
-          <option value="" disabled>
+          <option value="" className="text-zinc-400 bg-black">
             {placeholder}
           </option>
 
           {options.map((option) => (
-            <option key={option.value} value={option.value} className="text-zinc-300 bg-zinc-900">
+            <option key={option.value} value={option.value} className="text-zinc-50 bg-black">
               {option.label}
             </option>
           ))}

@@ -1,58 +1,50 @@
-import React from 'react';
+import Link from 'next/link';
+import { cn } from '@/lib/utils';
 import Image from 'next/image';
 
-export type InfoCardProps = {
+export interface InfoCardProps {
+  student: boolean;
   imageUrl: string;
   title: string;
   subtitle: string;
-  variant?: 'person' | 'organization';
-  onClick?: () => void;
+  href: string;
   className?: string;
-};
+}
 
-const InfoCard: React.FC<InfoCardProps> = ({
+export const InfoCard: React.FC<InfoCardProps> = ({
+  student,
   imageUrl,
   title,
   subtitle,
-  variant = 'person',
-  onClick,
-  className = "",
+  href,
+  className,
 }) => {
-  const imageShapeClass = variant === 'person' ? 'rounded-full' : 'rounded-lg';
+  const imageShapeClass = student ? 'rounded-full' : 'rounded-lg';
+  const imageSizeClass = 'h-[46px] w-[46px]';
 
   return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={`
-        w-full flex items-center gap-4 p-3 text-left
-        bg-zinc-900 border border-transparent rounded-xl
-        hover:bg-zinc-800/50 hover:border-zinc-800
-        transition-all duration-200 ease-in-out
-        ${className}
-      `}
+    <Link
+      href={href}
+      className={cn(
+        'flex w-[340px] items-center gap-x-4 p-3 rounded-xl border border-zinc-600 bg-zinc-950',
+        'transition-colors hover:border-zinc-500 focus-visible:outline-none',
+        className
+      )}
     >
-      {/*
-      <div className="flex-shrink-0">
+      <div className={cn('flex-shrink-0', imageSizeClass)}>
         <Image
           src={imageUrl}
-          alt={`Imagem de ${title}`}
-          width={56}
-          height={56}
-          className={`object-cover ${imageShapeClass}`}
+          alt={`Logo de ${title}`}
+          width={46}
+          height={46}
+          className={cn('h-full w-full object-cover', imageShapeClass)}
         />
-      </div>*/}
-
-      <div className="flex-1 min-w-0">
-        <p className="font-semibold text-white truncate">
-          {title}
-        </p>
-        <p className="text-sm text-zinc-400 truncate">
-          {subtitle}
-        </p>
       </div>
-    </button>
+
+      <div className="flex flex-col gap-0.5">
+        <span className="font-semibold text-sm text-zinc-50">{title}</span>
+        <span className="text-xs text-zinc-300">{subtitle}</span>
+      </div>
+    </Link>
   );
 };
-
-export default InfoCard;
