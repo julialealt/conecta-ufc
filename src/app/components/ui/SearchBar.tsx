@@ -1,5 +1,7 @@
+// components/ui/SearchBar.tsx
 import * as React from "react"
-import { Search, Sparkles } from "lucide-react"
+// Adicionamos o ícone 'X' para o nosso botão de limpar customizado
+import { Search, Sparkles, X } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 import { Button } from "./Button"
@@ -11,7 +13,21 @@ export interface SearchBarProps extends React.InputHTMLAttributes<HTMLInputEleme
 }
 
 const SearchBar = React.forwardRef<HTMLInputElement, SearchBarProps>(
-  ({ className, onFilterClick, isFilterActive = false, containerClassName, ...props }, ref) => {
+  ({ className, onFilterClick, isFilterActive = false, containerClassName, value, onChange, ...props }, ref) => {
+
+    const handleClear = (e: React.MouseEvent<HTMLButtonElement>) => {
+      const syntheticEvent = {
+        ...e,
+        target: ref && typeof ref !== 'function' && ref.current ? ref.current : e.target,
+      } as unknown as React.ChangeEvent<HTMLInputElement>;
+
+      syntheticEvent.target.value = '';
+
+      if (onChange) {
+        onChange(syntheticEvent);
+      }
+    }
+
     return (
       <div className={cn("flex items-center gap-x-2 w-full", containerClassName)}>
         <Button
@@ -19,21 +35,27 @@ const SearchBar = React.forwardRef<HTMLInputElement, SearchBarProps>(
           onClick={onFilterClick}
           className="whitespace-nowrap"
         >
-          <Sparkles className="h-4 w-4" />
+          <Sparkles className="h-4 w-4 mr-2" />
           Filtrar por vagas
         </Button>
 
         <div className="relative w-full">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-400" />
+          <Search className="absolute left-3 top-1/2 h-4 w-5 -translate-y-1/2 text-zinc-400" />
           <input
-            type="search"
+            ref={ref}
+            type="text"
+            value={value}
+            onChange={onChange}
             className={cn(
-              "flex h-10 w-full rounded-full border border-zinc-500 bg-black py-2 pl-10 pr-3 text-sm text-zinc-50 file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-zinc-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 focus-visible:ring-offset-2 focus-visible:ring-offset-black disabled:cursor-not-allowed disabled:opacity-50",
+              "flex h-10 w-full rounded-full border border-zinc-600 bg-black py-2 pl-10 pr-10 text-sm text-zinc-50 file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-zinc-400 disabled:cursor-not-allowed disabled:opacity-50",
+              "focus:outline-none focus:border-violet-500 focus:ring-2 focus:ring-violet-500/50",
               className
             )}
-            ref={ref}
             {...props}
           />
+          {value && (
+            <Button variant="text" Icon={X} onClick={handleClear} />
+          )}
         </div>
       </div>
     )
