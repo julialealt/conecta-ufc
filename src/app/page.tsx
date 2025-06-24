@@ -38,8 +38,8 @@ export default function Home() {
         <Button variant="text" size="small" Icon={Bell} />
       </div>
 
-      <Input placeholder="Digite algo" />
-      <DescriptionInput placeholder="TESTE" />
+      <Input label="Label*" placeholder="Digite algo" />
+      <DescriptionInput label="Descrição" placeholder="Input text area" />
 
     </div>
   );
