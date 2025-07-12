@@ -3,13 +3,8 @@ import Image from 'next/image';
 
 const getInitials = (name: string) => {
   if (!name) return '';
-  const parts = name.trim().split(' ');
-  if (parts.length > 1) {
-    return `${parts[0][0]}${parts[parts.length - 1][0]}`.toUpperCase();
-  }
-  return name.substring(0, 2).toUpperCase();
+  return name[0].toUpperCase();
 };
-
 
 export type AvatarProps = {
   imageUrl?: string | null;
@@ -32,7 +27,7 @@ const Avatar: React.FC<AvatarProps> = ({
   const sizeStyles = {
     sm: 'w-10 h-10 text-sm',
     md: 'w-16 h-16 text-2xl',
-    lg: 'w-24 h-24 text-4xl',
+    lg: 'w-23 h-23 text-4xl',
   };
   const sizeClass = sizeStyles[size];
 

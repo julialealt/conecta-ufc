@@ -1,7 +1,7 @@
 import React from 'react';
-import Image from 'next/image';
 import { MapPin, CircleDollarSign, Clock } from 'lucide-react';
 import { Button } from './button';
+import Avatar from './avatar';
 
 export type JobCardProps = {
   logoUrl: string;
@@ -11,8 +11,8 @@ export type JobCardProps = {
   location: string;
   salary: string;
   workload: string;
-  showApplyButton: boolean;
-  onApply?: () => void;
+  buttonText?: string;
+  onClickButton?: () => void;
   className?: string;
 };
 
@@ -24,57 +24,55 @@ const JobCard: React.FC<JobCardProps> = ({
   location,
   salary,
   workload,
-  showApplyButton,
-  onApply,
+  buttonText,
+  onClickButton,
   className = "",
 }) => {
   return (
     <div
       className={`
-        flex items-start gap-4 md:gap-6 p-3 md:p-5 
-        bg-zinc-950 border border-zinc-800 rounded-xl
-        hover:border-zinc-700 transition-colors
+        p-3 bg-zinc-950 rounded-xl inline-flex justify-start items-start gap-4
+        border border-zinc-800 hover:border-zinc-700 transition-colors
         ${className}
       `}
     >
 
       <div className="flex-shrink-0">
-        <Image
-          src={logoUrl}
-          alt={`Logo da ${companyName}`}
-          width={48}
-          height={48}
-          className="rounded-md object-cover"
+        <Avatar
+          imageUrl={logoUrl}
+          name={companyName}
+          variant="organization"
+          size='md'
         />
       </div>
 
       <div className="flex-1 min-w-0 gap-0.5">
-        <h3 className="font-semibold text-base text-white truncate">{jobTitle}</h3>
-        <p className="text-xs font-medium text-zinc-300 line-clamp-3">
-          {description}
-        </p>
+        <h3 className="font-semibold text-base text-white truncate leading-[150%] pb-1">{jobTitle}</h3>
+        <p className="text-xs font-medium text-zinc-300 line-clamp-3 leading-[150%]">{description}</p>
 
-        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs font-medium text-zinc-300">
-          <div className="flex items-center gap-1.5">
-            <MapPin size={16} />
-            <span>{location}</span>
-          </div>
-          <div className="flex items-center gap-1.5">
-            <CircleDollarSign size={16} />
-            <span>{salary}</span>
-          </div>
-          <div className="flex items-center gap-1.5">
-            <Clock size={16} />
-            <span>{workload}</span>
+        <div className="flex items-center justify-between gap-x-4 gap-y-1 text-xs font-medium text-zinc-300 h-[32px]">
+          <div className="pt-2 inline-flex justify-start items-start gap-5">
+            <div className="flex items-center gap-1.5">
+              <MapPin size={16} />
+              <span>{location}</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <CircleDollarSign size={16} />
+              <span>{salary}</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <Clock size={16} />
+              <span>{workload}</span>
+            </div>
           </div>
 
-          {showApplyButton && (
+          {buttonText && (
             <Button
               variant="primary"
-              onClick={onApply}
-              className="h-[32px] w-[112px] text-sm"
+              onClick={onClickButton}
+              className="h-[32px] min-w-[112px] text-sm"
             >
-              Aplicar
+              {buttonText}
             </Button>
           )}
         </div>

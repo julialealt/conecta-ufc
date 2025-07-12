@@ -40,7 +40,7 @@ export default function Home() {
         location={"Remoto"}
         salary={"R$1.200,00"}
         workload={"20h semanais"}
-        showApplyButton
+        buttonText="Aplicar"
       />
 
       <SearchBar
