@@ -1,8 +1,8 @@
 import React from 'react';
-import { ExternalLink, Users } from 'lucide-react';
+import { ExternalLink } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import Avatar from '../avatar/avatar';
-import { Button } from '../ui/Button';
+import Avatar from './avatar';
+import { Button } from './button';
 
 export type ApplicantCardProps = {
   avatarUrl?: string;
@@ -20,7 +20,6 @@ const ApplicantCard: React.FC<ApplicantCardProps> = ({
   name,
   profileUrl,
   bio,
-  recommendationCount,
   onDecline,
   onRecruit,
   className,
@@ -43,7 +42,7 @@ const ApplicantCard: React.FC<ApplicantCardProps> = ({
         >
           <h3 className="truncate text-base font-semibold text-zinc-50">{name}</h3>
           <ExternalLink
-            size={18}
+            size={14}
             className="text-zinc-500 transition-colors group-hover:text-violet-400"
           />
         </a>
@@ -53,14 +52,7 @@ const ApplicantCard: React.FC<ApplicantCardProps> = ({
         </p>
 
         <div className="flex items-end justify-between">
-          <div className="flex items-center gap-x-2 text-xs text-zinc-300">
-            <Users size={18} />
-            <span>
-              {recommendationCount} pessoas recomendaram este aluno
-            </span>
-          </div>
-
-          <div className="flex items-center gap-x-2">
+          <div className="flex items-end justify-end gap-x-2">
             <Button
               variant="outline_white"
               onClick={onDecline}

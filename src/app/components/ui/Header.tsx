@@ -1,8 +1,7 @@
-import { Home, Briefcase, User, Bell } from "lucide-react"
-import { NavLink } from "./NavLink"
-import { Button } from "./Button"
+import { Home, Briefcase, UserRound } from "lucide-react"
 import Image from "next/image"
 import logo from "../../../../public/assets/logo_sm.svg"
+import { NavLink } from "./nav-link"
 
 export function Header() {
   return (
@@ -21,15 +20,10 @@ export function Header() {
             Vagas
           </NavLink>
           <NavLink href="/perfil">
-            <User className="h-4 w-4" />
+            <UserRound className="h-4 w-4" />
             Perfil
           </NavLink>
         </nav>
-
-        <div className="flex items-center">
-          <Button Icon={Bell} size="small" variant="text" aria-label="Notificações" />
-        </div>
-
       </div>
     </header>
   )

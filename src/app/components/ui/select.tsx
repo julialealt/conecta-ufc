@@ -33,7 +33,7 @@ const Select: React.FC<SelectProps> = ({
 
   return (
     <div className={`flex flex-col w-full ${className}`}>
-      <label htmlFor={id} className="block text-sm font-medium text-zinc-400 mb-1">
+      <label htmlFor={id} className="block text-xs font-medium text-zinc-400 mb-1">
         {label}
         {required && <span className="text-red-500 ml-0.5">*</span>}
       </label>

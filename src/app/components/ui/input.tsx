@@ -34,7 +34,7 @@ const Input: React.FC<InputProps> = ({
     <div className={`flex flex-col w-full text-zinc-400 ${classesRoot}`}>
       <label
         htmlFor={id}
-        className="block text-sm font-medium text-zinc-400 mb-1.5"
+        className="block text-xs font-medium text-zinc-400 mb-1.5"
       >
         {label}
         {required && <span className="text-red-500 ml-0.5">*</span>}

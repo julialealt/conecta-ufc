@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { MapPin, CircleDollarSign, Clock } from 'lucide-react';
-import { Button } from '../ui/Button';
+import { Button } from './button';
 
 export type JobCardProps = {
   logoUrl: string;
