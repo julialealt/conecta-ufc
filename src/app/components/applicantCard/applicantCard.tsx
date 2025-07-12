@@ -1,9 +1,11 @@
 import React from 'react';
-import Image from 'next/image';
 import { ExternalLink, Users } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import Avatar from '../avatar/avatar';
+import { Button } from '../ui/Button';
 
 export type ApplicantCardProps = {
-  avatarUrl: string;
+  avatarUrl?: string;
   name: string;
   profileUrl: string;
   bio: string;
@@ -12,6 +14,7 @@ export type ApplicantCardProps = {
   onRecruit: () => void;
   className?: string;
 };
+
 const ApplicantCard: React.FC<ApplicantCardProps> = ({
   avatarUrl,
   name,
@@ -20,73 +23,59 @@ const ApplicantCard: React.FC<ApplicantCardProps> = ({
   recommendationCount,
   onDecline,
   onRecruit,
-  className = "",
+  className,
 }) => {
   return (
     <div
-      className={`
-        flex flex-col gap-3 p-4
-        bg-zinc-950 border border-zinc-800 rounded-xl
-        ${className}
-      `}
+      className={cn(
+        'flex w-full flex-row items-start gap-x-4 rounded-2xl border border-zinc-600 bg-zinc-950 p-4',
+        className
+      )}
     >
-      <div className="flex items-center gap-4">
-        {/*
-        <Avatar
-          imageUrl={avatarUrl}
-          name={name}
-          variant="person"
-          size="md" // Usando o componente Avatar que criamos
-        />
-        */}
-        <div className="flex-1 min-w-0">
-          <a
-            href={profileUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 group"
-          >
-            <h3 className="font-bold text-lg text-white truncate">{name}</h3>
-            <ExternalLink 
-              size={16} 
-              className="text-zinc-500 group-hover:text-violet-400 transition-colors" 
-            />
-          </a>
-        </div>
-      </div>
+      <Avatar imageUrl={avatarUrl} name={name} size="md" />
 
-      <p className="text-sm text-zinc-400 line-clamp-4">
-        {bio}
-      </p>
+      <div className="flex flex-1 flex-col self-stretch gap-0.5">
+        <a
+          href={profileUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group inline-flex w-fit items-center gap-x-1.5"
+        >
+          <h3 className="truncate text-base font-semibold text-zinc-50">{name}</h3>
+          <ExternalLink
+            size={18}
+            className="text-zinc-500 transition-colors group-hover:text-violet-400"
+          />
+        </a>
 
-      <div className="flex items-center justify-between mt-1">
-        <div className="flex items-center gap-1.5 text-sm text-zinc-500">
-          <Users size={16} />
-          <span>
-            {recommendationCount} pessoas recomendaram este aluno
-          </span>
-        </div>
+        <p className="text-xs leading-relaxed text-zinc-300 line-clamp-3">
+          {bio}
+        </p>
 
-        <div className="flex items-center gap-3">
-          <button
-            onClick={onDecline}
-            className="
-              px-4 py-1.5 bg-transparent border border-zinc-700 text-zinc-300 
-              font-semibold rounded-lg hover:bg-zinc-800 hover:border-zinc-600 
-              transition-colors
-            "
-          >
-            Recusar
-          </button>
-          <button
-            onClick={onRecruit}
-            className="
-              px-4 py-1.5 bg-violet-600 text-white font-semibold rounded-lg
-              hover:bg-violet-700 transition-colors
-            "
-          >
-            Recrutar
-          </button>
+        <div className="flex items-end justify-between">
+          <div className="flex items-center gap-x-2 text-xs text-zinc-300">
+            <Users size={18} />
+            <span>
+              {recommendationCount} pessoas recomendaram este aluno
+            </span>
+          </div>
+
+          <div className="flex items-center gap-x-2">
+            <Button
+              variant="outline_white"
+              onClick={onDecline}
+              className="h-[32px] w-[112px] text-sm"
+            >
+              Recusar
+            </Button>
+            <Button
+              variant="primary"
+              onClick={onRecruit}
+              className="h-[32px] w-[112px] text-sm"
+            >
+              Recrutar
+            </Button>
+          </div>
         </div>
       </div>
     </div>
