@@ -1,21 +1,24 @@
 "use client";
 
-import { useState } from 'react';
-import Image from 'next/image';
-import { Button } from '../components/ui/button';
-import Input from '../components/ui/input';
-import logo from '../../../public/assets/logo_lg.svg';
+import { useState } from 'react'
+import Image from 'next/image'
+import { Button } from '../components/ui/button'
+import Input from '../components/ui/input'
+import logo from '../../../public/assets/logo_lg.svg'
+import { useRouter } from 'next/navigation'
 
 export default function SignInPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const router = useRouter()
+
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
   const handleLogin = () => {
-    alert(`Email: ${email}\nSenha: ${password}`);
+    alert(`Email: ${email}\nSenha: ${password}`)
   };
 
   const handleRegister = () => {
-    alert('Redirecionando para a página de cadastro...');
+    router.push('/sign-up')
   };
 
   return (

@@ -3,14 +3,17 @@
 import Image from 'next/image';
 import { Button } from '../components/ui/button';
 import logo from '../../../public/assets/logo_lg.svg';
+import { useRouter } from 'next/navigation';
 
 export default function SignUpPage() {
+  const router = useRouter()
+
   const handleStudent = () => {
-    alert('Redirecionando para a página de cadastro de aluno...');
+    router.push('/sign-up/student');
   };
 
   const handleCompany = () => {
-    alert('Redirecionando para a página de cadastro de professor ou empresa...');
+    router.push('/sign-up/company');
   };
 
   return (

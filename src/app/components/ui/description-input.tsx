@@ -1,8 +1,12 @@
 import React from "react";
 
 type InputProps = {
-  label: string;
+  id?: string;
+  name?: string;
+  label?: string;
   required?: boolean;
+  value?: string;
+  onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   classesRoot?: string;
   classesInput?: string;
   numberOfCol?: number;
@@ -11,8 +15,12 @@ type InputProps = {
 };
 
 const DescriptionInput: React.FC<InputProps> = ({
+  id = "description",
+  name = "description",
   label,
   required,
+  value,
+  onChange,
   classesInput,
   classesRoot,
   numberOfCol,
@@ -21,19 +29,22 @@ const DescriptionInput: React.FC<InputProps> = ({
 }) => {
   return (
     <div className={`flex flex-col w-full text-white ${classesRoot}`}>
-      <label
+      {label && <label
         htmlFor={"description"}
         className="block text-xs font-medium text-zinc-400 mb-1.5"
       >
         {label}
         {required && <span className="text-red-500 ml-0.5">*</span>}
-      </label>
+      </label>}
       <textarea
-        name={"description"}
+        id={id}
+        name={name}
+        value={value}
+        onChange={onChange}
         cols={numberOfCol ? numberOfCol : 50}
         rows={numberOfRows ? numberOfRows : 10}
         placeholder={placeholder}
-        className={`bg-black text-zinc-50 text-sm placeholder-zinc-400 border border-zinc-600 rounded-lg outline-none px-4 py-3.5 hover:border-zinc-500 transition-colors ${classesInput}`}
+        className={`bg-black text-zinc-50 text-sm placeholder-zinc-500 border border-zinc-600 rounded-lg outline-none px-4 py-3.5 hover:border-zinc-500 transition-colors ${classesInput}`}
       ></textarea>
     </div>
   );

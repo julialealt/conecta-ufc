@@ -29,7 +29,7 @@ const Select: React.FC<SelectProps> = ({
   required = false,
   className,
 }) => {
-  const textColor = value ? 'text-zinc-300' : 'text-zinc-500';
+  const textColor = value ? 'text-zinc-50' : 'text-zinc-500';
 
   return (
     <div className={`flex flex-col w-full ${className}`}>
@@ -46,9 +46,9 @@ const Select: React.FC<SelectProps> = ({
           onChange={onChange}
           required={required}
           className={`
-            w-full text-sm bg-black border border-zinc-600 rounded-lg px-4 py-2.5
+            w-full h-[48px] text-sm bg-black border border-zinc-800 rounded-md px-4 py-2.5
             outline-none appearance-none cursor-pointer
-            transition-colors hover:border-zinc-500 placeholder:text-zinc-400
+            transition-colors hover:border-zinc-600 placeholder:text-zinc-500
             ${textColor} 
           `}
         >
@@ -64,7 +64,7 @@ const Select: React.FC<SelectProps> = ({
         </select>
 
         <div className="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none">
-          <ChevronDown className="h-5 w-5 text-zinc-400" />
+          <ChevronDown className="text-zinc-500" size={20} />
         </div>
       </div>
     </div>
