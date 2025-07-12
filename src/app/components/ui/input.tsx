@@ -1,10 +1,8 @@
+import { Eye, EyeClosed } from "lucide-react";
 import React, { useState } from "react";
 
-import EyeIcon from "../../icons/eye/Eye";
-import EyeOffIcon from "@/app/icons/eyeOff/EyeOff";
-
 type InputProps = {
-  label: string;
+  label?: string;
   required?: boolean;
   isPassword?: boolean;
   value?: string;
@@ -32,13 +30,13 @@ const Input: React.FC<InputProps> = ({
 
   return (
     <div className={`flex flex-col w-full text-zinc-400 ${classesRoot}`}>
-      <label
+      {label && <label
         htmlFor={id}
         className="block text-xs font-medium text-zinc-400 mb-1.5"
       >
         {label}
         {required && <span className="text-red-500 ml-0.5">*</span>}
-      </label>
+      </label>}
       <div className="relative">
         <input
           id={id}
@@ -47,16 +45,16 @@ const Input: React.FC<InputProps> = ({
           value={value}
           onChange={onChange}
           placeholder={placeholder}
-          className={`w-full bg-black text-sm text-zinc-50 placeholder-zinc-400 border border-zinc-600 rounded-md px-4 py-2 outline-none hover:border-zinc-500 transition-colors ${classesInput}`}
+          className={`w-full h-[48px] bg-black text-sm text-zinc-50 placeholder-zinc-400 border border-zinc-800 rounded-md px-4 py-2 outline-none hover:border-zinc-600 transition-colors ${classesInput}`}
         />
 
         {isPassword && (
           <button
             type="button"
             onClick={() => setShowPassword((prev) => !prev)}
-            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white text-sm"
+            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white text-sm cursor-pointer transition-colors"
           >
-            {showPassword ? <EyeOffIcon /> : <EyeIcon />}
+            {showPassword ? <EyeClosed size={16} /> : <Eye size={16} />}
           </button>
         )}
       </div>
