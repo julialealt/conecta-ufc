@@ -20,14 +20,13 @@ export default function SignInPage() {
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-zinc-950 p-4">
-      <div className="flex w-full max-w-sm flex-col items-center gap-y-6">
-
-        <div className="self-stretch inline-flex flex-col justify-start items-center gap-3">
+      <div className="w-[390px] inline-flex flex-col justify-start items-start gap-8">
+        <div className="self-stretch flex flex-col justify-start items-center gap-3">
           <Image src={logo} alt="Logo ConectaUFC" />
           <p className="self-stretch text-center justify-start text-violet-50 text-xs font-medium">Conectando talentos, construindo futuros.</p>
         </div>
 
-        <div className="self-stretch inline-flex flex-col justify-start items-start gap-8">
+        <div className="self-stretch flex flex-col justify-start items-start gap-8">
           <p className="self-stretch text-center justify-start text-zinc-400 text-sm font-medium leading-tight">Uma plataforma exclusiva para conectar talentos da universidade pública a oportunidades reais.</p>
 
           <form className="flex w-full flex-col gap-y-4" onSubmit={(e) => { e.preventDefault(); handleLogin(); }}>
