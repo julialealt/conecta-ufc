@@ -35,7 +35,7 @@ export default function StudentSignUpPage() {
         </div>
 
         <div className="self-stretch flex flex-col justify-start items-start gap-8">
-          <p className="self-stretch text-center justify-start text-zinc-400 text-sm font-medium leading-tight">Seu futuro começa aqui.<br />Cadastre-se e faça parte da rede de talentos da UFC.</p>
+          <p className="self-stretch text-center justify-start text-zinc-400 text-sm font-medium leading-[20px]">Seu futuro começa aqui.<br />Cadastre-se e faça parte da rede de talentos da UFC.</p>
 
           <form className="flex w-full flex-col gap-y-4" onSubmit={(e) => { e.preventDefault(); handleSignUp(); }}>
             <Input

@@ -25,7 +25,7 @@ export default function SignUpPage() {
         </div>
 
         <div className="self-stretch flex flex-col justify-start items-start gap-16">
-          <p className="self-stretch text-center justify-start text-zinc-400 text-sm font-medium font-['Inter'] leading-tight">Como você quer se conectar com oportunidades?<br />Escolha seu perfil e comece a transformar o futuro agora.</p>
+          <p className="self-stretch text-center justify-start text-zinc-400 text-sm font-medium leading-[20px]">Como você quer se conectar com oportunidades?<br />Escolha seu perfil e comece a transformar o futuro agora.</p>
           <div className="self-stretch flex flex-col justify-start items-start gap-4">
             <Button
               type="button"

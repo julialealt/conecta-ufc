@@ -30,7 +30,7 @@ export default function SignInPage() {
         </div>
 
         <div className="self-stretch flex flex-col justify-start items-start gap-8">
-          <p className="self-stretch text-center justify-start text-zinc-400 text-sm font-medium leading-tight">Uma plataforma exclusiva para conectar talentos da universidade pública a oportunidades reais.</p>
+          <p className="self-stretch text-center justify-start text-zinc-400 text-sm font-medium leading-[20px]">Uma plataforma exclusiva para conectar talentos da universidade pública a oportunidades reais.</p>
 
           <form className="flex w-full flex-col gap-y-4" onSubmit={(e) => { e.preventDefault(); handleLogin(); }}>
             <Input
