@@ -2,6 +2,7 @@
 
 import { Button } from "@/app/components/ui/button";
 import Input from "@/app/components/ui/input";
+import { PhotoInput } from "@/app/components/ui/photo-input";
 import TextAreaInput from "@/app/components/ui/text-area-input";
 import { ChevronLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -18,6 +19,11 @@ export default function CompanyProfileUpdatePage() {
   const [location, setLocation] = useState('')
   const [specialities, setSpecialities] = useState('')
   const [contact, setContact] = useState('')
+
+  const handlePhotoChange = (file: File) => {
+    console.log("Novo logo de organização selecionado:", file.name);
+    // Lógica de upload...
+  }
 
   const handleBack = () => {
     router.push('/company-profile');
@@ -45,6 +51,12 @@ export default function CompanyProfileUpdatePage() {
       </div>
 
       <div className="self-stretch w-full inline-flex flex-col justify-start items-start gap-4">
+        <PhotoInput
+          variant="organization"
+          onImageChange={handlePhotoChange}
+          label="Perfil"
+        />
+
         <Input
           id="email"
           name="email"
