@@ -11,6 +11,8 @@ export type TextAreaInputProps = {
   classesRoot?: string;
   classesInput?: string;
   placeholder: string;
+  status?: 'default' | 'error';
+  errorMessage?: string;
 };
 
 const TextAreaInput: React.FC<TextAreaInputProps> = ({
@@ -23,16 +25,22 @@ const TextAreaInput: React.FC<TextAreaInputProps> = ({
   classesInput,
   classesRoot,
   placeholder,
+  status = 'default',
+  errorMessage,
 }) => {
+  const inputBorderClass = status === 'error'
+    ? 'border-red-800 hover:border-red-700'
+    : 'border-zinc-800 hover:border-zinc-700'
+
   return (
     <div className={cn('flex w-full flex-col text-white', classesRoot)}>
       {label && (
         <label
           htmlFor={id}
-          className="mb-1.5 block text-xs font-medium text-zinc-400"
+          className="mb-1.5 block text-xs font-normal text-zinc-400"
         >
           {label}
-          {required && <span className="ml-0.5 text-red-500">*</span>}
+          {required && <span className="ml-0.5 text-red-600">*</span>}
         </label>
       )}
       <textarea
@@ -43,13 +51,17 @@ const TextAreaInput: React.FC<TextAreaInputProps> = ({
         placeholder={placeholder}
         className={cn(
           'min-h-24 w-full',
-          'rounded-lg border border-zinc-800 bg-black p-4 py-3.5',
+          'rounded-md border bg-black p-4 py-3.5',
           'text-sm text-zinc-50 placeholder-zinc-500 outline-none',
-          'transition-all duration-300',
-          'hover:border-zinc-700',
-          classesInput
+          'transition-all duration-300 leading-[140%]',
+          classesInput,
+          inputBorderClass,
         )}
       />
+
+      <div className="w-full self-stretch px-2 pt-1 inline-flex justify-center items-center gap-1">
+        <div className="w-full self-stretch justify-start text-red-800 text-[10px] font-normal leading-[16px]">{errorMessage}</div>
+      </div>
     </div>
   );
 };
