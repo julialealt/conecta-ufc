@@ -1,6 +1,7 @@
 import React from "react";
+import { cn } from "@/lib/utils"; // Importando a função cn
 
-type InputProps = {
+export type DescriptionInputProps = {
   id?: string;
   name?: string;
   label?: string;
@@ -9,12 +10,10 @@ type InputProps = {
   onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   classesRoot?: string;
   classesInput?: string;
-  numberOfCol?: number;
-  numberOfRows?: number;
   placeholder: string;
 };
 
-const DescriptionInput: React.FC<InputProps> = ({
+const DescriptionInput: React.FC<DescriptionInputProps> = ({
   id = "description",
   name = "description",
   label,
@@ -23,19 +22,17 @@ const DescriptionInput: React.FC<InputProps> = ({
   onChange,
   classesInput,
   classesRoot,
-  numberOfCol,
-  numberOfRows,
   placeholder,
 }) => {
   return (
-    <div className={`flex flex-col w-full text-white ${classesRoot}`}>
+    <div className={cn("flex w-full flex-col text-white", classesRoot)}>
       {label && (
         <label
-          htmlFor={"description"}
-          className="block text-xs font-medium text-zinc-400 mb-1.5"
+          htmlFor={id} // Corrigido para usar o ID dinâmico
+          className="mb-1.5 block text-xs font-medium text-zinc-400"
         >
           {label}
-          {required && <span className="text-red-500 ml-0.5">*</span>}
+          {required && <span className="ml-0.5 text-red-500">*</span>}
         </label>
       )}
       <textarea
@@ -43,11 +40,16 @@ const DescriptionInput: React.FC<InputProps> = ({
         name={name}
         value={value}
         onChange={onChange}
-        cols={numberOfCol ? numberOfCol : 50}
-        rows={numberOfRows ? numberOfRows : 5}
         placeholder={placeholder}
-        className={`bg-black text-zinc-50 text-sm placeholder-zinc-500 border border-zinc-800 rounded-lg outline-none px-4 py-3.5 hover:border-zinc-500 transition-all ${classesInput}`}
-      ></textarea>
+        className={cn(
+          "min-h-24 w-full",
+          "rounded-lg border border-zinc-800 bg-black p-4 py-3.5",
+          "text-sm text-zinc-50 placeholder-zinc-500 outline-none",
+          "transition-all duration-300",
+          "hover:border-zinc-700",
+          classesInput
+        )}
+      />
     </div>
   );
 };

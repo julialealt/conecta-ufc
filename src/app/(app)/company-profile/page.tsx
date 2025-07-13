@@ -6,6 +6,7 @@ import { Button } from "../../components/ui/Button";
 import JobCard from "../../components/ui/job-card";
 import { AppContext, AppContextType, Employer } from "@/context/appContext";
 import { Opportunity } from "@/types/entities";
+import { useRouter } from "next/navigation";
 import api, { testApi } from "@/services/axios";
 
 export default function CompanyProfilePage() {
@@ -26,6 +27,12 @@ export default function CompanyProfilePage() {
     };
     fetchOpportunities();
   }, []);
+
+  const router = useRouter();
+
+  const handleUpdateProfile = () => {
+    router.push("/company-profile/update");
+  };
 
   return (
     <div className="w-full self-stretch px-30 pt-12 pb-16 bg-zinc-950 inline-flex flex-col justify-start items-start gap-16">
@@ -51,7 +58,12 @@ export default function CompanyProfilePage() {
           )}
         </div>
 
-        <Button variant="outline_violet" Icon={Pen} className="p-2.5" />
+        <Button
+          variant="outline_violet"
+          Icon={Pen}
+          onClick={handleUpdateProfile}
+          size="icon"
+        />
       </div>
 
       <div className="inline-flex flex-col justify-start items-start gap-12">

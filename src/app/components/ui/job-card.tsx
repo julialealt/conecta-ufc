@@ -32,7 +32,7 @@ const JobCard: React.FC<JobCardProps> = ({
     <div
       className={`
         p-3 bg-zinc-950 w-full rounded-xl inline-flex justify-start items-start gap-4
-        border border-zinc-800 hover:border-zinc-700 transition-all cursor-pointer
+        border border-zinc-800 hover:border-zinc-700 transition-all duration-300 cursor-pointer
         ${className}
       `}
     >
