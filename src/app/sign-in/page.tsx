@@ -44,6 +44,10 @@ export default function SignInPage() {
     setIsLoading(false);
   };
 
+  const handleForgotPassword = () => {
+    router.push("/recover-password/request-email-verification");
+  };
+
   const handleRegister = () => {
     router.push("/sign-up");
   };
@@ -89,7 +93,17 @@ export default function SignInPage() {
               onChange={(e) => setPassword(e.target.value)}
             />
 
-            <div className="mt-2 flex items-center gap-x-3">
+            <Button
+              type="button"
+              variant="link"
+              onClick={handleForgotPassword}
+              size="small"
+              className="p-0"
+            >
+              Esqueci minha senha
+            </Button>
+
+            <div className="mt-4 flex items-center gap-x-3">
               <Button
                 type="button"
                 variant="outline_white"
