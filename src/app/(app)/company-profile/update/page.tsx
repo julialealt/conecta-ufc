@@ -31,12 +31,12 @@ export default function CompanyProfileUpdatePage() {
     <div className="self-stretch w-full px-28 pt-12 pb-16 bg-zinc-950 inline-flex flex-col justify-start items-start gap-8">
       <div className="w-full inline-flex justify-start items-start gap-3">
         <div className="self-stretch pt-0.5 inline-flex flex-col justify-start items-start gap-1">
-          <ChevronLeft className="w-6 h-6 text-zinc-400 cursor-pointer" onClick={handleBack} />
+          <ChevronLeft className="w-5 h-5 text-zinc-400 cursor-pointer" onClick={handleBack} />
         </div>
 
         <div className="w-full self-stretch inline-flex flex-col justify-center items-start gap-1">
-          <div className="self-stretch justify-start text-violet-50 text-xl font-semibold leading-[150%]">Editar perfil</div>
-          <div className="self-stretch justify-start text-zinc-300 text-base font-medium leading-[150%]">Atualize suas informações e atraia os talentos certos.</div>
+          <div className="self-stretch justify-start text-violet-50 text-lg font-semibold leading-[150%]">Editar perfil</div>
+          <div className="self-stretch justify-start text-zinc-300 text-sm font-medium leading-[150%]">Atualize suas informações e atraia os talentos certos.</div>
         </div>
 
         <div className="self-stretch inline-flex justify-start items-start gap-2">
