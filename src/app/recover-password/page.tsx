@@ -7,22 +7,18 @@ import Input from '../components/ui/input'
 import logo from '../../../public/assets/logo_lg.svg'
 import { useRouter } from 'next/navigation'
 
-export default function SignInPage() {
+export default function RecoverPasswordPage() {
   const router = useRouter()
 
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [newPassword, setNewPassword] = useState('')
+  const [confirmNewPassword, setConfirmNewPassword] = useState('')
 
-  const handleForgotPassword = () => {
-    router.push('/recover-password/request-email-verification')
+  const handleCancel = () => {
+    router.push('/sign-in')
   }
 
-  const handleLogin = () => {
-    alert(`Email: ${email}\nSenha: ${password}`)
-  }
-
-  const handleRegister = () => {
-    router.push('/sign-up')
+  const handleRecoverPassword = () => {
+    alert(`Nova senha: ${newPassword}\nConfirmação de senha: ${confirmNewPassword}`);
   }
 
   return (
@@ -34,51 +30,44 @@ export default function SignInPage() {
         </div>
 
         <div className="self-stretch flex flex-col justify-start items-start gap-8">
-          <p className="self-stretch text-center justify-start text-zinc-400 text-sm font-medium leading-[20px]">Uma plataforma exclusiva para conectar talentos da universidade pública a oportunidades reais.</p>
+          <p className="self-stretch text-center justify-start text-zinc-400 text-sm font-medium leading-[20px]">Digite e confirme sua nova senha para recuperar o acesso à sua conta. Escolha uma senha segura e fácil de lembrar.</p>
 
-          <form className="flex w-full flex-col gap-y-4" onSubmit={(e) => { e.preventDefault(); handleLogin(); }}>
-            <Input
-              id="email"
-              name="email"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-
+          <form className="flex w-full flex-col gap-y-4" onSubmit={(e) => { e.preventDefault(); handleRecoverPassword(); }}>
             <Input
               id="password"
               name="password"
-              placeholder="Senha"
+              label="Nova senha*"
+              placeholder="Nova senha"
               isPassword={true}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
             />
 
-            <Button
-              type="button"
-              variant="link"
-              onClick={handleForgotPassword}
-              size="small"
-              className="p-0"
-            >
-              Esqueci minha senha
-            </Button>
+            <Input
+              id="confirmPassword"
+              name="confirmPassword"
+              label="Confirmar nova senha*"
+              placeholder="Confirmar nova senha"
+              isPassword={true}
+              value={confirmNewPassword}
+              onChange={(e) => setConfirmNewPassword(e.target.value)}
+            />
 
             <div className="mt-4 flex items-center gap-x-3">
               <Button
                 type="button"
                 variant="outline_white"
-                onClick={handleRegister}
+                onClick={handleCancel}
                 className="w-full"
               >
-                Cadastrar
+                Cancelar
               </Button>
               <Button
                 type="submit"
                 variant="primary"
                 className="w-full"
               >
-                Entrar
+                Redefinir
               </Button>
             </div>
           </form>

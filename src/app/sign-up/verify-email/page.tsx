@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation'
 import Input from '@/app/components/ui/input';
 import { Button } from '@/app/components/ui/button';
 
-export default function SignInPage() {
+export default function VerifyEmailPage() {
   const router = useRouter()
 
   const [code, setCode] = useState('')
