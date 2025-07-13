@@ -31,8 +31,8 @@ const JobCard: React.FC<JobCardProps> = ({
   return (
     <div
       className={`
-        p-3 bg-zinc-950 rounded-xl inline-flex justify-start items-start gap-4
-        border border-zinc-800 hover:border-zinc-700 transition-colors
+        p-3 bg-zinc-950 w-full rounded-xl inline-flex justify-start items-start gap-4
+        border border-zinc-800 hover:border-zinc-700 transition-all cursor-pointer
         ${className}
       `}
     >
@@ -50,7 +50,7 @@ const JobCard: React.FC<JobCardProps> = ({
         <h3 className="font-semibold text-base text-white truncate leading-[150%] pb-1">{jobTitle}</h3>
         <p className="text-xs font-medium text-zinc-300 line-clamp-3 leading-[150%]">{description}</p>
 
-        <div className="flex items-center justify-between gap-x-4 gap-y-1 text-xs font-medium text-zinc-300 h-[32px]">
+        <div className="flex items-center justify-between gap-x-4 gap-y-1 text-xs font-medium text-zinc-300 h-[32px] leading-[150%] mt-2.5">
           <div className="pt-2 inline-flex justify-start items-start gap-5">
             <div className="flex items-center gap-1.5">
               <MapPin size={16} />
@@ -69,7 +69,10 @@ const JobCard: React.FC<JobCardProps> = ({
           {buttonText && (
             <Button
               variant="primary"
-              onClick={onClickButton}
+              onClick={(e) => {
+                e.stopPropagation()
+                onClickButton?.()
+              }}
               className="h-[32px] min-w-[112px] text-sm"
             >
               {buttonText}
