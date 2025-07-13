@@ -48,7 +48,7 @@ const SearchBar = React.forwardRef<HTMLInputElement, SearchBarProps>(
             onChange={onChange}
             className={cn(
               "flex h-10 w-full rounded-full border border-zinc-600 bg-black py-2 pl-10 pr-10 text-sm text-zinc-50 file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-zinc-400 disabled:cursor-not-allowed disabled:opacity-50",
-              "hover:border-zinc-500 transition-colors",
+              "hover:border-zinc-500 transition-all",
               "focus:outline-none focus:border-violet-500 focus:ring-2 focus:ring-violet-500/50",
               className
             )}

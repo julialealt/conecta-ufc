@@ -44,7 +44,7 @@ const DescriptionInput: React.FC<InputProps> = ({
         cols={numberOfCol ? numberOfCol : 50}
         rows={numberOfRows ? numberOfRows : 10}
         placeholder={placeholder}
-        className={`bg-black text-zinc-50 text-sm placeholder-zinc-500 border border-zinc-600 rounded-lg outline-none px-4 py-3.5 hover:border-zinc-500 transition-colors ${classesInput}`}
+        className={`bg-black text-zinc-50 text-sm placeholder-zinc-500 border border-zinc-600 rounded-lg outline-none px-4 py-3.5 hover:border-zinc-500 transition-all ${classesInput}`}
       ></textarea>
     </div>
   );

@@ -43,7 +43,7 @@ const ApplicantCard: React.FC<ApplicantCardProps> = ({
           <h3 className="truncate text-base font-semibold text-zinc-50">{name}</h3>
           <ExternalLink
             size={14}
-            className="text-zinc-500 transition-colors group-hover:text-violet-400"
+            className="text-zinc-500 transition-all group-hover:text-violet-400"
           />
         </a>
 
