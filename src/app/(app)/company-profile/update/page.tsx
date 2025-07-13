@@ -1,8 +1,8 @@
 "use client";
 
 import { Button } from "@/app/components/ui/button";
-import DescriptionInput from "@/app/components/ui/description-input";
 import Input from "@/app/components/ui/input";
+import TextAreaInput from "@/app/components/ui/text-area-input";
 import { ChevronLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -72,7 +72,7 @@ export default function CompanyProfileUpdatePage() {
           onChange={(e) => setDescription(e.target.value)}
         />
 
-        <DescriptionInput
+        <TextAreaInput
           id="about"
           name="about"
           label="Sobre*"

@@ -1,6 +1,5 @@
 "use client";
 import { Bell, Pencil, Plus, Sparkles } from "lucide-react";
-import DescriptionInput from "./components/ui/description-input";
 import { Button } from "./components/ui/button";
 import logoSmall from "../../public/assets/logo_sm.svg";
 import logoLarge from "../../public/assets/logo_lg.svg"
@@ -12,6 +11,7 @@ import { InfoCard } from "./components/ui/info-card";
 import Input from "./components/ui/input";
 import ApplicantCard from "./components/ui/applicant-card";
 import JobCard from "./components/ui/job-card";
+import TextAreaInput from "./components/ui/text-area-input";
 
 export default function Home() {
   return (
@@ -78,7 +78,7 @@ export default function Home() {
         options={[{ value: "option1", label: "Option 1" }, { value: "option2", label: "Option 2" }]}
         onChange={(e) => console.log(e.target.value)}
       />
-      <DescriptionInput label="Descrição" placeholder="Input text area" />
+      <TextAreaInput label="Descrição" placeholder="Input text area" />
 
     </div>
   );

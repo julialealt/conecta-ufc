@@ -1,7 +1,7 @@
 import React from 'react';
-import { cn } from '@/lib/utils'; // Importando a função cn
+import { cn } from '@/lib/utils';
 
-export type DescriptionInputProps = {
+export type TextAreaInputProps = {
   id?: string;
   name?: string;
   label?: string;
@@ -13,7 +13,7 @@ export type DescriptionInputProps = {
   placeholder: string;
 };
 
-const DescriptionInput: React.FC<DescriptionInputProps> = ({
+const TextAreaInput: React.FC<TextAreaInputProps> = ({
   id = 'description',
   name = 'description',
   label,
@@ -28,7 +28,7 @@ const DescriptionInput: React.FC<DescriptionInputProps> = ({
     <div className={cn('flex w-full flex-col text-white', classesRoot)}>
       {label && (
         <label
-          htmlFor={id} // Corrigido para usar o ID dinâmico
+          htmlFor={id}
           className="mb-1.5 block text-xs font-medium text-zinc-400"
         >
           {label}
@@ -54,4 +54,4 @@ const DescriptionInput: React.FC<DescriptionInputProps> = ({
   );
 };
 
-export default DescriptionInput;
+export default TextAreaInput;
