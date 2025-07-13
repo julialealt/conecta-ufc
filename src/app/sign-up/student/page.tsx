@@ -112,6 +112,8 @@ export default function StudentSignUpPage() {
               value={course}
               options={courseOptions}
               onChange={(e) => setCourse(e.target.value)}
+              status='error'
+              errorMessage='Campo obrigatório'
             />
 
             <Input
