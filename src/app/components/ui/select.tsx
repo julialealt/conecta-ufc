@@ -48,7 +48,7 @@ const Select: React.FC<SelectProps> = ({
           className={`
             w-full h-[48px] text-sm bg-black border border-zinc-800 rounded-md px-4 py-2.5
             outline-none appearance-none cursor-pointer
-            transition-all hover:border-zinc-600 placeholder:text-zinc-500
+            transition-all duration-300 hover:border-zinc-700 placeholder:text-zinc-500
             ${textColor} 
           `}
         >

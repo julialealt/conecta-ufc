@@ -23,6 +23,7 @@ module.exports = {
         "zinc-800": "var(--zinc-800)",
         "zinc-900": "var(--zinc-900)",
         "zinc-950": "var(--zinc-950)",
+        "red-600": "var(--red-600)",
       },
     },
   },

@@ -27,7 +27,7 @@ export const InfoCard: React.FC<InfoCardProps> = ({
       href={href}
       className={cn(
         'flex w-[340px] items-center gap-x-4 p-3 rounded-xl border border-zinc-600 bg-zinc-950',
-        'transition-all hover:border-zinc-500 focus-visible:outline-none',
+        'transition-all duration-300 hover:border-zinc-500 focus-visible:outline-none',
         className
       )}
     >

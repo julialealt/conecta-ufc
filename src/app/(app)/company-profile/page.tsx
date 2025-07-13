@@ -4,8 +4,15 @@ import { Pen } from "lucide-react";
 import Avatar from "../../components/ui/avatar";
 import { Button } from "../../components/ui/button";
 import JobCard from "../../components/ui/job-card";
+import { useRouter } from "next/navigation";
 
 export default function CompanyProfilePage() {
+  const router = useRouter()
+
+  const handleUpdateProfile = () => {
+    router.push('/company-profile/update')
+  }
+
   return (
     <div className="w-full self-stretch px-30 pt-12 pb-16 bg-zinc-950 inline-flex flex-col justify-start items-start gap-16">
       <div className="self-stretch w-full inline-flex justify-start items-start gap-6">
@@ -17,7 +24,7 @@ export default function CompanyProfilePage() {
           <div className="justify-start text-violet-500 text-xs font-medium leading-[150%]">88% de taxa de contratação no ConectaUFC</div>
         </div>
 
-        <Button variant="outline_violet" Icon={Pen} className="p-2.5" />
+        <Button variant="outline_violet" Icon={Pen} onClick={handleUpdateProfile} size='icon' />
       </div>
 
       <div className="inline-flex flex-col justify-start items-start gap-12">
