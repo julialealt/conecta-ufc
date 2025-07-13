@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import AppProvider from "@/context/appContext";
+import { Toaster } from "sonner";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,7 +20,10 @@ export default function RootLayout({
     <html lang="pt-br" className="dark">
       <body className={inter.className}>
         <AppProvider>
-          <main>{children}</main>
+          <main>
+            <Toaster theme="dark" position="top-right" />
+            {children}
+          </main>
         </AppProvider>
       </body>
     </html>

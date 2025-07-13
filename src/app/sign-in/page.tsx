@@ -11,6 +11,8 @@ import api from "@/services/axios";
 import { AppContext, AppContextType } from "@/context/appContext";
 import { jwtDecode } from "jwt-decode";
 
+import { toast } from "sonner";
+
 export default function SignInPage() {
   const router = useRouter();
   const { setUserData, setUserType } = useContext(AppContext) as AppContextType;
@@ -34,12 +36,12 @@ export default function SignInPage() {
         }>(response.data.accessToken);
         setUserType(decoded.type);
         setUserData(response.data.data);
-        alert("Login realizado com sucesso");
-        router.push("/");
+        toast.success("Login realizado com sucesso!");
+        router.push("/"); // Navega para a home
       }
     } catch (error) {
       console.log(error);
-      alert("Algo deu errado, tente mais tarde");
+      toast.error("Credenciais inválidas. Tente novamente.");
     }
     setIsLoading(false);
   };
@@ -82,7 +84,7 @@ export default function SignInPage() {
               placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              status='error'
+              status="error"
               errorMessage="Email inválido"
             />
 
