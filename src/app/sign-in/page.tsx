@@ -6,6 +6,7 @@ import { Button } from '../components/ui/button'
 import Input from '../components/ui/input'
 import logo from '../../../public/assets/logo_lg.svg'
 import { useRouter } from 'next/navigation'
+import { toast } from 'sonner';
 
 export default function SignInPage() {
   const router = useRouter()
@@ -18,7 +19,13 @@ export default function SignInPage() {
   }
 
   const handleLogin = () => {
-    alert(`Email: ${email}\nSenha: ${password}`)
+    if (email === "teste@ufc.br" && password === "123") {
+      toast.success('Login realizado com sucesso!')
+      router.push('/') // Navega para a home
+    } else {
+      // Exemplo de erro
+      toast.error('Credenciais inválidas. Tente novamente.')
+    }
   }
 
   const handleRegister = () => {
