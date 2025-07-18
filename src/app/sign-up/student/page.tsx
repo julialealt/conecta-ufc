@@ -9,7 +9,7 @@ import Input from "@/app/components/ui/input";
 import Select from "@/app/components/ui/select";
 import { courseOptions } from "@/constants/courses";
 import api, { testApi } from "@/services/axios";
-import DescriptionInput from "@/app/components/ui/description-input";
+import TextAreaInput from "@/app/components/ui/text-area-input";
 import LoadingStatus from "@/app/components/loadingStatus/LoadingStatus";
 import { AppContext, AppContextType, Student } from "@/context/appContext";
 
@@ -57,6 +57,10 @@ export default function StudentSignUpPage() {
     setIsLoading(false);
   };
 
+  useEffect(() => {
+    async function teste() {}
+  }, []);
+
   const handleBackToSignIn = () => {
     router.push("/sign-in");
   };
@@ -95,7 +99,7 @@ export default function StudentSignUpPage() {
               onChange={(e) => setName(e.target.value)}
             />
 
-            <DescriptionInput
+            <TextAreaInput
               id="description"
               name="description"
               label="Descrição*"
@@ -112,8 +116,8 @@ export default function StudentSignUpPage() {
               value={course}
               options={courseOptions}
               onChange={(e) => setCourse(e.target.value)}
-              status='error'
-              errorMessage='Campo obrigatório'
+              status="error"
+              errorMessage="Campo obrigatório"
             />
 
             <Input
