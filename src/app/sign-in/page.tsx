@@ -46,12 +46,12 @@ export default function SignInPage() {
     setIsLoading(false);
   };
 
-  const handleForgotPassword = () => {
-    router.push("/recover-password/request-email-verification");
-  };
-
   const handleRegister = () => {
     router.push("/sign-up");
+  };
+
+  const handleForgotPassword = () => {
+    router.push("/recover-password/request-email-verification");
   };
 
   return (
