@@ -6,15 +6,33 @@ import { Button } from "../components/ui/Button";
 import Input from "../components/ui/input";
 import logo from "../../../public/assets/logo_lg.svg";
 import { useRouter } from "next/navigation";
+import LoadingStatus from "../components/loadingStatus/LoadingStatus";
+import api from "@/services/axios";
 
 export default function SignInPage() {
   const router = useRouter();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleLogin = () => {
-    alert(`Email: ${email}\nSenha: ${password}`);
+  const handleLogin = async () => {
+    setIsLoading(true);
+    try {
+      const response = await api.post("/auth/login", {
+        email,
+        password,
+      });
+
+      console.log(response);
+      if (response.status === 200) {
+        alert("Login realizado com sucesso");
+      }
+    } catch (error) {
+      console.log(error);
+      alert("Algo deu errado, tente mais tarde");
+    }
+    setIsLoading(false);
   };
 
   const handleRegister = () => {
@@ -23,6 +41,7 @@ export default function SignInPage() {
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-zinc-950 p-4">
+      {isLoading && <LoadingStatus />}
       <div className="w-[390px] inline-flex flex-col justify-start items-start gap-8">
         <div className="self-stretch flex flex-col justify-start items-center gap-3">
           <Image src={logo} alt="Logo ConectaUFC" />
