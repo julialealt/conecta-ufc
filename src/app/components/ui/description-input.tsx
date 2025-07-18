@@ -29,22 +29,24 @@ const DescriptionInput: React.FC<InputProps> = ({
 }) => {
   return (
     <div className={`flex flex-col w-full text-white ${classesRoot}`}>
-      {label && <label
-        htmlFor={"description"}
-        className="block text-xs font-medium text-zinc-400 mb-1.5"
-      >
-        {label}
-        {required && <span className="text-red-500 ml-0.5">*</span>}
-      </label>}
+      {label && (
+        <label
+          htmlFor={"description"}
+          className="block text-xs font-medium text-zinc-400 mb-1.5"
+        >
+          {label}
+          {required && <span className="text-red-500 ml-0.5">*</span>}
+        </label>
+      )}
       <textarea
         id={id}
         name={name}
         value={value}
         onChange={onChange}
         cols={numberOfCol ? numberOfCol : 50}
-        rows={numberOfRows ? numberOfRows : 10}
+        rows={numberOfRows ? numberOfRows : 5}
         placeholder={placeholder}
-        className={`bg-black text-zinc-50 text-sm placeholder-zinc-500 border border-zinc-600 rounded-lg outline-none px-4 py-3.5 hover:border-zinc-500 transition-all ${classesInput}`}
+        className={`bg-black text-zinc-50 text-sm placeholder-zinc-500 border border-zinc-800 rounded-lg outline-none px-4 py-3.5 hover:border-zinc-500 transition-all ${classesInput}`}
       ></textarea>
     </div>
   );

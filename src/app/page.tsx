@@ -1,9 +1,9 @@
 "use client";
 import { Bell, Pencil, Plus, Sparkles } from "lucide-react";
 import DescriptionInput from "./components/ui/description-input";
-import { Button } from "./components/ui/button";
+import { Button } from "./components/ui/Button";
 import logoSmall from "../../public/assets/logo_sm.svg";
-import logoLarge from "../../public/assets/logo_lg.svg"
+import logoLarge from "../../public/assets/logo_lg.svg";
 import Image from "next/image";
 import { SearchBar } from "./components/ui/search-bar";
 import Select from "./components/ui/select";
@@ -22,21 +22,31 @@ export default function Home() {
         avatarUrl={""}
         name={"Júlia Leal"}
         profileUrl={""}
-        bio={"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release."}
+        bio={
+          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release."
+        }
         recommendationCount={32}
-        onDecline={() => { }}
-        onRecruit={() => { }}
+        onDecline={() => {}}
+        onRecruit={() => {}}
       />
 
       <Avatar name={"Júlia Leal"} />
 
-      <InfoCard student href="" imageUrl={""} title={"Júlia Leal Teixeira"} subtitle={"Ciência da Computação"} />
+      <InfoCard
+        student
+        href=""
+        imageUrl={""}
+        title={"Júlia Leal Teixeira"}
+        subtitle={"Ciência da Computação"}
+      />
 
       <JobCard
         logoUrl={""}
         companyName={"IBM"}
         jobTitle={"UI/UX Designer"}
-        description={"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release."}
+        description={
+          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release."
+        }
         location={"Remoto"}
         salary={"R$1.200,00"}
         workload={"20h semanais"}
@@ -45,7 +55,7 @@ export default function Home() {
 
       <SearchBar
         placeholder="Pesquisar alunos, empresas ou oportunidades"
-        onFilterClick={() => { }}
+        onFilterClick={() => {}}
       />
 
       <div className="flex gap-4">
@@ -64,7 +74,12 @@ export default function Home() {
         <Button variant="outline_violet" Icon={Plus}>
           Outline button violet with icon
         </Button>
-        <Button variant="outline_violet" size="icon" aria-label="Editar perfil" Icon={Pencil} />
+        <Button
+          variant="outline_violet"
+          size="icon"
+          aria-label="Editar perfil"
+          Icon={Pencil}
+        />
         <Button variant="text" size="small" Icon={Bell} />
       </div>
 
@@ -75,11 +90,13 @@ export default function Home() {
         placeholder="Selecione uma opção"
         label="Select"
         value=""
-        options={[{ value: "option1", label: "Option 1" }, { value: "option2", label: "Option 2" }]}
+        options={[
+          { value: "option1", label: "Option 1" },
+          { value: "option2", label: "Option 2" },
+        ]}
         onChange={(e) => console.log(e.target.value)}
       />
       <DescriptionInput label="Descrição" placeholder="Input text area" />
-
     </div>
   );
 }

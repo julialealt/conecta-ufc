@@ -1,24 +1,24 @@
 "use client";
 
-import { useState } from 'react'
-import Image from 'next/image'
-import { Button } from '../components/ui/button'
-import Input from '../components/ui/input'
-import logo from '../../../public/assets/logo_lg.svg'
-import { useRouter } from 'next/navigation'
+import { useState } from "react";
+import Image from "next/image";
+import { Button } from "../components/ui/Button";
+import Input from "../components/ui/input";
+import logo from "../../../public/assets/logo_lg.svg";
+import { useRouter } from "next/navigation";
 
 export default function SignInPage() {
-  const router = useRouter()
+  const router = useRouter();
 
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleLogin = () => {
-    alert(`Email: ${email}\nSenha: ${password}`)
+    alert(`Email: ${email}\nSenha: ${password}`);
   };
 
   const handleRegister = () => {
-    router.push('/sign-up')
+    router.push("/sign-up");
   };
 
   return (
@@ -26,13 +26,24 @@ export default function SignInPage() {
       <div className="w-[390px] inline-flex flex-col justify-start items-start gap-8">
         <div className="self-stretch flex flex-col justify-start items-center gap-3">
           <Image src={logo} alt="Logo ConectaUFC" />
-          <p className="self-stretch text-center justify-start text-violet-50 text-xs font-medium">Conectando talentos, construindo futuros.</p>
+          <p className="self-stretch text-center justify-start text-violet-50 text-xs font-medium">
+            Conectando talentos, construindo futuros.
+          </p>
         </div>
 
         <div className="self-stretch flex flex-col justify-start items-start gap-8">
-          <p className="self-stretch text-center justify-start text-zinc-400 text-sm font-medium leading-[20px]">Uma plataforma exclusiva para conectar talentos da universidade pública a oportunidades reais.</p>
+          <p className="self-stretch text-center justify-start text-zinc-400 text-sm font-medium leading-[20px]">
+            Uma plataforma exclusiva para conectar talentos da universidade
+            pública a oportunidades reais.
+          </p>
 
-          <form className="flex w-full flex-col gap-y-4" onSubmit={(e) => { e.preventDefault(); handleLogin(); }}>
+          <form
+            className="flex w-full flex-col gap-y-4"
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleLogin();
+            }}
+          >
             <Input
               id="email"
               name="email"
@@ -59,11 +70,7 @@ export default function SignInPage() {
               >
                 Cadastrar
               </Button>
-              <Button
-                type="submit"
-                variant="primary"
-                className="w-full"
-              >
+              <Button type="submit" variant="primary" className="w-full">
                 Entrar
               </Button>
             </div>

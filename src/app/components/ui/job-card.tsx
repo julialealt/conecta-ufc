@@ -1,7 +1,7 @@
-import React from 'react';
-import { MapPin, CircleDollarSign, Clock } from 'lucide-react';
-import { Button } from './button';
-import Avatar from './avatar';
+import React from "react";
+import { MapPin, CircleDollarSign, Clock } from "lucide-react";
+import { Button } from "./Button";
+import Avatar from "./avatar";
 
 export type JobCardProps = {
   logoUrl: string;
@@ -36,19 +36,22 @@ const JobCard: React.FC<JobCardProps> = ({
         ${className}
       `}
     >
-
       <div className="flex-shrink-0">
         <Avatar
           imageUrl={logoUrl}
           name={companyName}
           variant="organization"
-          size='md'
+          size="md"
         />
       </div>
 
       <div className="flex-1 min-w-0 gap-0.5">
-        <h3 className="font-semibold text-base text-white truncate leading-[150%] pb-1">{jobTitle}</h3>
-        <p className="text-xs font-medium text-zinc-300 line-clamp-3 leading-[150%]">{description}</p>
+        <h3 className="font-semibold text-base text-white truncate leading-[150%] pb-1">
+          {jobTitle}
+        </h3>
+        <p className="text-xs font-medium text-zinc-300 line-clamp-3 leading-[150%]">
+          {description}
+        </p>
 
         <div className="flex items-center justify-between gap-x-4 gap-y-1 text-xs font-medium text-zinc-300 h-[32px] leading-[150%] mt-2.5">
           <div className="pt-2 inline-flex justify-start items-start gap-5">
@@ -70,8 +73,8 @@ const JobCard: React.FC<JobCardProps> = ({
             <Button
               variant="primary"
               onClick={(e) => {
-                e.stopPropagation()
-                onClickButton?.()
+                e.stopPropagation();
+                onClickButton?.();
               }}
               className="h-[32px] min-w-[112px] text-sm"
             >
