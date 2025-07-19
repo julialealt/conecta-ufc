@@ -8,7 +8,7 @@ export type Student = {
   course: string;
   entrySemester: string;
   email: string;
-  password?: string;
+  password: string;
   graduationForecast?: string;
   profileImage?: string;
   skills?: [string];
@@ -57,7 +57,7 @@ export type Employer = {
   description: string;
   email: string;
   profile: string;
-  password?: string;
+  password: string;
   site?: string;
   location?: string;
   specializations?: [string];

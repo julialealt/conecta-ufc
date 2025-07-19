@@ -57,10 +57,6 @@ export default function StudentSignUpPage() {
     setIsLoading(false);
   };
 
-  useEffect(() => {
-    async function teste() {}
-  }, []);
-
   const handleBackToSignIn = () => {
     router.push("/sign-in");
   };

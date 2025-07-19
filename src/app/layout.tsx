@@ -22,6 +22,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <AppProvider>
           <main>
+            <Header />
             <Toaster theme="dark" position="top-right" />
             {children}
           </main>
