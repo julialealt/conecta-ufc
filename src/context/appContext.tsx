@@ -79,11 +79,13 @@ type UserData = {
 
 type AppState = {
   userData: UserData;
+  userType: string | undefined;
 };
 
 export type AppContextType = {
   state: AppState;
   setUserData: (userData: UserData) => void;
+  setUserType: (type: string) => void;
 };
 
 type props = {
@@ -106,6 +108,7 @@ export const InitialState: AppState = {
     refreshToken: undefined,
     user: EmployerFake,
   },
+  userType: undefined,
 };
 
 export const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -119,11 +122,18 @@ const AppProvider: React.FC<props> = ({ children }) => {
     setState(newState);
   };
 
+  const setUserType = (type: string) => {
+    const newState = { ...state };
+    newState.userType = type;
+    setState(newState);
+  };
+
   return (
     <AppContext.Provider
       value={{
         state,
         setUserData,
+        setUserType,
       }}
     >
       {children}

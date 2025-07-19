@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Image from "next/image";
 import { Button } from "../components/ui/Button";
 import Input from "../components/ui/input";
@@ -8,10 +8,12 @@ import logo from "../../../public/assets/logo_lg.svg";
 import { useRouter } from "next/navigation";
 import LoadingStatus from "../components/loadingStatus/LoadingStatus";
 import api from "@/services/axios";
+import { AppContext, AppContextType } from "@/context/appContext";
+import { jwtDecode } from "jwt-decode";
 
 export default function SignInPage() {
   const router = useRouter();
-
+  const { setUserData, setUserType } = useContext(AppContext) as AppContextType;
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -26,7 +28,14 @@ export default function SignInPage() {
 
       console.log(response);
       if (response.status === 200) {
+        const decoded = jwtDecode<{
+          userId: string;
+          type: string;
+        }>(response.data.accessToken);
+        setUserType(decoded.type);
+        setUserData(response.data.data);
         alert("Login realizado com sucesso");
+        router.push("/");
       }
     } catch (error) {
       console.log(error);
