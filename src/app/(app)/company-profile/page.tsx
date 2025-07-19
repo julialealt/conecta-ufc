@@ -1,11 +1,32 @@
 "use client";
-
+import { useContext, useEffect, useState } from "react";
 import { Pen } from "lucide-react";
 import Avatar from "../../components/ui/avatar";
 import { Button } from "../../components/ui/Button";
 import JobCard from "../../components/ui/job-card";
+import { AppContext, AppContextType, Employer } from "@/context/appContext";
+import { Opportunity } from "@/types/entities";
+import api, { testApi } from "@/services/axios";
 
 export default function CompanyProfilePage() {
+  const { state } = useContext(AppContext) as AppContextType;
+  const [employerOpportunities, setEmployerOpportunities] = useState<
+    Opportunity[]
+  >([]);
+  const employerData: Employer = state.userData.user as Employer;
+
+  useEffect(() => {
+    const fetchOpportunities = async () => {
+      const opportunitiesResponse = await testApi.get(
+        `/opportunities/employer/${employerData._id}`
+      );
+      if (opportunitiesResponse.status === 200) {
+        setEmployerOpportunities(opportunitiesResponse.data);
+      }
+    };
+    fetchOpportunities();
+  }, []);
+
   return (
     <div className="w-full self-stretch px-30 pt-12 pb-16 bg-zinc-950 inline-flex flex-col justify-start items-start gap-16">
       <div className="self-stretch w-full inline-flex justify-start items-start gap-6">
@@ -18,15 +39,16 @@ export default function CompanyProfilePage() {
 
         <div className="self-stretch w-full inline-flex flex-col justify-center items-start gap-1">
           <div className="justify-start text-white text-xl font-semibold leading-[150%]">
-            Insight Data Science Lab
+            {employerData.name}
           </div>
           <div className="self-stretch justify-start text-zinc-300 text-sm font-medium leading-[150%]">
-            Laboratório de pesquisa em Ciência de Dados na Universidade Federal
-            do Ceará (UFC)
+            Não sei
           </div>
-          <div className="justify-start text-violet-500 text-xs font-medium leading-[150%]">
-            88% de taxa de contratação no ConectaUFC
-          </div>
+          {employerData.hiringRate !== undefined && (
+            <div className="justify-start text-violet-500 text-xs font-medium leading-[150%]">
+              {`${employerData.hiringRate}% de taxa de contratação no ConectaUFC`}
+            </div>
+          )}
         </div>
 
         <Button variant="outline_violet" Icon={Pen} className="p-2.5" />
@@ -39,16 +61,7 @@ export default function CompanyProfilePage() {
               Sobre
             </div>
             <div className="w-full justify-start text-zinc-300 text-base font-medium leading-[150%]">
-              We are a research group at Federal University of Ceará (UFC)
-              linked to the Department of Computing, which is accredited by
-              Brazilian IT Law. It&apos;s composed by professors, researchers,
-              collaborators and students of postgraduate and graduation. We
-              conduct interdisciplinary research aimed at discovering the
-              principles underlying the data science. The laboratory conducts
-              research in many areas: cloud computing, machine learning, data
-              visualization, semantic integration, social network analysis,
-              trajectory exploration, time-dependent networks, text
-              summarization and mining massive datasets.
+              {employerData.description}
             </div>
           </div>
           <div className="flex flex-col justify-start items-start gap-2">
@@ -56,7 +69,7 @@ export default function CompanyProfilePage() {
               Site
             </div>
             <div className="w-full justify-start text-zinc-300 text-base font-medium leading-[150%]">
-              http://insightlab.ufc.br
+              {employerData.site ? employerData.site : "Não informado"}
             </div>
           </div>
           <div className="flex flex-col justify-start items-start gap-2">
@@ -64,7 +77,7 @@ export default function CompanyProfilePage() {
               Sede
             </div>
             <div className="w-full justify-start text-zinc-300 text-base font-medium leading-[150%]">
-              Fortaleza, Ceará
+              {employerData.location ? employerData.location : "Não informado"}
             </div>
           </div>
           <div className="flex flex-col justify-start items-start gap-2">
@@ -72,8 +85,16 @@ export default function CompanyProfilePage() {
               Especializações
             </div>
             <div className="w-full justify-start text-zinc-300 text-base font-medium leading-[150%]">
-              Big Data Analysis, Large Scale Graph Processing e Mobility Data
-              Analysis
+              {employerData.specializations &&
+              employerData.specializations.length > 1
+                ? `${employerData.specializations.slice(0, -1).join(",")} e ${
+                    employerData.specializations[
+                      employerData.specializations.length - 1
+                    ]
+                  }`
+                : employerData.specializations
+                ? `${employerData.specializations[0]}`
+                : "Não informado"}
             </div>
           </div>
           <div className="flex flex-col justify-start items-start gap-2">
@@ -81,7 +102,7 @@ export default function CompanyProfilePage() {
               Contato
             </div>
             <div className="w-full justify-start text-zinc-300 text-base font-medium leading-[150%]">
-              insightlab@gmail.com
+              {employerData.email}
             </div>
           </div>
         </div>
@@ -92,20 +113,23 @@ export default function CompanyProfilePage() {
           </div>
 
           <div className="self-stretch inline-flex flex-col justify-start items-start gap-4">
-            <JobCard
-              logoUrl={""}
-              companyName={"IBM"}
-              jobTitle={"UI/UX Designer"}
-              description={
-                "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not."
-              }
-              location={"Remoto"}
-              salary={"R$1.200,00"}
-              workload={"20h semanais"}
-              buttonText="Ver candidatos"
-            />
+            {employerOpportunities.length > 0
+              ? employerOpportunities.map((opportunity) => (
+                  <JobCard
+                    logoUrl={employerData.profileImage || ""}
+                    companyName={employerData.name}
+                    jobTitle={opportunity.title}
+                    description={opportunity.description}
+                    location={opportunity.workLocation}
+                    salary={opportunity.salary.toString()}
+                    workload={`${opportunity.weeklyHours}h semanais`}
+                    buttonText="Ver candidatos"
+                    key={opportunity._id}
+                  />
+                ))
+              : "Não há oportunidades cadastradas"}
 
-            <JobCard
+            {/* <JobCard
               logoUrl={""}
               companyName={"IBM"}
               jobTitle={"UI/UX Designer"}
@@ -116,7 +140,7 @@ export default function CompanyProfilePage() {
               salary={"R$1.200,00"}
               workload={"20h semanais"}
               buttonText="Ver candidatos"
-            />
+            /> */}
           </div>
         </div>
       </div>

@@ -8,7 +8,7 @@ export type Student = {
   course: string;
   entrySemester: string;
   email: string;
-  password: string;
+  password?: string;
   graduationForecast?: string;
   profileImage?: string;
   skills?: [string];
@@ -57,7 +57,7 @@ export type Employer = {
   description: string;
   email: string;
   profile: string;
-  password: string;
+  password?: string;
   site?: string;
   location?: string;
   specializations?: [string];
@@ -90,11 +90,21 @@ type props = {
   children: React.ReactNode;
 };
 
+const EmployerFake: Employer = {
+  _id: "adsadsasdasdasdasda",
+  name: "Samsunhg",
+  description: "Uma empresa da terra do jimin",
+  email: "SDasd",
+  profile: "company",
+  password: "sasdasd",
+  hiringRate: 0,
+};
+
 export const InitialState: AppState = {
   userData: {
     accessToken: undefined,
     refreshToken: undefined,
-    user: undefined,
+    user: EmployerFake,
   },
 };
 
