@@ -19,7 +19,7 @@ export default function CompanyProfilePage() {
 
   useEffect(() => {
     const fetchOpportunities = async () => {
-      const opportunitiesResponse = await testApi.get(
+      const opportunitiesResponse = await api.get(
         `/opportunities/employer/${employerData._id}`
       );
       if (opportunitiesResponse.status === 200) {
