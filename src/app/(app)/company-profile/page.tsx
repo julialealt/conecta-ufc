@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 import api, { testApi } from "@/services/axios";
 
 export default function CompanyProfilePage() {
+  const router = useRouter();
   const { state } = useContext(AppContext) as AppContextType;
   const [employerOpportunities, setEmployerOpportunities] = useState<
     Opportunity[]
@@ -18,7 +19,7 @@ export default function CompanyProfilePage() {
 
   useEffect(() => {
     const fetchOpportunities = async () => {
-      const opportunitiesResponse = await api.get(
+      const opportunitiesResponse = await testApi.get(
         `/opportunities/employer/${employerData._id}`
       );
       if (opportunitiesResponse.status === 200) {
@@ -27,8 +28,6 @@ export default function CompanyProfilePage() {
     };
     fetchOpportunities();
   }, []);
-
-  const router = useRouter();
 
   const handleUpdateProfile = () => {
     router.push("/company-profile/update");
