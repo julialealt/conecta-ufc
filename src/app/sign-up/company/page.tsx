@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Image from "next/image";
 import logo from "../../../../public/assets/logo_lg.svg";
 import { useRouter } from "next/navigation";
@@ -9,11 +9,12 @@ import Input from "@/app/components/ui/input";
 import Select from "@/app/components/ui/select";
 import DescriptionInput from "@/app/components/ui/description-input";
 import LoadingStatus from "@/app/components/loadingStatus/LoadingStatus";
-import api from "@/services/axios";
+import api, { testApi } from "@/services/axios";
+import { AppContext, AppContextType, Employer } from "@/context/appContext";
 
 export default function CompanySignUpPage() {
   const router = useRouter();
-
+  const { setUserData } = useContext(AppContext) as AppContextType;
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [profile, setProfile] = useState("");
@@ -24,25 +25,28 @@ export default function CompanySignUpPage() {
   const handleSignUp = async () => {
     setIsLoading(true);
     try {
-      const response = await api.post("/employers/register", {
+      const newUserData: Employer = {
+        _id: "",
         name,
         description,
         profile,
         email,
         password,
+      };
+      setUserData({
+        accessToken: undefined,
+        refreshToken: undefined,
+        user: newUserData,
       });
 
-      console.log(response);
-      if (response.status === 201) {
-        const emailResponse = await api.post("/auth/send-email", {
-          userEmail: email,
-        });
-        if (emailResponse.status === 200) {
-          alert(
-            "Cadastro realizado com sucesso!, por favor clique em ok para confirmar seu email"
-          );
-          router.push(`/sign-up/validate-email/${email}`);
-        }
+      const emailResponse = await testApi.post("/auth/send-email", {
+        userEmail: email,
+      });
+      if (emailResponse.status === 200) {
+        alert(
+          "Falta pouco para finalizar o cadastro, por favor clique em ok para confirmar seu email"
+        );
+        router.push(`/sign-up/validate-email/employers`);
       }
     } catch (error) {
       console.log(error);

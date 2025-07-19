@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import Image from "next/image";
 import logo from "../../../../public/assets/logo_lg.svg";
 import { useRouter } from "next/navigation";
@@ -8,13 +8,14 @@ import { Button } from "@/app/components/ui/Button";
 import Input from "@/app/components/ui/input";
 import Select from "@/app/components/ui/select";
 import { courseOptions } from "@/constants/courses";
-import api from "@/services/axios";
+import api, { testApi } from "@/services/axios";
 import DescriptionInput from "@/app/components/ui/description-input";
 import LoadingStatus from "@/app/components/loadingStatus/LoadingStatus";
+import { AppContext, AppContextType, Student } from "@/context/appContext";
 
 export default function StudentSignUpPage() {
   const router = useRouter();
-
+  const { setUserData } = useContext(AppContext) as AppContextType;
   const [name, setName] = useState("");
   const [course, setCourse] = useState("");
   const [entrySemester, setEntrySemester] = useState("");
@@ -26,26 +27,28 @@ export default function StudentSignUpPage() {
   const handleSignUp = async () => {
     setIsLoading(true);
     try {
-      const response = await api.post("/students/register", {
+      const newUserData: Student = {
+        _id: "",
         name,
         description,
         course,
         entrySemester,
         email,
         password,
+      };
+      setUserData({
+        accessToken: undefined,
+        refreshToken: undefined,
+        user: newUserData,
       });
-
-      console.log(response);
-      if (response.status === 201) {
-        const emailResponse = await api.post("/auth/send-email", {
-          userEmail: email,
-        });
-        if (emailResponse.status === 200) {
-          alert(
-            "Cadastro realizado com sucesso!, por favor clique em ok para confirmar seu email"
-          );
-          router.push(`/sign-up/validate-email/${email}`);
-        }
+      const emailResponse = await testApi.post("/auth/send-email", {
+        userEmail: email,
+      });
+      if (emailResponse.status === 200) {
+        alert(
+          "Falta pouco para finalizar o cadastro, por favor clique em ok para confirmar seu email"
+        );
+        router.push(`/sign-up/validate-email/students`);
       }
     } catch (error) {
       console.log(error);
@@ -53,10 +56,6 @@ export default function StudentSignUpPage() {
     }
     setIsLoading(false);
   };
-
-  useEffect(() => {
-    async function teste() {}
-  }, []);
 
   const handleBackToSignIn = () => {
     router.push("/sign-in");
