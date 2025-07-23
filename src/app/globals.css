@@ -36,6 +36,7 @@
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
   --color-black: var(--black);
+  --color-violet: var(--violet);
   --color-zinc-400: var(--zinc-400);
   --color-zinc-800: var(--zinc-800);
   --radius-sm: calc(var(--radius) - 4px);
@@ -80,6 +81,7 @@
   --black: #000000;
   --zinc-800: #27272A;
   --zinc-400: #A1A1AA;
+  --violet: #8B5CF6;
 }
 
 .dark {
