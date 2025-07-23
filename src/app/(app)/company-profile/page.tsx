@@ -66,8 +66,8 @@ export default function CompanyProfilePage() {
         />
       </div>
 
-      <div className="inline-flex flex-col justify-start items-start gap-12">
-        <div className="pt-8 border-t border-zinc-500 inline-flex flex-col justify-start items-start gap-6">
+      <div className="w-full inline-flex flex-col justify-start items-start gap-12">
+        <div className="w-full pt-8 border-t border-zinc-500 inline-flex flex-col justify-start items-start gap-6">
           <div className="flex flex-col justify-start items-start gap-2">
             <div className="w-full justify-start text-white text-xl font-semibold leading-[150%]">
               Sobre
