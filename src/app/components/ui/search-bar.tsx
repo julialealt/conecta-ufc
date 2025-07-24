@@ -1,35 +1,51 @@
 // components/ui/SearchBar.tsx
-import * as React from "react"
+import * as React from "react";
 // Adicionamos o ícone 'X' para o nosso botão de limpar customizado
-import { Search, Sparkles, X } from "lucide-react"
+import { Search, Sparkles, X } from "lucide-react";
 
-import { cn } from "@/lib/utils"
-import { Button } from "./button"
+import { cn } from "@/lib/utils";
+import { Button } from "./Button";
 
-export interface SearchBarProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  onFilterClick: () => void
-  isFilterActive?: boolean
-  containerClassName?: string
+export interface SearchBarProps
+  extends React.InputHTMLAttributes<HTMLInputElement> {
+  onFilterClick: () => void;
+  isFilterActive?: boolean;
+  containerClassName?: string;
 }
 
 const SearchBar = React.forwardRef<HTMLInputElement, SearchBarProps>(
-  ({ className, onFilterClick, isFilterActive = false, containerClassName, value, onChange, ...props }, ref) => {
-
+  (
+    {
+      className,
+      onFilterClick,
+      isFilterActive = false,
+      containerClassName,
+      value,
+      onChange,
+      ...props
+    },
+    ref
+  ) => {
     const handleClear = (e: React.MouseEvent<HTMLButtonElement>) => {
       const syntheticEvent = {
         ...e,
-        target: ref && typeof ref !== 'function' && ref.current ? ref.current : e.target,
+        target:
+          ref && typeof ref !== "function" && ref.current
+            ? ref.current
+            : e.target,
       } as unknown as React.ChangeEvent<HTMLInputElement>;
 
-      syntheticEvent.target.value = '';
+      syntheticEvent.target.value = "";
 
       if (onChange) {
         onChange(syntheticEvent);
       }
-    }
+    };
 
     return (
-      <div className={cn("flex items-center gap-x-2 w-full", containerClassName)}>
+      <div
+        className={cn("flex items-center gap-x-2 w-full", containerClassName)}
+      >
         <Button
           variant={isFilterActive ? "primary" : "ghost"}
           onClick={onFilterClick}
@@ -54,14 +70,12 @@ const SearchBar = React.forwardRef<HTMLInputElement, SearchBarProps>(
             )}
             {...props}
           />
-          {value && (
-            <Button variant="text" Icon={X} onClick={handleClear} />
-          )}
+          {value && <Button variant="text" Icon={X} onClick={handleClear} />}
         </div>
       </div>
-    )
+    );
   }
-)
-SearchBar.displayName = "SearchBar"
+);
+SearchBar.displayName = "SearchBar";
 
-export { SearchBar }
+export { SearchBar };

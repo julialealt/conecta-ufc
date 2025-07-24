@@ -1,8 +1,8 @@
-import React from 'react';
-import { ExternalLink } from 'lucide-react';
-import { cn } from '@/lib/utils';
-import Avatar from './avatar';
-import { Button } from './button';
+import React from "react";
+import { ExternalLink } from "lucide-react";
+import { cn } from "@/lib/utils";
+import Avatar from "./avatar";
+import { Button } from "./Button";
 
 export type ApplicantCardProps = {
   avatarUrl?: string;
@@ -27,7 +27,7 @@ const ApplicantCard: React.FC<ApplicantCardProps> = ({
   return (
     <div
       className={cn(
-        'flex w-full flex-row items-start gap-x-4 rounded-2xl border border-zinc-600 bg-zinc-950 p-4',
+        "flex w-full flex-row items-start gap-x-4 rounded-2xl border border-zinc-600 bg-zinc-950 p-4",
         className
       )}
     >
@@ -40,7 +40,9 @@ const ApplicantCard: React.FC<ApplicantCardProps> = ({
           rel="noopener noreferrer"
           className="group inline-flex w-fit items-center gap-x-1.5"
         >
-          <h3 className="truncate text-base font-semibold text-zinc-50">{name}</h3>
+          <h3 className="truncate text-base font-semibold text-zinc-50">
+            {name}
+          </h3>
           <ExternalLink
             size={14}
             className="text-zinc-500 transition-all duration-300 group-hover:text-violet-400"
