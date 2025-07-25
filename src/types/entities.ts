@@ -1,3 +1,5 @@
+import { Employer } from "@/context/appContext";
+
 export type Opportunity = {
   _id: string;
   title: string;
@@ -5,7 +7,7 @@ export type Opportunity = {
   salary: Number;
   weeklyHours: Number;
   workLocation: string;
-  employer: string;
+  employer: Employer;
   applicants: [string];
   contracts: [
     {
