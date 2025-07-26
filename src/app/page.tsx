@@ -1,15 +1,68 @@
 "use client";
-
+import { useEffect, useState } from "react";
 import { InfoCard } from "./components/ui/info-card";
 import { SearchBar } from "./components/ui/search-bar";
+import { Opportunity } from "@/types/entities";
+import api, { testApi } from "@/services/axios";
+import { Employer, Student } from "@/context/appContext";
 
 export default function Home() {
+  const [opportunities, setOpportunities] = useState<Opportunity[]>([]);
+  const [students, setStudents] = useState<Student[]>([]);
+  const [employers, setEmployers] = useState<Employer[]>([]);
+  const [fetchingOpportunities, setFetchingOpportunities] =
+    useState<boolean>(true);
+  const [fetchingStudents, setFetchingStudents] = useState<boolean>(true);
+  const [fetchingEmployers, setFetchingEmployers] = useState<boolean>(true);
+
+  useEffect(() => {
+    const fetchOpportunities = async () => {
+      const response = await testApi.get("/opportunities");
+      const listOfAllOpportunities: Opportunity[] = response.data;
+      /* listOfAllOpportunities.forEach((opportunity) => {
+        const employerId = opportunity.employer;
+        console.log(employerId);
+        const employerName = employers.find(
+          (employer) => employer._id === employerId
+        )?.name;
+        console.log("AAAAAAAAAA", employerName);
+        if (employerName) {
+          opportunity.employer = employerName;
+        }
+      }); */
+      setOpportunities(listOfAllOpportunities);
+      console.log(listOfAllOpportunities);
+      setFetchingOpportunities(false);
+    };
+
+    const fetchStudents = async () => {
+      const response = await testApi.get("/students/search");
+      const listOfStudents: Student[] = response.data;
+      console.log(listOfStudents);
+      setStudents(listOfStudents);
+      setFetchingStudents(false);
+    };
+
+    const fetchEmployers = async () => {
+      console.log("EMPLOYERSSSSSSSS");
+      const response = await testApi.get("/employers");
+      const listOfEmployers: Employer[] = response.data;
+      console.log(listOfEmployers);
+      setEmployers(listOfEmployers);
+      setFetchingEmployers(false);
+    };
+
+    fetchEmployers();
+    fetchOpportunities();
+    fetchStudents();
+  }, []);
+
   return (
     <div className="flex items-center pt-23 flex flex-col  gap-8 p-8">
       <div className="w-[80%] h-full flex flex-col gap-10">
         <SearchBar
           placeholder="Pesquisar alunos, empresas ou oportunidades"
-          onFilterClick={() => {}}
+          onFilterClick={() => { }}
         />
         <div className="w-full flex ">
           <div className="w-[60%]">
@@ -22,46 +75,26 @@ export default function Home() {
               </div>
             </div>
             <div className="mt-5 flex flex-wrap w-full">
-              <InfoCard
-                title="Vaga desenvolvedor web"
-                subtitle="vaga para fazer sites"
-                imageUrl=""
-                student={false}
-                href=""
-                className="m-[10px] w-90"
-              />
-              <InfoCard
-                title="Vaga desenvolvedor web"
-                subtitle="vaga para fazer sites"
-                imageUrl=""
-                student={false}
-                href=""
-                className="m-[10px] w-90"
-              />
-              <InfoCard
-                title="Vaga desenvolvedor web"
-                subtitle="vaga para fazer sites"
-                imageUrl=""
-                student={false}
-                href=""
-                className="m-[10px] w-90"
-              />
-              <InfoCard
-                title="Vaga desenvolvedor web"
-                subtitle="vaga para fazer sites"
-                imageUrl=""
-                student={false}
-                href=""
-                className="m-[10px] w-90"
-              />
-              <InfoCard
-                title="Vaga desenvolvedor web"
-                subtitle="vaga para fazer sites"
-                imageUrl=""
-                student={false}
-                href=""
-                className="m-[10px] w-90"
-              />
+              {!fetchingOpportunities && opportunities.length > 0 ? (
+                opportunities.map((opportunity) => (
+                  <InfoCard
+                    title={opportunity.title}
+                    subtitle={opportunity.employer.name}
+                    imageUrl=""
+                    student={false}
+                    href=""
+                    className="m-[10px] w-90"
+                  />
+                ))
+              ) : fetchingOpportunities ? (
+                <div className="w-full justify-start text-white text-xl font-semibold leading-[150%]">
+                  Carregando vagas...
+                </div>
+              ) : (
+                <div className="w-full justify-start text-white text-xl font-semibold leading-[150%]">
+                  Nenhuma vaga encontrada...
+                </div>
+              )}
             </div>
           </div>
           <div className="flex flex-col">
@@ -75,30 +108,28 @@ export default function Home() {
                 </div>
               </div>
               <div className="mt-5  flex flex-col w-full">
-                <InfoCard
-                  title="Julia leal"
-                  subtitle="Ciência da Computação"
-                  imageUrl=""
-                  student={true}
-                  href=""
-                  className="m-[10px]"
-                />
-                <InfoCard
-                  title="Gabriel Mota"
-                  subtitle="Ciência da Computação"
-                  imageUrl=""
-                  student={true}
-                  href=""
-                  className="m-[10px]"
-                />
-                <InfoCard
-                  title="Guilherme de menezes"
-                  subtitle="Ciência da Computação"
-                  imageUrl=""
-                  student={true}
-                  href=""
-                  className="m-[10px]"
-                />
+                {!fetchingStudents && students.length > 0 ? (
+                  students
+                    .slice(0, 5)
+                    .map((student) => (
+                      <InfoCard
+                        title={student.name}
+                        subtitle={student.course}
+                        imageUrl=""
+                        student={true}
+                        href=""
+                        className="m-[10px] w-90"
+                      />
+                    ))
+                ) : fetchingStudents ? (
+                  <div className="w-full justify-start text-white text-xl font-semibold leading-[150%]">
+                    Carregando estudantes...
+                  </div>
+                ) : (
+                  <div className="w-full justify-start text-white text-xl font-semibold leading-[150%]">
+                    Nenhum estudante encontrado...
+                  </div>
+                )}
               </div>
             </div>
             <div className="mt-4">
@@ -111,22 +142,28 @@ export default function Home() {
                 </div>
               </div>
               <div className="mt-5 flex flex-col w-full">
-                <InfoCard
-                  title="Insight Data Science Lab"
-                  subtitle="Laboratório de pesquisa em Ciência de Dados"
-                  imageUrl=""
-                  student={false}
-                  href=""
-                  className="m-[10px]"
-                />
-                <InfoCard
-                  title="GREat"
-                  subtitle="Grupo de Redes de Computadores, Engen..."
-                  imageUrl=""
-                  student={false}
-                  href=""
-                  className="m-[10px]"
-                />
+                {!fetchingEmployers && employers.length > 0 ? (
+                  employers
+                    .slice(0, 5)
+                    .map((employer) => (
+                      <InfoCard
+                        title={employer.name}
+                        subtitle={employer.description.slice(0, 21) + "..."}
+                        imageUrl=""
+                        student={false}
+                        href=""
+                        className="m-[10px] w-90"
+                      />
+                    ))
+                ) : fetchingEmployers ? (
+                  <div className="w-full justify-start text-white text-xl font-semibold leading-[150%]">
+                    Carregando contratantes...
+                  </div>
+                ) : (
+                  <div className="w-full justify-start text-white text-xl font-semibold leading-[150%]">
+                    Nenhum contratante encontrado...
+                  </div>
+                )}
               </div>
             </div>
           </div>

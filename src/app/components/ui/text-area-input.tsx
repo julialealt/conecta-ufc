@@ -1,5 +1,5 @@
-import React from 'react';
-import { cn } from '@/lib/utils';
+import React from "react";
+import { cn } from "@/lib/utils";
 
 export type TextAreaInputProps = {
   id?: string;
@@ -11,13 +11,13 @@ export type TextAreaInputProps = {
   classesRoot?: string;
   classesInput?: string;
   placeholder: string;
-  status?: 'default' | 'error';
+  status?: "default" | "error";
   errorMessage?: string;
 };
 
 const TextAreaInput: React.FC<TextAreaInputProps> = ({
-  id = 'description',
-  name = 'description',
+  id = "description",
+  name = "description",
   label,
   required,
   value,
@@ -25,15 +25,16 @@ const TextAreaInput: React.FC<TextAreaInputProps> = ({
   classesInput,
   classesRoot,
   placeholder,
-  status = 'default',
+  status = "default",
   errorMessage,
 }) => {
-  const inputBorderClass = status === 'error'
-    ? 'border-red-800 hover:border-red-700'
-    : 'border-zinc-800 hover:border-zinc-700'
+  const inputBorderClass =
+    status === "error"
+      ? "border-red-800 hover:border-red-700"
+      : "border-zinc-800 hover:border-zinc-700";
 
   return (
-    <div className={cn('flex w-full flex-col text-white', classesRoot)}>
+    <div className={cn("flex w-full flex-col text-white", classesRoot)}>
       {label && (
         <label
           htmlFor={id}
@@ -50,17 +51,19 @@ const TextAreaInput: React.FC<TextAreaInputProps> = ({
         onChange={onChange}
         placeholder={placeholder}
         className={cn(
-          'min-h-24 w-full',
-          'rounded-md border bg-black p-4 py-3.5',
-          'text-sm text-zinc-50 placeholder-zinc-500 outline-none',
-          'transition-all duration-300 leading-[140%]',
+          "min-h-24 w-full",
+          "rounded-md border bg-black p-4 py-3.5",
+          "text-sm text-zinc-50 placeholder-zinc-500 outline-none",
+          "transition-all duration-300 leading-[140%]",
           classesInput,
-          inputBorderClass,
+          inputBorderClass
         )}
       />
 
       <div className="w-full self-stretch px-2 pt-1 inline-flex justify-center items-center gap-1">
-        <div className="w-full self-stretch justify-start text-red-800 text-[10px] font-normal leading-[16px]">{errorMessage}</div>
+        <div className="w-full self-stretch justify-start text-red-800 text-[10px] font-normal leading-[16px]">
+          {errorMessage}
+        </div>
       </div>
     </div>
   );

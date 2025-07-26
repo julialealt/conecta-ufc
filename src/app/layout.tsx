@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import AppProvider from "@/context/appContext";
 import { Toaster } from "sonner";
 import { Header } from "./components/ui/Header";
 
@@ -19,11 +20,13 @@ export default function RootLayout({
   return (
     <html lang="pt-br" className="dark">
       <body className={inter.className}>
-        <main>
-          <Header />
-          <Toaster theme="dark" position="top-right" />
-          {children}
-        </main>
+        <AppProvider>
+          <main>
+            <Header />
+            <Toaster theme="dark" position="top-right" />
+            {children}
+          </main>
+        </AppProvider>
       </body>
     </html>
   );
