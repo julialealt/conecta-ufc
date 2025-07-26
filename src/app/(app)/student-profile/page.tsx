@@ -1,20 +1,10 @@
 "use client";
 
 import Avatar from "@/app/components/ui/avatar";
-import { Button } from "@/app/components/ui/Button";
-import {
-  AppContext,
-  AppContextType,
-  Employer,
-  Student,
-} from "@/context/appContext";
-import { Opportunity } from "@/types/entities";
+import { Button } from "@/app/components/ui/button";
 import { Pen, Plus } from "lucide-react";
-import { useContext, useState } from "react";
 
 export default function StudentProfile() {
-  const { state } = useContext(AppContext) as AppContextType;
-
   return (
     <div className="w-full self-stretch px-30 pt-12 pb-16 bg-zinc-950 inline-flex flex-col justify-start items-start gap-16">
       <div className="self-stretch w-full inline-flex justify-start items-start gap-6">

@@ -2,7 +2,7 @@ import React from "react";
 import { ExternalLink } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Avatar from "./avatar";
-import { Button } from "./Button";
+import { Button } from "./button";
 
 export type ApplicantCardProps = {
   avatarUrl?: string;

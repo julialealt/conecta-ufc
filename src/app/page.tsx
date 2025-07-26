@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { InfoCard } from "./components/ui/info-card";
 import { SearchBar } from "./components/ui/search-bar";
 import { Opportunity } from "@/types/entities";
-import api, { testApi } from "@/services/axios";
+import api from "@/services/axios";
 import { Employer, Student } from "@/context/appContext";
 
 export default function Home() {
@@ -17,7 +17,7 @@ export default function Home() {
 
   useEffect(() => {
     const fetchOpportunities = async () => {
-      const response = await testApi.get("/opportunities");
+      const response = await api.get("/opportunities");
       const listOfAllOpportunities: Opportunity[] = response.data;
       /* listOfAllOpportunities.forEach((opportunity) => {
         const employerId = opportunity.employer;
@@ -36,7 +36,7 @@ export default function Home() {
     };
 
     const fetchStudents = async () => {
-      const response = await testApi.get("/students/search");
+      const response = await api.get("/students/search");
       const listOfStudents: Student[] = response.data;
       console.log(listOfStudents);
       setStudents(listOfStudents);
@@ -45,7 +45,7 @@ export default function Home() {
 
     const fetchEmployers = async () => {
       console.log("EMPLOYERSSSSSSSS");
-      const response = await testApi.get("/employers");
+      const response = await api.get("/employers");
       const listOfEmployers: Employer[] = response.data;
       console.log(listOfEmployers);
       setEmployers(listOfEmployers);
@@ -78,6 +78,7 @@ export default function Home() {
               {!fetchingOpportunities && opportunities.length > 0 ? (
                 opportunities.map((opportunity) => (
                   <InfoCard
+                    key={opportunity._id}
                     title={opportunity.title}
                     subtitle={opportunity.employer.name}
                     imageUrl=""
@@ -113,6 +114,7 @@ export default function Home() {
                     .slice(0, 5)
                     .map((student) => (
                       <InfoCard
+                        key={student._id}
                         title={student.name}
                         subtitle={student.course}
                         imageUrl=""
@@ -147,6 +149,7 @@ export default function Home() {
                     .slice(0, 5)
                     .map((employer) => (
                       <InfoCard
+                        key={employer._id}
                         title={employer.name}
                         subtitle={employer.description.slice(0, 21) + "..."}
                         imageUrl=""

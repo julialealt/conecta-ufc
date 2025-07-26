@@ -1,14 +1,14 @@
 "use client";
 
-import { useEffect, useState, useContext } from "react";
+import { useState, useContext } from "react";
 import Image from "next/image";
 import logo from "../../../../public/assets/logo_lg.svg";
 import { useRouter } from "next/navigation";
-import { Button } from "@/app/components/ui/Button";
+import { Button } from "@/app/components/ui/button";
 import Input from "@/app/components/ui/input";
 import Select from "@/app/components/ui/select";
 import { courseOptions } from "@/constants/courses";
-import api, { testApi } from "@/services/axios";
+import api from "@/services/axios";
 import TextAreaInput from "@/app/components/ui/text-area-input";
 import LoadingStatus from "@/app/components/loadingStatus/LoadingStatus";
 import { AppContext, AppContextType, Student } from "@/context/appContext";
@@ -41,7 +41,7 @@ export default function StudentSignUpPage() {
         refreshToken: undefined,
         user: newUserData,
       });
-      const emailResponse = await testApi.post("/auth/send-email", {
+      const emailResponse = await api.post("/auth/send-email", {
         userEmail: email,
       });
       if (emailResponse.status === 200) {

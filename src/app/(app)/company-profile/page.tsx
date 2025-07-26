@@ -2,12 +2,12 @@
 import { useContext, useEffect, useState } from "react";
 import { Pen } from "lucide-react";
 import Avatar from "../../components/ui/avatar";
-import { Button } from "../../components/ui/Button";
+import { Button } from "../../components/ui/button";
 import JobCard from "../../components/ui/job-card";
 import { AppContext, AppContextType, Employer } from "@/context/appContext";
 import { Opportunity } from "@/types/entities";
 import { useRouter } from "next/navigation";
-import api, { testApi } from "@/services/axios";
+import api from "@/services/axios";
 
 export default function CompanyProfilePage() {
   const router = useRouter();
@@ -117,7 +117,7 @@ export default function CompanyProfilePage() {
           </div>
         </div>
 
-        <div className="pt-8 border-t border-zinc-500 inline-flex flex-col justify-start items-start gap-6">
+        <div className="w-full pt-8 border-t border-zinc-500 inline-flex flex-col justify-start items-start gap-6">
           <div className="w-full justify-start text-white text-xl font-semibold leading-[150%]">
             Vagas
           </div>

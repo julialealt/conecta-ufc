@@ -4,13 +4,13 @@ import { useState, useContext } from "react";
 import Image from "next/image";
 import logo from "../../../../public/assets/logo_lg.svg";
 import { useRouter } from "next/navigation";
-import { Button } from "@/app/components/ui/Button";
+import { Button } from "@/app/components/ui/button";
 import Input from "@/app/components/ui/input";
 import Select from "@/app/components/ui/select";
-import DescriptionInput from "@/app/components/ui/description-input";
 import LoadingStatus from "@/app/components/loadingStatus/LoadingStatus";
-import api, { testApi } from "@/services/axios";
+import api from "@/services/axios";
 import { AppContext, AppContextType, Employer } from "@/context/appContext";
+import TextAreaInput from "@/app/components/ui/text-area-input";
 
 export default function CompanySignUpPage() {
   const router = useRouter();
@@ -39,7 +39,7 @@ export default function CompanySignUpPage() {
         user: newUserData,
       });
 
-      const emailResponse = await testApi.post("/auth/send-email", {
+      const emailResponse = await api.post("/auth/send-email", {
         userEmail: email,
       });
       if (emailResponse.status === 200) {
@@ -93,7 +93,7 @@ export default function CompanySignUpPage() {
               onChange={(e) => setName(e.target.value)}
             />
 
-            <DescriptionInput
+            <TextAreaInput
               id="description"
               name="description"
               label="Descrição*"
