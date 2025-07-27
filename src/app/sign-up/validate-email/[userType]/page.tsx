@@ -5,8 +5,8 @@ import Image from "next/image";
 import logo from "../../../../../public/assets/logo_lg.svg";
 import { useRouter } from "next/navigation";
 import Input from "@/app/components/ui/input";
-import { Button } from "@/app/components/ui/button";
-import api from "@/services/axios";
+import { Button } from "@/app/components/ui/Button";
+import api, { testApi } from "@/services/axios";
 import { useParams } from "next/navigation";
 import LoadingStatus from "@/app/components/loadingStatus/LoadingStatus";
 import { AppContext, AppContextType } from "@/context/appContext";
@@ -22,25 +22,28 @@ export default function SignInPage() {
     setIsLoading(true);
     try {
       if (state.userData.user) {
-        const response = await api.post("/auth/verify-email-code", {
+        const response = await testApi.post("/auth/verify-email-code", {
           code,
           userEmail: decodeURIComponent(state.userData.user.email),
         });
         alert(`Email vericiado código: ${code}`);
         if (response.status === 200) {
           //const newUserToCreate =
-          const createUserResponse = await api.post(
+          const createUserResponse = await testApi.post(
             `/${params.userType}/register`,
             state.userData.user
           );
           console.log("CREATE USER ", createUserResponse);
           if (createUserResponse.status === 201) {
             console.log("QAASLDKJSLDKjalskdjlkj");
-            setUserData({
-              accessToken: createUserResponse.data.accessToken,
-              refreshToken: createUserResponse.data.refreshToken,
-              user: createUserResponse.data.data,
-            });
+            setUserData(
+              {
+                accessToken: createUserResponse.data.accessToken,
+                refreshToken: createUserResponse.data.refreshToken,
+                user: createUserResponse.data.data,
+              },
+              params.userType
+            );
             alert("Cadastro finalizado com sucesso!");
           }
           router.push("./");

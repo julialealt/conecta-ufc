@@ -1,7 +1,7 @@
 import React from "react";
 import { cn } from "@/lib/utils";
 import Avatar from "./avatar";
-import { Button } from "./button";
+import { Button } from "./Button";
 import { CalendarArrowUp, GraduationCap, Sparkles } from "lucide-react";
 
 export type ApplicantCardProps = {
@@ -58,12 +58,16 @@ const ApplicantCard: React.FC<ApplicantCardProps> = ({
           <div className="inline-flex justify-start items-start gap-5 text-zinc-300">
             <div className="inline-flex justify-start items-start gap-1.5">
               <GraduationCap className="w-4 h-4" />
-              <div className="justify-start text-xs font-medium leading-[150%]">{course}</div>
+              <div className="justify-start text-xs font-medium leading-[150%]">
+                {course}
+              </div>
             </div>
 
             <div className="inline-flex justify-start items-start gap-1.5">
               <CalendarArrowUp className="w-4 h-4" />
-              <div className="justify-start text-xs font-medium leading-[150%]">{enterSemester}</div>
+              <div className="justify-start text-xs font-medium leading-[150%]">
+                {enterSemester}
+              </div>
             </div>
           </div>
 
@@ -98,10 +102,7 @@ const ApplicantCard: React.FC<ApplicantCardProps> = ({
             )}
 
             {variant === "declined" && (
-              <Button
-                variant="rejected"
-                className="h-[32px] text-sm"
-              >
+              <Button variant="rejected" className="h-[32px] text-sm">
                 Aluno recusado
               </Button>
             )}

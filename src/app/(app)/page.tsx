@@ -1,10 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
 import { Opportunity } from "@/types/entities";
-import api from "@/services/axios";
+import api, { testApi } from "@/services/axios";
 import { Employer, Student } from "@/context/appContext";
 import { InfoCard } from "../components/ui/info-card";
 import { SearchBar } from "../components/ui/search-bar";
+import { toast } from "sonner";
 
 export default function Home() {
   const [opportunities, setOpportunities] = useState<Opportunity[]>([]);
@@ -17,39 +18,42 @@ export default function Home() {
 
   useEffect(() => {
     const fetchOpportunities = async () => {
-      const response = await api.get("/opportunities");
-      const listOfAllOpportunities: Opportunity[] = response.data;
-      /* listOfAllOpportunities.forEach((opportunity) => {
-        const employerId = opportunity.employer;
-        console.log(employerId);
-        const employerName = employers.find(
-          (employer) => employer._id === employerId
-        )?.name;
-        console.log("AAAAAAAAAA", employerName);
-        if (employerName) {
-          opportunity.employer = employerName;
-        }
-      }); */
-      setOpportunities(listOfAllOpportunities);
-      console.log(listOfAllOpportunities);
-      setFetchingOpportunities(false);
+      try {
+        const response = await testApi.get("/opportunities");
+        const listOfAllOpportunities: Opportunity[] = response.data;
+        setOpportunities(listOfAllOpportunities);
+      } catch (error) {
+        console.log(error);
+        toast.error("Algo deu errado ao tentar carregas as oportunidades");
+      } finally {
+        setFetchingOpportunities(false);
+      }
     };
 
     const fetchStudents = async () => {
-      const response = await api.get("/students/search");
-      const listOfStudents: Student[] = response.data;
-      console.log(listOfStudents);
-      setStudents(listOfStudents);
-      setFetchingStudents(false);
+      try {
+        const response = await testApi.get("/students/search");
+        const listOfStudents: Student[] = response.data;
+        setStudents(listOfStudents);
+      } catch (error) {
+        console.log(error);
+        toast.error("Algo deu errado ao tentar carregas os estudantes");
+      } finally {
+        setFetchingStudents(false);
+      }
     };
 
     const fetchEmployers = async () => {
-      console.log("EMPLOYERSSSSSSSS");
-      const response = await api.get("/employers");
-      const listOfEmployers: Employer[] = response.data;
-      console.log(listOfEmployers);
-      setEmployers(listOfEmployers);
-      setFetchingEmployers(false);
+      try {
+        const response = await testApi.get("/employers");
+        const listOfEmployers: Employer[] = response.data;
+        setEmployers(listOfEmployers);
+      } catch (error) {
+        console.log(error);
+        toast.error("Algo deu errado ao tentar carregas os contratantes");
+      } finally {
+        setFetchingEmployers(false);
+      }
     };
 
     fetchEmployers();
@@ -62,7 +66,7 @@ export default function Home() {
       <div className="w-[80%] h-full flex flex-col gap-10">
         <SearchBar
           placeholder="Pesquisar alunos, empresas ou oportunidades"
-          onFilterClick={() => { }}
+          onFilterClick={() => {}}
         />
         <div className="w-full flex ">
           <div className="w-[60%]">

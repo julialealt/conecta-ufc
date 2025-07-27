@@ -4,7 +4,7 @@ import { useState, useContext } from "react";
 import Image from "next/image";
 import logo from "../../../../public/assets/logo_lg.svg";
 import { useRouter } from "next/navigation";
-import { Button } from "@/app/components/ui/button";
+import { Button } from "@/app/components/ui/Button";
 import Input from "@/app/components/ui/input";
 import Select from "@/app/components/ui/select";
 import LoadingStatus from "@/app/components/loadingStatus/LoadingStatus";
@@ -33,11 +33,14 @@ export default function CompanySignUpPage() {
         email,
         password,
       };
-      setUserData({
-        accessToken: undefined,
-        refreshToken: undefined,
-        user: newUserData,
-      });
+      setUserData(
+        {
+          accessToken: undefined,
+          refreshToken: undefined,
+          user: newUserData,
+        },
+        "employer"
+      );
 
       const emailResponse = await api.post("/auth/send-email", {
         userEmail: email,

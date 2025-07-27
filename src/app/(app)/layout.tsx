@@ -1,4 +1,5 @@
-import { Header } from "../components/ui/header";
+import { Header } from "../components/ui/Header";
+import AppProvider from "@/context/appContext";
 
 export default function AppLayout({
   children,
@@ -7,8 +8,10 @@ export default function AppLayout({
 }>) {
   return (
     <>
-      <Header />
-      <main className="pt-16">{children}</main>
+      <AppProvider>
+        <Header />
+        <main className="pt-16">{children}</main>
+      </AppProvider>
     </>
   );
 }

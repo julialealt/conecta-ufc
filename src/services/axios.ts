@@ -5,9 +5,69 @@ const api: AxiosInstance = axios.create({
   timeout: 100000000,
 });
 
+api.interceptors.request.use((config) => {
+  const accessToken = localStorage.getItem("acessToken");
+
+  if (accessToken) {
+    console.log("AAAAAAAAAc ", accessToken);
+    config.headers.Authorization = `Bearer ${accessToken}`;
+  }
+  return config;
+});
+
+api.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    const originalRequest = error.config;
+    console.log(originalRequest);
+    const renewAcessToken = await renewTokenApi.post("/auth/refresh");
+    localStorage.setItem("acessToken", renewAcessToken.data.accessToken);
+
+    console.log(renewAcessToken);
+    return api(originalRequest);
+  }
+);
+
+const renewTokenApi: AxiosInstance = axios.create({
+  baseURL: "http://localhost:8080/api/v1",
+  timeout: 100000000,
+});
+
+renewTokenApi.interceptors.request.use((config) => {
+  const refreshToken = localStorage.getItem("refreshToken");
+
+  if (refreshToken) {
+    config.headers.Authorization = `Bearer ${refreshToken}`;
+  }
+  return config;
+});
+
 export const testApi: AxiosInstance = axios.create({
   baseURL: "http://localhost:8080/api/v1",
   timeout: 100000000,
 });
+
+testApi.interceptors.request.use((config) => {
+  const accessToken = localStorage.getItem("acessToken");
+
+  if (accessToken) {
+    config.headers.Authorization = `Bearer ${accessToken}`;
+  }
+  return config;
+});
+
+testApi.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    console.log("AAAAAAAAAA");
+    const originalRequest = error.config;
+
+    const renewAcessToken = await renewTokenApi.post("/auth/refresh");
+    localStorage.setItem("acessToken", renewAcessToken.data.accessToken);
+
+    console.log(renewAcessToken);
+    return testApi(originalRequest);
+  }
+);
 
 export default api;

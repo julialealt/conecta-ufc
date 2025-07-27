@@ -2,12 +2,12 @@
 
 import { useState, useContext } from "react";
 import Image from "next/image";
-import { Button } from "../components/ui/button";
+import { Button } from "../components/ui/Button";
 import Input from "../components/ui/input";
 import logo from "../../../public/assets/logo_lg.svg";
 import { useRouter } from "next/navigation";
 import LoadingStatus from "../components/loadingStatus/LoadingStatus";
-import api from "@/services/axios";
+import api, { testApi } from "@/services/axios";
 import { AppContext, AppContextType } from "@/context/appContext";
 import { jwtDecode } from "jwt-decode";
 
@@ -15,7 +15,7 @@ import { toast } from "sonner";
 
 export default function SignInPage() {
   const router = useRouter();
-  const { setUserData, setUserType } = useContext(AppContext) as AppContextType;
+  const { setUserData } = useContext(AppContext) as AppContextType;
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -23,25 +23,28 @@ export default function SignInPage() {
   const handleLogin = async () => {
     setIsLoading(true);
     try {
-      const response = await api.post("/auth/login", {
+      const response = await testApi.post("/auth/login", {
         email,
         password,
       });
-
-      console.log(response);
       if (response.status === 200) {
         const decoded = jwtDecode<{
           userId: string;
           type: string;
         }>(response.data.accessToken);
-        setUserType(decoded.type);
-        setUserData(response.data.data);
+        setUserData(response.data.data, decoded.type);
+        localStorage.setItem("userData", JSON.stringify(response.data.data));
+        localStorage.setItem("accessToken", response.data.accessToken);
+        localStorage.setItem("refreshToken", response.data.refreshToken);
+        localStorage.setItem("userType", decoded.type);
         toast.success("Login realizado com sucesso!");
-        router.push("/"); // Navega para a home
+        router.push("/");
+      } else if (response.status === 401) {
+        toast.error("Credenciais inválidas. Tente novamente.");
       }
     } catch (error) {
       console.log(error);
-      toast.error("Credenciais inválidas. Tente novamente.");
+      toast.error("Algo deu errado, tente novamente.");
     }
     setIsLoading(false);
   };

@@ -4,7 +4,7 @@ import * as React from "react";
 import { Search, Sparkles, X } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-import { Button } from "./button";
+import { Button } from "./Button";
 
 export interface SearchBarProps
   extends React.InputHTMLAttributes<HTMLInputElement> {

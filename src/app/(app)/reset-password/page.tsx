@@ -1,28 +1,35 @@
 "use client";
 
-import { Button } from "@/app/components/ui/button";
+import { Button } from "@/app/components/ui/Button";
 import Input from "@/app/components/ui/input";
 import { ChevronLeft } from "lucide-react";
 import { useState } from "react";
 
 export default function ResetPasswordPage() {
-  const [newPassword, setNewPassword] = useState('')
-  const [confirmNewPassword, setConfirmNewPassword] = useState('')
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmNewPassword, setConfirmNewPassword] = useState("");
 
   const handleBack = () => {
     // deve voltar para a página anterior
-  }
+  };
 
   return (
     <div className="self-stretch w-full px-30 pt-6 pb-16 bg-zinc-950 inline-flex flex-col justify-start items-start gap-8">
       <div className="w-full inline-flex justify-start items-start gap-3">
         <div className="self-stretch pt-0.5 inline-flex flex-col justify-start items-start gap-1">
-          <ChevronLeft className="w-5 h-5 text-zinc-400 cursor-pointer" onClick={handleBack} />
+          <ChevronLeft
+            className="w-5 h-5 text-zinc-400 cursor-pointer"
+            onClick={handleBack}
+          />
         </div>
 
         <div className="w-full self-stretch inline-flex flex-col justify-center items-start gap-1">
-          <div className="self-stretch justify-start text-violet-50 text-lg font-semibold leading-[150%]">Redefinir senha</div>
-          <div className="self-stretch justify-start text-zinc-300 text-sm font-medium leading-[150%]">Digite e confirme sua nova senha. Crie uma senha forte e segura.</div>
+          <div className="self-stretch justify-start text-violet-50 text-lg font-semibold leading-[150%]">
+            Redefinir senha
+          </div>
+          <div className="self-stretch justify-start text-zinc-300 text-sm font-medium leading-[150%]">
+            Digite e confirme sua nova senha. Crie uma senha forte e segura.
+          </div>
         </div>
       </div>
 
@@ -57,5 +64,5 @@ export default function ResetPasswordPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }

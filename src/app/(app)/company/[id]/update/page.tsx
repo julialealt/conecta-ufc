@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/app/components/ui/button";
+import { Button } from "@/app/components/ui/Button";
 import Input from "@/app/components/ui/input";
 import { PhotoInput } from "@/app/components/ui/photo-input";
 import TextAreaInput from "@/app/components/ui/text-area-input";
@@ -9,45 +9,54 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function CompanyProfileUpdatePage() {
-  const router = useRouter()
+  const router = useRouter();
 
-  const [email, setEmail] = useState('')
-  const [name, setName] = useState('')
-  const [description, setDescription] = useState('')
-  const [about, setAbout] = useState('')
-  const [site, setSite] = useState('')
-  const [location, setLocation] = useState('')
-  const [specialities, setSpecialities] = useState('')
-  const [contact, setContact] = useState('')
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [about, setAbout] = useState("");
+  const [site, setSite] = useState("");
+  const [location, setLocation] = useState("");
+  const [specialities, setSpecialities] = useState("");
+  const [contact, setContact] = useState("");
 
   const handlePhotoChange = (file: File) => {
     console.log("Novo logo de organização selecionado:", file.name);
     // Lógica de upload...
-  }
+  };
 
   const handleBack = () => {
-    router.push('/company/[id]');
+    router.push("/company/[id]");
     // Você pode substituir '[id]' pelo ID real da empresa, se necessário.
-  }
+  };
 
   const handleResetPassword = () => {
-    router.push('/reset-password');
-  }
+    router.push("/reset-password");
+  };
 
   return (
     <div className="self-stretch w-full px-30 pt-6 pb-16 bg-zinc-950 inline-flex flex-col justify-start items-start gap-8">
       <div className="w-full inline-flex justify-start items-start gap-3">
         <div className="self-stretch pt-0.5 inline-flex flex-col justify-start items-start gap-1">
-          <ChevronLeft className="w-5 h-5 text-zinc-400 cursor-pointer" onClick={handleBack} />
+          <ChevronLeft
+            className="w-5 h-5 text-zinc-400 cursor-pointer"
+            onClick={handleBack}
+          />
         </div>
 
         <div className="w-full self-stretch inline-flex flex-col justify-center items-start gap-1">
-          <div className="self-stretch justify-start text-violet-50 text-lg font-semibold leading-[150%]">Editar perfil</div>
-          <div className="self-stretch justify-start text-zinc-300 text-sm font-medium leading-[150%]">Atualize suas informações e atraia os talentos certos.</div>
+          <div className="self-stretch justify-start text-violet-50 text-lg font-semibold leading-[150%]">
+            Editar perfil
+          </div>
+          <div className="self-stretch justify-start text-zinc-300 text-sm font-medium leading-[150%]">
+            Atualize suas informações e atraia os talentos certos.
+          </div>
         </div>
 
         <div className="self-stretch inline-flex justify-start items-start gap-2">
-          <Button variant="outline_violet" onClick={handleResetPassword}>Redefinir senha</Button>
+          <Button variant="outline_violet" onClick={handleResetPassword}>
+            Redefinir senha
+          </Button>
         </div>
       </div>
 
@@ -158,5 +167,5 @@ export default function CompanyProfileUpdatePage() {
         </div>
       </div>
     </div>
-  )
+  );
 }

@@ -1,5 +1,7 @@
 "use client";
-import React, { createContext, useState } from "react";
+import { jwtDecode } from "jwt-decode";
+import React, { createContext, useEffect, useState } from "react";
+import { useRouter, usePathname } from "next/navigation";
 
 export type Student = {
   _id: string;
@@ -84,7 +86,7 @@ type AppState = {
 
 export type AppContextType = {
   state: AppState;
-  setUserData: (userData: UserData) => void;
+  setUserData: (userData: UserData, userType: string) => void;
   setUserType: (type: string) => void;
 };
 
@@ -92,21 +94,11 @@ type props = {
   children: React.ReactNode;
 };
 
-const EmployerFake: Employer = {
-  _id: "adsadsasdasdasdasda",
-  name: "Samsunhg",
-  description: "Uma empresa da terra do jimin",
-  email: "SDasd",
-  profile: "company",
-  password: "sasdasd",
-  hiringRate: 0,
-};
-
 export const InitialState: AppState = {
   userData: {
     accessToken: undefined,
     refreshToken: undefined,
-    user: EmployerFake,
+    user: undefined,
   },
   userType: undefined,
 };
@@ -114,10 +106,14 @@ export const InitialState: AppState = {
 export const AppContext = createContext<AppContextType | undefined>(undefined);
 
 const AppProvider: React.FC<props> = ({ children }) => {
+  const router = useRouter();
+  const pathname = usePathname();
+
   const [state, setState] = useState<AppState>(InitialState);
 
-  const setUserData = (userData: UserData) => {
+  const setUserData = (userData: UserData, userType: string) => {
     const newState = { ...state };
+    newState.userType = userType;
     newState.userData = userData;
     setState(newState);
   };
@@ -127,6 +123,27 @@ const AppProvider: React.FC<props> = ({ children }) => {
     newState.userType = type;
     setState(newState);
   };
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken");
+    const refreshToken = localStorage.getItem("refreshToken");
+    const userData = localStorage.getItem("userData");
+    const userType = localStorage.getItem("userType");
+
+    if (accessToken && refreshToken && userData && userType) {
+      const userDataObject: UserData = {
+        accessToken: accessToken,
+        refreshToken: refreshToken,
+        user: JSON.parse(userData),
+      };
+      setUserData(userDataObject, userType);
+      if (pathname === "/sign-in" || pathname === "/sign-up") {
+        router.replace("/");
+      }
+    } else {
+      router.replace("/sign-in");
+    }
+  }, []);
 
   return (
     <AppContext.Provider
