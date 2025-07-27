@@ -100,9 +100,20 @@ export default function Home() {
                 As últimas oportunidades publicadas na plataforma
               </div>
             </div>
-
-            <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-5">
-              {fetchingOpportunities ? (
+            <div className="mt-5 flex flex-wrap w-full">
+              {!fetchingOpportunities && opportunities.length > 0 ? (
+                opportunities.map((opportunity) => (
+                  <InfoCard
+                    key={opportunity._id}
+                    title={opportunity.title}
+                    subtitle={opportunity.employer.name}
+                    imageUrl=""
+                    student={false}
+                    href={`/opportunity/${opportunity._id}`}
+                    className="m-[10px] w-90"
+                  />
+                ))
+              ) : fetchingOpportunities ? (
                 <Spinner />
               ) : (
                 opportunities
