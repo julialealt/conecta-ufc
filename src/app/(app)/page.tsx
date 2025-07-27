@@ -1,10 +1,10 @@
 "use client";
 import { useEffect, useState } from "react";
-import { InfoCard } from "./components/ui/info-card";
-import { SearchBar } from "./components/ui/search-bar";
 import { Opportunity } from "@/types/entities";
 import api from "@/services/axios";
 import { Employer, Student } from "@/context/appContext";
+import { InfoCard } from "../components/ui/info-card";
+import { SearchBar } from "../components/ui/search-bar";
 
 export default function Home() {
   const [opportunities, setOpportunities] = useState<Opportunity[]>([]);
@@ -58,7 +58,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="flex items-center pt-23 flex flex-col  gap-8 p-8">
+    <div className="flex items-center pt-23 flex-col  gap-8 p-8">
       <div className="w-[80%] h-full flex flex-col gap-10">
         <SearchBar
           placeholder="Pesquisar alunos, empresas ou oportunidades"
