@@ -15,11 +15,11 @@ export function Header() {
             <Home className="h-4 w-4" />
             Home
           </NavLink>
-          <NavLink href="/vagas">
+          <NavLink href="/opportunities">
             <Briefcase className="h-4 w-4" />
             Vagas
           </NavLink>
-          <NavLink href="/perfil">
+          <NavLink href="/company/1"> {/* depende do user ativo /company/${id} ou /student/${id} */}
             <UserRound className="h-4 w-4" />
             Perfil
           </NavLink>
