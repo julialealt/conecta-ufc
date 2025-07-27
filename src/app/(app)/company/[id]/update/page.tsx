@@ -26,7 +26,8 @@ export default function CompanyProfileUpdatePage() {
   }
 
   const handleBack = () => {
-    router.push('/company-profile');
+    router.push('/company/[id]');
+    // Você pode substituir '[id]' pelo ID real da empresa, se necessário.
   }
 
   const handleResetPassword = () => {

@@ -30,7 +30,8 @@ export default function CompanyProfilePage() {
   }, []);
 
   const handleUpdateProfile = () => {
-    router.push("/company-profile/update");
+    router.push(`/company/[id]/update`);
+    // substituir `[id]` pelo ID do empregador
   };
 
   return (
