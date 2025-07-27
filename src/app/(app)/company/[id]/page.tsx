@@ -35,7 +35,7 @@ export default function CompanyProfilePage() {
   };
 
   return (
-    <div className="w-full self-stretch px-30 pt-12 pb-16 bg-zinc-950 inline-flex flex-col justify-start items-start gap-16">
+    <div className="w-full self-stretch px-30 pt-6 pb-16 bg-zinc-950 inline-flex flex-col justify-start items-start gap-16">
       <div className="self-stretch w-full inline-flex justify-start items-start gap-6">
         <Avatar
           imageUrl={""}

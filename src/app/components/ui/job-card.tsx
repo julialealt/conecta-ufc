@@ -71,12 +71,12 @@ const JobCard: React.FC<JobCardProps> = ({
         <h3 className="font-semibold text-base text-white truncate leading-[150%] pb-1 hover:text-violet transition-colors duration-300">
           {jobTitle}
         </h3>
-        <p className="text-xs font-medium text-zinc-300 line-clamp-2 leading-[150%]">
+        <p className="text-xs font-medium text-zinc-300 line-clamp-2 leading-[150%] break-words">
           {description}
         </p>
 
         <div className="flex items-center justify-between gap-x-4 gap-y-1 text-xs font-medium text-zinc-300 h-[32px] leading-[150%] mt-2.5">
-          <div className="pt-2 inline-flex justify-start items-start gap-5">
+          <div className="inline-flex justify-start items-start gap-5">
             <div className="flex items-center gap-1.5">
               <MapPin size={16} />
               <span>{location}</span>

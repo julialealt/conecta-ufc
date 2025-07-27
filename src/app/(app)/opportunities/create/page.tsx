@@ -15,7 +15,7 @@ export default function CreateOpportunityPage() {
   const [endDate, setEndDate] = useState('')
 
   return (
-    <div className="self-stretch w-full px-28 pt-12 pb-16 bg-zinc-950 inline-flex flex-col justify-start items-start gap-8">
+    <div className="self-stretch w-full px-30 pt-6 pb-16 bg-zinc-950 inline-flex flex-col justify-start items-start gap-8">
       <div className="w-full self-stretch inline-flex flex-col justify-start items-start gap-1">
         <div className="self-stretch justify-start text-violet-50 text-lg font-semibold leading-[150%]">Publicar oportunidade</div>
         <div className="self-stretch justify-start text-zinc-300 text-sm font-medium leading-[150%]">Conecte sua vaga aos talentos da universidade pública. Preencha as informações para alcançar os perfis certos.</div>

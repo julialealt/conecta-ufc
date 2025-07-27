@@ -14,7 +14,7 @@ export default function ResetPasswordPage() {
   }
 
   return (
-    <div className="self-stretch w-full px-28 pt-12 pb-16 bg-zinc-950 inline-flex flex-col justify-start items-start gap-8">
+    <div className="self-stretch w-full px-30 pt-6 pb-16 bg-zinc-950 inline-flex flex-col justify-start items-start gap-8">
       <div className="w-full inline-flex justify-start items-start gap-3">
         <div className="self-stretch pt-0.5 inline-flex flex-col justify-start items-start gap-1">
           <ChevronLeft className="w-5 h-5 text-zinc-400 cursor-pointer" onClick={handleBack} />

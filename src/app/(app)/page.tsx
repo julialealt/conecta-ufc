@@ -58,7 +58,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="flex items-center pt-23 flex-col  gap-8 p-8">
+    <div className="flex items-center pt-6 flex-col  gap-8 p-8">
       <div className="w-[80%] h-full flex flex-col gap-10">
         <SearchBar
           placeholder="Pesquisar alunos, empresas ou oportunidades"

@@ -18,7 +18,7 @@ const buttonVariants = cva(
         icon: "p-1 bg-transparent text-violet-500 hover:bg-violet-500/10 focus-visible:ring-2 focus-visible:ring-violet-400",
         filled_icon: "bg-violet text-white hover:bg-violet-600 rounded-xl",
         under_review: "border border-zinc-600 bg-black text-zinc-400 cursor-default",
-        rejected: "border border-red-600 text-red-600 cursor-default",
+        rejected: "border border-red-600 bg-black text-red-600 cursor-default",
         recruited: "border border-black text-black bg-gradient-to-r from-pink-400 to-violet-500 cursor-default",
       },
       size: {
