@@ -1,13 +1,13 @@
 "use client";
 import { useContext, useEffect, useState } from "react";
 import { Pen } from "lucide-react";
-import Avatar from "../../components/ui/avatar";
-import { Button } from "../../components/ui/button";
-import JobCard from "../../components/ui/job-card";
 import { AppContext, AppContextType, Employer } from "@/context/appContext";
 import { Opportunity } from "@/types/entities";
 import { useRouter } from "next/navigation";
 import api from "@/services/axios";
+import { Button } from "@/app/components/ui/button";
+import Avatar from "@/app/components/ui/avatar";
+import JobCard from "@/app/components/ui/job-card";
 
 export default function CompanyProfilePage() {
   const router = useRouter();

@@ -120,7 +120,7 @@ export default function StudentProfile() {
           </div>
           <div className="w-full justify-start text-zinc-300 text-base font-medium leading-[150%]">
             <div className=" flex justify-start">
-              <div className=" justify-start text-violet text-white font-semibold leading-[150%]">
+              <div className=" justify-start text-white font-semibold leading-[150%]">
                 Composição da música Lie
               </div>
               <Button
@@ -156,7 +156,7 @@ export default function StudentProfile() {
           <div className="w-full justify-start text-zinc-300 text-base font-medium leading-[150%]">
             <div className="w-full justify-start text-zinc-300 text-base font-medium leading-[150%]">
               <div className=" flex justify-start">
-                <div className=" justify-start text-violet text-white font-semibold leading-[150%]">
+                <div className=" justify-start text-white font-semibold leading-[150%]">
                   Movimentos de kpop e seu efeito no publico
                 </div>
                 <Button
@@ -198,7 +198,7 @@ export default function StudentProfile() {
             />
             <div className="ml-4">
               <div className="flex justify-start">
-                <div className=" justify-start text-violet text-white font-semibold leading-[150%]">
+                <div className=" justify-start text-white font-semibold leading-[150%]">
                   Movimentos de kpop e seu efeito no publico
                 </div>
                 <Button

@@ -9,7 +9,6 @@ export type ApplicantCardProps = {
   name: string;
   profileUrl: string;
   bio: string;
-  recommendationCount: number;
   onDecline: () => void;
   onRecruit: () => void;
   className?: string;

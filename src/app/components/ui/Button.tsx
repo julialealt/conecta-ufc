@@ -9,18 +9,17 @@ const buttonVariants = cva(
     variants: {
       variant: {
         primary: "bg-violet-500 text-violet-50 hover:bg-violet-600",
-        outline_white:
-          "border border-zinc-100 bg-transparent text-zinc-100 hover:bg-zinc-100/10",
-        outline_violet:
-          "border border-violet-500 bg-transparent text-violet-500 hover:bg-violet-500/10",
-        ghost:
-          "border border-zinc-600 bg-black text-zinc-400 hover:bg-violet-600 hover:text-violet-50",
+        outline_white: "border border-zinc-100 bg-transparent text-zinc-100 hover:bg-zinc-100/10",
+        outline_violet: "border border-violet-500 bg-transparent text-violet-500 hover:bg-violet-500/10",
+        ghost: "border border-zinc-600 bg-black text-zinc-400 hover:bg-violet-600 hover:text-violet-50",
         text: "bg-transparent text-violet-50 hover:bg-zinc-800 hover:text-zinc-50",
-        danger:
-          "border border-red-600 text-red-600 hover:bg-red-600 hover:text-zinc-50",
+        danger: "border border-red-600 text-red-600 hover:bg-red-600 hover:text-zinc-50",
         link: "bg-transparent text-violet-500 hover:text-violet-700",
         icon: "p-1 bg-transparent text-violet-500 hover:bg-violet-500/10 focus-visible:ring-2 focus-visible:ring-violet-400",
         filled_icon: "bg-violet text-white hover:bg-violet-600 rounded-xl",
+        under_review: "border border-zinc-600 bg-black text-zinc-400 cursor-default",
+        rejected: "border border-red-600 text-red-600 cursor-default",
+        recruited: "border border-black text-black bg-gradient-to-r from-pink-400 to-violet-500 cursor-default",
       },
       size: {
         default: "px-3 py-2 gap-2",
@@ -37,7 +36,7 @@ const buttonVariants = cva(
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
+  VariantProps<typeof buttonVariants> {
   Icon?: LucideIcon;
 }
 
