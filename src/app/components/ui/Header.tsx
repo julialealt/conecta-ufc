@@ -9,10 +9,10 @@ import { AppContext, AppContextType } from "@/context/appContext";
 
 export function Header() {
   const { state } = useContext(AppContext) as AppContextType;
-
+  console.log("STATE", state);
   const userType = state.userType;
   let profileLink = "";
-
+  console.log(userType);
   if (userType === "student") {
     profileLink = "/student-profile";
   } else {

@@ -7,6 +7,7 @@ import { InfoCard } from "../components/ui/info-card";
 import { SearchBar } from "../components/ui/search-bar";
 import { toast } from "sonner";
 import { Spinner } from "../components/ui/spinner";
+import { toast } from "sonner";
 
 export default function Home() {
   const [opportunities, setOpportunities] = useState<Opportunity[]>([]);

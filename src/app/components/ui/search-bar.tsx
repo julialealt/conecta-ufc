@@ -2,11 +2,11 @@ import * as React from "react";
 import { Search, Sparkles, UsersRound, X } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-import { Button } from "./Button";
 import { Popover, PopoverContent, PopoverTrigger } from "./popover";
 import Select from "./select";
 import Input from "./input";
 import { courseOptions } from "@/constants/courses";
+import { Button } from "./Button";
 
 export interface SearchBarProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
