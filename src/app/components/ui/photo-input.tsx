@@ -84,9 +84,12 @@ export const PhotoInput: React.FC<PhotoInputProps> = ({
           </div>
         )}
       </div>
-      <div className="w-full self-stretch px-1 pt-1 inline-flex justify-center items-center gap-1">
-        <div className="w-full self-stretch justify-start text-red-800 text-[10px] font-normal leading-[16px]">{errorMessage}</div>
-      </div>
+
+      {status === 'error' && errorMessage?.trim() && (
+        <div className="w-full self-stretch px-1 pt-1 inline-flex justify-center items-center gap-1">
+          <div className="w-full self-stretch justify-start text-red-800 text-[10px] font-normal leading-[16px]">{errorMessage}</div>
+        </div>
+      )}
     </div>
   );
 };

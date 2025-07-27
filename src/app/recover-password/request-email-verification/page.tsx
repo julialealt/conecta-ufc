@@ -38,6 +38,8 @@ export default function RequestEmailVerificationPage() {
               placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              status="default"
+              errorMessage=""
             />
 
             <div className="mt-2 flex items-center gap-x-3">

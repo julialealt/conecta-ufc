@@ -41,6 +41,8 @@ export default function RecoverPasswordPage() {
               isPassword={true}
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
+              status="default"
+              errorMessage=""
             />
 
             <Input
@@ -51,6 +53,8 @@ export default function RecoverPasswordPage() {
               isPassword={true}
               value={confirmNewPassword}
               onChange={(e) => setConfirmNewPassword(e.target.value)}
+              status="default"
+              errorMessage=""
             />
 
             <div className="mt-4 flex items-center gap-x-3">

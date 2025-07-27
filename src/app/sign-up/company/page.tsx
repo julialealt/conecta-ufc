@@ -91,6 +91,8 @@ export default function CompanySignUpPage() {
               placeholder="Nome"
               value={name}
               onChange={(e) => setName(e.target.value)}
+              status="default"
+              errorMessage=""
             />
 
             <TextAreaInput
@@ -100,6 +102,8 @@ export default function CompanySignUpPage() {
               placeholder="Descrição"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
+              status="default"
+              errorMessage=""
             />
 
             <Select
@@ -117,6 +121,8 @@ export default function CompanySignUpPage() {
                 { value: "outro", label: "Outro" },
               ]}
               onChange={(e) => setProfile(e.target.value)}
+              status="default"
+              errorMessage=""
             />
 
             <Input
@@ -126,6 +132,8 @@ export default function CompanySignUpPage() {
               placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              status="default"
+              errorMessage=""
             />
 
             <Input
@@ -136,6 +144,8 @@ export default function CompanySignUpPage() {
               isPassword={true}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              status="default"
+              errorMessage=""
             />
 
             <div className="mt-2 flex items-center gap-x-3">

@@ -84,8 +84,8 @@ export default function SignInPage() {
               placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              status="error"
-              errorMessage="Email inválido"
+              status="default"
+              errorMessage=""
             />
 
             <Input
@@ -95,6 +95,8 @@ export default function SignInPage() {
               isPassword={true}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              status="default"
+              errorMessage=""
             />
 
             <Button

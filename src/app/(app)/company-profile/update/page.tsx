@@ -55,6 +55,8 @@ export default function CompanyProfileUpdatePage() {
           variant="organization"
           onImageChange={handlePhotoChange}
           label="Perfil"
+          status="default"
+          errorMessage=""
         />
 
         <Input
@@ -64,6 +66,8 @@ export default function CompanyProfileUpdatePage() {
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          status="default"
+          errorMessage=""
         />
 
         <Input
@@ -73,6 +77,8 @@ export default function CompanyProfileUpdatePage() {
           placeholder="Nome"
           value={name}
           onChange={(e) => setName(e.target.value)}
+          status="default"
+          errorMessage=""
         />
 
         <Input
@@ -82,6 +88,8 @@ export default function CompanyProfileUpdatePage() {
           placeholder="Descrição"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
+          status="default"
+          errorMessage=""
         />
 
         <TextAreaInput
@@ -91,6 +99,8 @@ export default function CompanyProfileUpdatePage() {
           placeholder="Sobre"
           value={about}
           onChange={(e) => setAbout(e.target.value)}
+          status="default"
+          errorMessage=""
         />
 
         <Input
@@ -100,6 +110,8 @@ export default function CompanyProfileUpdatePage() {
           placeholder="Site"
           value={site}
           onChange={(e) => setSite(e.target.value)}
+          status="default"
+          errorMessage=""
         />
 
         <Input
@@ -109,6 +121,8 @@ export default function CompanyProfileUpdatePage() {
           placeholder="Sede"
           value={location}
           onChange={(e) => setLocation(e.target.value)}
+          status="default"
+          errorMessage=""
         />
 
         <Input
@@ -118,6 +132,8 @@ export default function CompanyProfileUpdatePage() {
           placeholder="Especializações"
           value={specialities}
           onChange={(e) => setSpecialities(e.target.value)}
+          status="default"
+          errorMessage=""
         />
 
         <Input
@@ -127,6 +143,8 @@ export default function CompanyProfileUpdatePage() {
           placeholder="Contato"
           value={contact}
           onChange={(e) => setContact(e.target.value)}
+          status="default"
+          errorMessage=""
         />
 
         <div className="self-stretch pt-6 inline-flex justify-between items-center">

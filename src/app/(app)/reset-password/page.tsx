@@ -35,6 +35,8 @@ export default function ResetPasswordPage() {
           isPassword={true}
           value={newPassword}
           onChange={(e) => setNewPassword(e.target.value)}
+          status="default"
+          errorMessage=""
         />
 
         <Input
@@ -45,6 +47,8 @@ export default function ResetPasswordPage() {
           isPassword={true}
           value={confirmNewPassword}
           onChange={(e) => setConfirmNewPassword(e.target.value)}
+          status="default"
+          errorMessage=""
         />
 
         <div className="self-stretch pt-6 inline-flex justify-end items-center gap-4">

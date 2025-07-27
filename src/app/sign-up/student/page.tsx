@@ -93,6 +93,8 @@ export default function StudentSignUpPage() {
               placeholder="Nome"
               value={name}
               onChange={(e) => setName(e.target.value)}
+              status="default"
+              errorMessage=""
             />
 
             <TextAreaInput
@@ -102,6 +104,8 @@ export default function StudentSignUpPage() {
               placeholder="Descrição"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
+              status="default"
+              errorMessage=""
             />
 
             <Select
@@ -112,8 +116,8 @@ export default function StudentSignUpPage() {
               value={course}
               options={courseOptions}
               onChange={(e) => setCourse(e.target.value)}
-              status="error"
-              errorMessage="Campo obrigatório"
+              status="default"
+              errorMessage=""
             />
 
             <Input
@@ -123,6 +127,8 @@ export default function StudentSignUpPage() {
               placeholder="Semestre de ingresso"
               value={entrySemester}
               onChange={(e) => setEntrySemester(e.target.value)}
+              status="default"
+              errorMessage=""
             />
 
             <Input
@@ -132,6 +138,8 @@ export default function StudentSignUpPage() {
               placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              status="default"
+              errorMessage=""
             />
 
             <Input
@@ -142,6 +150,8 @@ export default function StudentSignUpPage() {
               isPassword={true}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              status="default"
+              errorMessage=""
             />
 
             <div className="mt-2 flex items-center gap-x-3">

@@ -38,6 +38,8 @@ export default function RecoverPasswordVerifyEmailPage() {
               placeholder="Código"
               value={code}
               onChange={(e) => setCode(e.target.value)}
+              status="default"
+              errorMessage=""
             />
 
             <div className="mt-2 flex items-center gap-x-3">
