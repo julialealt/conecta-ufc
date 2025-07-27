@@ -22,7 +22,7 @@ const buttonVariants = cva(
         recruited: "border border-black text-black bg-gradient-to-r from-pink-400 to-violet-500 cursor-default",
       },
       size: {
-        default: "px-3 py-2 gap-2",
+        default: "px-4 py-2.5 gap-2",
         icon: "p-2.5",
         small: "p-2 text-xs font-normal",
       },

@@ -1,9 +1,11 @@
 import React from "react";
-import { MapPin, CircleDollarSign, Clock } from "lucide-react";
+import { MapPin, CircleDollarSign, Clock, Sparkles } from "lucide-react";
 import { Button } from "./button";
 import Avatar from "./avatar";
+import { useRouter } from "next/navigation";
 
 export type JobCardProps = {
+  opportunityId: string;
   logoUrl: string;
   companyName: string;
   jobTitle: string;
@@ -17,6 +19,7 @@ export type JobCardProps = {
 };
 
 const JobCard: React.FC<JobCardProps> = ({
+  opportunityId,
   logoUrl,
   companyName,
   jobTitle,
@@ -28,6 +31,21 @@ const JobCard: React.FC<JobCardProps> = ({
   onClickButton,
   className = "",
 }) => {
+  const router = useRouter();
+
+  const buttonTextToVariant = (text: string | undefined) => {
+    switch (text) {
+      case "Recrutado":
+        return "recruited";
+      case "Em análise":
+        return "under_review";
+      case "Recusado":
+        return "rejected";
+      default:
+        return "primary";
+    }
+  }
+
   return (
     <div
       className={`
@@ -35,6 +53,10 @@ const JobCard: React.FC<JobCardProps> = ({
         border border-zinc-800 hover:border-zinc-700 transition-all duration-300 cursor-pointer
         ${className}
       `}
+      onClick={(e) => {
+        e.stopPropagation();
+        router.push(`/opportunities/${opportunityId}`);
+      }}
     >
       <div className="flex-shrink-0">
         <Avatar
@@ -46,10 +68,10 @@ const JobCard: React.FC<JobCardProps> = ({
       </div>
 
       <div className="flex-1 min-w-0 gap-0.5">
-        <h3 className="font-semibold text-base text-white truncate leading-[150%] pb-1">
+        <h3 className="font-semibold text-base text-white truncate leading-[150%] pb-1 hover:text-violet transition-colors duration-300">
           {jobTitle}
         </h3>
-        <p className="text-xs font-medium text-zinc-300 line-clamp-3 leading-[150%]">
+        <p className="text-xs font-medium text-zinc-300 line-clamp-2 leading-[150%]">
           {description}
         </p>
 
@@ -69,18 +91,34 @@ const JobCard: React.FC<JobCardProps> = ({
             </div>
           </div>
 
-          {buttonText && (
-            <Button
-              variant="primary"
-              onClick={(e) => {
-                e.stopPropagation();
-                onClickButton?.();
-              }}
-              className="h-[32px] min-w-[112px] text-sm"
-            >
-              {buttonText}
-            </Button>
-          )}
+          <div className="inline-flex justify-end items-center gap-3">
+            {buttonText && (
+              <Button
+                variant={buttonTextToVariant(buttonText)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onClickButton?.();
+                }}
+                Icon={buttonText === "Recrutado" ? Sparkles : undefined}
+                className="h-[32px] min-w-[112px] text-sm"
+              >
+                {buttonText}
+              </Button>
+            )}
+
+            {buttonText === "Recrutado" && (
+              <Button
+                variant="primary"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onClickButton?.();
+                }}
+                className="h-[32px] min-w-[112px] text-sm"
+              >
+                Confirmar contratação
+              </Button>
+            )}
+          </div>
         </div>
       </div>
     </div>

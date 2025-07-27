@@ -7,7 +7,6 @@ export function Header() {
   return (
     <header className="fixed top-0 left-0 right-0 z-10 flex h-16 items-center border-b border-white/10 bg-[#111112] px-6">
       <div className="flex w-full items-center justify-between">
-
         <Image src={logo} alt="ConectaUFC" />
 
         <nav className="flex items-center gap-x-4">
@@ -24,6 +23,8 @@ export function Header() {
             Perfil
           </NavLink>
         </nav>
+
+        <div className="w-[133px]" />
       </div>
     </header>
   )
