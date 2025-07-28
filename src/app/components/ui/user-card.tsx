@@ -44,7 +44,7 @@ const UserCard: React.FC<UserCardProps> = ({
           rel="noopener noreferrer"
           className="group inline-flex w-fit items-center gap-x-1.5"
         >
-          <div className="font-semibold text-base text-white truncate leading-[150%]">{name}</div>
+          <div className="font-semibold text-base text-white truncate leading-[150%] hover:text-violet transition-colors duration-300">{name}</div>
         </a>
 
         <div className="text-sm font-medium text-hite line-clamp-1 leading-[150%]">{bio}</div>
