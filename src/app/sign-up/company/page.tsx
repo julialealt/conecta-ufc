@@ -9,7 +9,6 @@ import Input from "@/app/components/ui/input";
 import Select from "@/app/components/ui/select";
 import api from "@/services/axios";
 import { AppContext, AppContextType, Employer } from "@/context/appContext";
-import TextAreaInput from "@/app/components/ui/text-area-input";
 import { Spinner } from "@/app/components/ui/spinner";
 
 export default function CompanySignUpPage() {
@@ -95,11 +94,11 @@ export default function CompanySignUpPage() {
               errorMessage=""
             />
 
-            <TextAreaInput
+            <Input
               id="description"
               name="description"
               label="Descrição*"
-              placeholder="Descrição"
+              placeholder="Breve descrição sobre você ou sua empresa"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               status="default"
