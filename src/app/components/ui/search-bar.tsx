@@ -1,15 +1,30 @@
-// components/ui/SearchBar.tsx
 import * as React from "react";
-// Adicionamos o ícone 'X' para o nosso botão de limpar customizado
-import { Search, Sparkles, X } from "lucide-react";
+import { Search, Sparkles, UsersRound, X } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "./button";
+import { Popover, PopoverContent, PopoverTrigger } from "./popover";
+import Select from "./select";
+import Input from "./input";
+import { courseOptions } from "@/constants/courses";
 
 export interface SearchBarProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
-  onFilterClick: () => void;
-  isFilterActive?: boolean;
+  filterActive: 'opportunities' | 'students' | null;
+  regime: string;
+  setRegime: (value: string) => void;
+  salary: string;
+  setSalary: (value: string) => void;
+  workload: string;
+  setWorkload: (value: string) => void;
+  onFilterOpportunities: () => void;
+  onClearOpportunities: () => void;
+  course: string;
+  setCourse: (value: string) => void;
+  entrySemester: string;
+  setEntrySemester: (value: string) => void;
+  onFilterStudents: () => void;
+  onClearStudents: () => void;
   containerClassName?: string;
 }
 
@@ -17,8 +32,21 @@ const SearchBar = React.forwardRef<HTMLInputElement, SearchBarProps>(
   (
     {
       className,
-      onFilterClick,
-      isFilterActive = false,
+      filterActive,
+      regime = "",
+      setRegime = () => { },
+      salary = "",
+      setSalary = () => { },
+      workload = "",
+      setWorkload = () => { },
+      onFilterOpportunities,
+      onClearOpportunities,
+      course = "",
+      setCourse = () => { },
+      entrySemester = "",
+      setEntrySemester = () => { },
+      onFilterStudents,
+      onClearStudents,
       containerClassName,
       value,
       onChange,
@@ -26,6 +54,7 @@ const SearchBar = React.forwardRef<HTMLInputElement, SearchBarProps>(
     },
     ref
   ) => {
+
     const handleClear = (e: React.MouseEvent<HTMLButtonElement>) => {
       const syntheticEvent = {
         ...e,
@@ -44,16 +73,121 @@ const SearchBar = React.forwardRef<HTMLInputElement, SearchBarProps>(
 
     return (
       <div
-        className={cn("flex items-center gap-x-2 w-full", containerClassName)}
+        className={cn("flex items-center gap-3 w-full", containerClassName)}
       >
-        <Button
-          variant={isFilterActive ? "primary" : "ghost"}
-          onClick={onFilterClick}
-          className="whitespace-nowrap"
-        >
-          <Sparkles className="h-4 w-4 mr-2" />
-          Filtrar por vagas
-        </Button>
+        <div className="inline-flex justify-start items-center gap-2">
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button
+                variant={filterActive === null ? "outline_white" : filterActive === 'opportunities' ? "primary" : "disabled"}
+                className="whitespace-nowrap h-10"
+              >
+                <Sparkles className="h-4 w-4 mr-2" />
+                Filtrar por vagas
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent side="bottom" align="start" sideOffset={10}>
+              <>
+                <div className="self-stretch flex flex-col justify-start items-start gap-4">
+                  <div className="self-stretch inline-flex justify-start items-center gap-2">
+                    <div className="flex-1 min-w-16 justify-start text-violet-50 text-sm font-semibold font-['Inter'] leading-snug">Filtrar vagas</div>
+                  </div>
+                  <Select
+                    id="regime"
+                    name="regime"
+                    label="Regime"
+                    placeholder="Selecione o regime da vaga"
+                    value={regime}
+                    options={[
+                      { value: 'remote', label: 'Remoto' },
+                      { value: 'hybrid', label: 'Híbrido' },
+                      { value: 'in-person', label: 'Presencial' },
+                    ]}
+                    onChange={(e) => setRegime(e.target.value)}
+                    status="default"
+                    errorMessage=""
+                  />
+
+                  <Input
+                    id="salary"
+                    name="salary"
+                    label="Salário ou bolsa"
+                    placeholder="Salário ou bolsa"
+                    value={salary}
+                    onChange={(e) => setSalary(e.target.value)}
+                    status="default"
+                    errorMessage=""
+                  />
+
+                  <Input
+                    id="workload"
+                    name="workload"
+                    label="Carga horária"
+                    placeholder="Carga horária"
+                    value={workload}
+                    onChange={(e) => setWorkload(e.target.value)}
+                    status="default"
+                    errorMessage=""
+                  />
+                </div>
+
+                <div className="w-full self-stretch pt-4 inline-flex justify-between items-center">
+                  <Button variant="outline_white" onClick={onClearOpportunities}>Limpar</Button>
+                  <Button variant="primary" onClick={onFilterOpportunities}>Aplicar</Button>
+                </div>
+              </>
+            </PopoverContent>
+          </Popover>
+
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button
+                variant={filterActive === null ? "outline_white" : filterActive === 'students' ? "primary" : "disabled"}
+                className="whitespace-nowrap h-10"
+              >
+                <UsersRound className="h-4 w-4 mr-2" />
+                Filtrar por alunos
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent side="bottom" align="start" sideOffset={10}>
+              <>
+                <div className="self-stretch flex flex-col justify-start items-start gap-4">
+                  <div className="self-stretch inline-flex justify-start items-center gap-2">
+                    <div className="flex-1 min-w-16 justify-start text-violet-50 text-sm font-semibold font-['Inter'] leading-snug">Filtrar alunos</div>
+                  </div>
+                  <Select
+                    id="course"
+                    name="course"
+                    label="Curso"
+                    placeholder="Curso"
+                    value={course}
+                    options={courseOptions}
+                    onChange={(e) => setCourse(e.target.value)}
+                    status="default"
+                    errorMessage=""
+                  />
+
+                  <Input
+                    id="entrySemester"
+                    name="entrySemester"
+                    label="Semestre de ingresso"
+                    placeholder="Semestre de ingresso"
+                    value={entrySemester}
+                    onChange={(e) => setEntrySemester(e.target.value)}
+                    status="default"
+                    errorMessage=""
+                  />
+
+                </div>
+
+                <div className="w-full self-stretch pt-4 inline-flex justify-between items-center">
+                  <Button variant="outline_white" onClick={onClearStudents}>Limpar</Button>
+                  <Button variant="primary" onClick={onFilterStudents}>Aplicar</Button>
+                </div>
+              </>
+            </PopoverContent>
+          </Popover>
+        </div>
 
         <div className="relative w-full">
           <Search className="absolute left-3 top-1/2 h-4 w-5 -translate-y-1/2 text-zinc-400" />

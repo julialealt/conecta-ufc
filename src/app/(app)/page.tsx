@@ -15,6 +15,8 @@ export default function Home() {
   const [fetchingStudents, setFetchingStudents] = useState<boolean>(true);
   const [fetchingEmployers, setFetchingEmployers] = useState<boolean>(true);
 
+  const [searchQuery, setSearchQuery] = useState<string>("");
+
   useEffect(() => {
     const fetchOpportunities = async () => {
       const response = await api.get("/opportunities");
@@ -58,12 +60,28 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="w-full h-screen bg-zinc-950 flex flex-col items-center pt-6 pb-16 overflow-hidden">
+    <main className="w-full bg-zinc-950 flex flex-col items-center pt-6 pb-16 overflow-hidden">
       <div className="w-full max-w-[1200px] px-4 md:px-8 flex flex-col items-center gap-12">
         <SearchBar
           placeholder="Pesquisar alunos, empresas ou oportunidades"
-          onFilterClick={() => { }}
           containerClassName="w-full self-stretch"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          filterActive={null}
+          regime=""
+          setRegime={() => { }}
+          salary=""
+          setSalary={() => { }}
+          workload=""
+          setWorkload={() => { }}
+          onFilterOpportunities={() => { }}
+          onClearOpportunities={() => { }}
+          course=""
+          setCourse={() => { }}
+          entrySemester=""
+          setEntrySemester={() => { }}
+          onFilterStudents={() => { }}
+          onClearStudents={() => { }}
         />
 
         <div className="self-stretch inline-flex justify-start items-start gap-12">

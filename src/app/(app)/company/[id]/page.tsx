@@ -127,6 +127,8 @@ export default function CompanyProfilePage() {
             {employerOpportunities.length > 0
               ? employerOpportunities.map((opportunity) => (
                 <JobCard
+                  key={opportunity._id}
+                  opportunityId={opportunity._id}
                   logoUrl={employerData.profileImage || ""}
                   companyName={employerData.name}
                   jobTitle={opportunity.title}
@@ -135,7 +137,6 @@ export default function CompanyProfilePage() {
                   salary={opportunity.salary.toString()}
                   workload={`${opportunity.weeklyHours}h semanais`}
                   buttonText="Ver candidatos"
-                  key={opportunity._id}
                 />
               ))
               : "Não há oportunidades cadastradas"}
