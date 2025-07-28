@@ -42,8 +42,8 @@ export const InfoCard: React.FC<InfoCardProps> = ({
       </div>
 
       <div className="flex flex-col gap-0.5">
-        <span className="font-semibold text-sm text-zinc-50">{title}</span>
-        <span className="text-xs text-zinc-300">{subtitle}</span>
+        <span className="font-semibold text-sm text-zinc-50 line-clamp-1 leading-[150%]">{title}</span>
+        <span className="text-xs text-zinc-300 line-clamp-1 leading-[150%]">{subtitle}</span>
       </div>
     </Link>
   );
