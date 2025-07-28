@@ -9,7 +9,6 @@ import Input from "@/app/components/ui/input";
 import Select from "@/app/components/ui/select";
 import { courseOptions } from "@/constants/courses";
 import api from "@/services/axios";
-import TextAreaInput from "@/app/components/ui/text-area-input";
 import { AppContext, AppContextType, Student } from "@/context/appContext";
 import { Spinner } from "@/app/components/ui/spinner";
 
@@ -100,11 +99,11 @@ export default function StudentSignUpPage() {
               errorMessage=""
             />
 
-            <TextAreaInput
+            <Input
               id="description"
               name="description"
               label="Descrição*"
-              placeholder="Descrição"
+              placeholder="Cargo atual, área de atuação, principais habilidades..."
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               status="default"
