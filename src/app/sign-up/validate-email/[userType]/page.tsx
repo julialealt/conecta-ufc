@@ -8,8 +8,8 @@ import Input from "@/app/components/ui/input";
 import { Button } from "@/app/components/ui/Button";
 import api, { testApi } from "@/services/axios";
 import { useParams } from "next/navigation";
-import LoadingStatus from "@/app/components/loadingStatus/LoadingStatus";
 import { AppContext, AppContextType } from "@/context/appContext";
+import { Spinner } from "@/app/components/ui/spinner";
 
 export default function SignInPage() {
   const router = useRouter();
@@ -62,7 +62,7 @@ export default function SignInPage() {
 
   return (
     <div className="relative flex min-h-screen flex-col items-center justify-center bg-zinc-950 p-4">
-      {isLoading && <LoadingStatus />}
+      {isLoading && <Spinner />}
       <div className="w-[390px] inline-flex flex-col justify-start items-start gap-8">
         <div className="self-stretch flex flex-col justify-start items-center gap-3">
           <Image src={logo} alt="Logo ConectaUFC" />

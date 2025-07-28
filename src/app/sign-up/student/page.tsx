@@ -10,8 +10,8 @@ import Select from "@/app/components/ui/select";
 import { courseOptions } from "@/constants/courses";
 import api from "@/services/axios";
 import TextAreaInput from "@/app/components/ui/text-area-input";
-import LoadingStatus from "@/app/components/loadingStatus/LoadingStatus";
 import { AppContext, AppContextType, Student } from "@/context/appContext";
+import { Spinner } from "@/app/components/ui/spinner";
 
 export default function StudentSignUpPage() {
   const router = useRouter();
@@ -66,7 +66,7 @@ export default function StudentSignUpPage() {
 
   return (
     <div className="relative flex min-h-screen flex-col items-center justify-center bg-zinc-950 p-8">
-      {isLoading && <LoadingStatus />}
+      {isLoading && <Spinner />}
       <div className="w-[460px] inline-flex flex-col justify-start items-start gap-8">
         <div className="self-stretch flex flex-col justify-start items-center gap-3">
           <Image src={logo} alt="Logo ConectaUFC" />
