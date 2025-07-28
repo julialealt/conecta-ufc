@@ -6,12 +6,12 @@ import { Button } from "../components/ui/button";
 import Input from "../components/ui/input";
 import logo from "../../../public/assets/logo_lg.svg";
 import { useRouter } from "next/navigation";
-import LoadingStatus from "../components/loadingStatus/LoadingStatus";
 import api from "@/services/axios";
 import { AppContext, AppContextType } from "@/context/appContext";
 import { jwtDecode } from "jwt-decode";
 
 import { toast } from "sonner";
+import { Spinner } from "../components/ui/spinner";
 
 export default function SignInPage() {
   const router = useRouter();
@@ -56,7 +56,7 @@ export default function SignInPage() {
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-zinc-950 p-4">
-      {isLoading && <LoadingStatus />}
+      {isLoading && <Spinner />}
       <div className="w-[390px] inline-flex flex-col justify-start items-start gap-8">
         <div className="self-stretch flex flex-col justify-start items-center gap-3">
           <Image src={logo} alt="Logo ConectaUFC" />
