@@ -8,7 +8,10 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "ConectaUFC",
-  description: "Plataforma de conexão da UFC",
+  description: "Plataforma para conectar alunos da UFC a oportunidades de trabalho e pesquisa.",
+  icons: {
+    icon: "/icon.svg",
+  },
 };
 
 export default function RootLayout({
