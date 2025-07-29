@@ -12,13 +12,11 @@ import { toast } from "sonner";
 import { useRouter } from "next/router";
 
 export default function OpportuniyPage() {
-  /* const router = useRouter(); */
+  /*   const router = useRouter();*/
   const { state } = useContext(AppContext) as AppContextType;
   const userType = state.userType;
   const userId = state.userData.user?._id;
 
-  const loggedUserId = "12345";
-  const opportunityCompanyId = "12345";
   const params = useParams<{ id: string }>();
   const [opportunityData, setOpportunityData] = useState<Opportunity>();
   const [studentAldearyApplied, setStudentAldearyApplied] = useState(true);
@@ -61,6 +59,10 @@ export default function OpportuniyPage() {
     // deve voltar para a página anterior
   };
 
+  /* const handleSeeApplicants = () => {
+    route
+  }
+ */
   return (
     <div className="self-stretch w-full px-30 pt-6 pb-16 bg-zinc-950 inline-flex flex-col justify-start items-start gap-8">
       <div className="w-full inline-flex justify-start items-start gap-3">

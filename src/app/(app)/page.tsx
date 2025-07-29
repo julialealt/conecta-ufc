@@ -87,7 +87,7 @@ export default function Home() {
                     subtitle={opportunity.employer.name}
                     imageUrl=""
                     student={false}
-                    href={`/opportunity/${opportunity._id}`}
+                    href={`/opportunities/${opportunity._id}`}
                     className="m-[10px] w-90"
                   />
                 ))
