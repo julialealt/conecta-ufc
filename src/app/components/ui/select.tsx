@@ -10,7 +10,7 @@ export type SelectOption = {
 export type SelectProps = {
   id: string;
   name: string;
-  label: string;
+  label?: string;
   value: string | number;
   onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   options: SelectOption[];
@@ -42,10 +42,10 @@ const Select: React.FC<SelectProps> = ({
 
   return (
     <div className={`flex flex-col w-full ${className}`}>
-      <label htmlFor={id} className="mb-1.5 block text-xs font-normal text-zinc-400">
+      {label && (<label htmlFor={id} className="mb-1.5 block text-xs font-normal text-zinc-400">
         {label}
         {required && <span className="text-red-600 ml-0.5">*</span>}
-      </label>
+      </label>)}
 
       <div className="relative">
         <select
