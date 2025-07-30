@@ -48,9 +48,11 @@ export default function CompanyProfilePage() {
           <div className="justify-start text-white text-xl font-semibold leading-[150%]">
             {employerData.name}
           </div>
-          {/* <div className="self-stretch justify-start text-zinc-300 text-sm font-medium leading-[150%]">
-            
-          </div> */}
+
+          <div className="self-stretch justify-start text-zinc-300 text-sm font-medium leading-[150%]">
+            Descrição vai aqui
+          </div>
+
           {employerData.hiringRate !== undefined && (
             <div className="justify-start text-violet-500 text-xs font-medium leading-[150%]">
               {`${employerData.hiringRate}% de taxa de contratação no ConectaUFC`}
