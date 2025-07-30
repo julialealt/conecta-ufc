@@ -5,7 +5,7 @@ import Image from "next/image";
 import logo from "../../../../public/assets/logo_lg.svg";
 import { useRouter } from "next/navigation";
 import Input from "@/app/components/ui/input";
-import { Button } from "@/app/components/ui/Button";
+import { Button } from "@/app/components/ui/button";
 
 export default function RecoverPasswordVerifyEmailPage() {
   const router = useRouter();
@@ -13,8 +13,8 @@ export default function RecoverPasswordVerifyEmailPage() {
   const [code, setCode] = useState("");
 
   const handleVerify = () => {
-    alert(`Código: ${code}`);
-  };
+    console.log('Verifying code:', code);
+  }
 
   const handleBack = () => {
     router.push("/recover-password/request-email-verification");
@@ -70,7 +70,7 @@ export default function RecoverPasswordVerifyEmailPage() {
             <Button
               type="button"
               variant="link"
-              onClick={() => {}}
+              onClick={() => { }}
               size="small"
             >
               Reenviar código

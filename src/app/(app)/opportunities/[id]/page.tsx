@@ -1,18 +1,17 @@
 "use client";
 
-import { Button } from "@/app/components/ui/Button";
+import { Button } from "@/app/components/ui/button";
 import UserCard from "@/app/components/ui/user-card";
 import { AppContext, AppContextType, Employer } from "@/context/appContext";
-import { testApi } from "@/services/axios";
+import { localApi } from "@/services/axios";
 import { Opportunity } from "@/types/entities";
 import { ChevronLeft, Sparkles } from "lucide-react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 import { toast } from "sonner";
-import { useRouter } from "next/router";
 
 export default function OpportuniyPage() {
-  /*   const router = useRouter();*/
+  const router = useRouter();
   const { state } = useContext(AppContext) as AppContextType;
   const userType = state.userType;
   const userId = state.userData.user?._id;
@@ -26,7 +25,7 @@ export default function OpportuniyPage() {
   useEffect(() => {
     const fetchOpportunity = async () => {
       try {
-        const response = await testApi.get(`/opportunities/${params.id}`);
+        const response = await localApi.get(`/opportunities/${params.id}`);
         console.log(response.data);
         if (userType === "student") {
           const hasSudentAlreadyApplied =
@@ -45,6 +44,7 @@ export default function OpportuniyPage() {
         }
         setOpportunityData(response.data);
       } catch (error) {
+        console.error("Error fetching opportunity:", error);
         toast.error("Falha ao carregar oportunidade");
       }
     };
@@ -54,7 +54,7 @@ export default function OpportuniyPage() {
 
   const handleApplyToOpportunity = async () => {
     try {
-      const response = await testApi.post(`/opportunities/${params.id}/apply`, {
+      const response = await localApi.post(`/opportunities/${params.id}/apply`, {
         studentId: userId,
       });
       if (response.status === 200) {
@@ -68,12 +68,12 @@ export default function OpportuniyPage() {
   };
 
   const handleBack = () => {
-    // deve voltar para a página anterior
+    router.back();
   };
 
   const handleConfirmContract = async () => {
     try {
-      const response = await testApi.post("/contracts/confirm/", {
+      const response = await localApi.post("/contracts/confirm/", {
         opportunityId: params.id,
         contractId: contractId,
       });
@@ -116,9 +116,12 @@ export default function OpportuniyPage() {
         {userType === "student" && (
           <div className="self-stretch inline-flex justify-start items-start gap-2">
             {wasStudentRecruited ? (
-              <Button variant="primary" onClick={handleConfirmContract}>
-                Confirmar contratação
-              </Button>
+              <div className="inline-flex justify-end items-center gap-4">
+                <Button variant="recruited" Icon={Sparkles}>Recrutado</Button>
+                <Button variant="primary" onClick={handleConfirmContract}>
+                  Confirmar contratação
+                </Button>
+              </div>
             ) : !studentAldearyApplied ? (
               <Button variant="primary" onClick={handleApplyToOpportunity}>
                 Aplicar

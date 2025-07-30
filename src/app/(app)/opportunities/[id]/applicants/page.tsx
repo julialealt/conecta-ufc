@@ -9,7 +9,7 @@ import {
   TooltipTrigger,
 } from "@/app/components/ui/tooltip";
 import { AppContext, AppContextType, Student } from "@/context/appContext";
-import { testApi } from "@/services/axios";
+import { localApi } from "@/services/axios";
 import { ChevronLeft, CircleAlert } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
@@ -26,7 +26,7 @@ export default function OpportunityApplicantsPage() {
   useEffect(() => {
     const fetchApplicants = async () => {
       try {
-        const opportunityResponse = await testApi.get(
+        const opportunityResponse = await localApi.get(
           `/opportunities/${params.id}`
         );
         if (opportunityResponse.status === 200) {
@@ -35,7 +35,7 @@ export default function OpportunityApplicantsPage() {
           const applicantsObjects: Student[] = [];
           for (const id of applicantsIds) {
             console.log("SEARCH FOR ID", id);
-            const studentReponse = await testApi.get(`/students/${id}/profile`);
+            const studentReponse = await localApi.get(`/students/${id}/profile`);
             if (studentReponse.status === 200) {
               console.log("STUDE", studentReponse);
               applicantsObjects.push(studentReponse.data);
@@ -60,7 +60,7 @@ export default function OpportunityApplicantsPage() {
 
   const handleRecruit = async (userId: string) => {
     try {
-      const response = await testApi.post("/contracts/request/", {
+      const response = await localApi.post("/contracts/request/", {
         userId,
         employerId: employerId,
         opportunityId: params.id,
@@ -148,6 +148,7 @@ export default function OpportunityApplicantsPage() {
           {listOfApplicants.length > 0 ? (
             listOfApplicants.map((applicant) => (
               <ApplicantCard
+                key={applicant._id}
                 avatarUrl={""}
                 name={applicant.name}
                 profileUrl={""}
@@ -155,7 +156,7 @@ export default function OpportunityApplicantsPage() {
                 course={applicant.course}
                 enterSemester={applicant.entrySemester}
                 variant="default"
-                onDecline={() => {}}
+                onDecline={() => { }}
                 onRecruit={() => {
                   handleRecruit(applicant._id);
                 }}

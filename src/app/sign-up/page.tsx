@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Button } from "../components/ui/Button";
+import { Button } from "../components/ui/button";
 import logo from "../../../public/assets/logo_lg.svg";
 import { useRouter } from "next/navigation";
 
@@ -47,7 +47,7 @@ export default function SignUpPage() {
               onClick={handleCompany}
               className="w-full"
             >
-              Sou professor
+              Sou professor ou empresa
             </Button>
           </div>
         </div>

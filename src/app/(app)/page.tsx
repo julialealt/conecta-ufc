@@ -1,11 +1,10 @@
 "use client";
 import { useEffect, useState } from "react";
 import { Opportunity } from "@/types/entities";
-import api, { testApi } from "@/services/axios";
+import { localApi } from "@/services/axios";
 import { Employer, Student } from "@/context/appContext";
 import { InfoCard } from "../components/ui/info-card";
 import { SearchBar } from "../components/ui/search-bar";
-import { toast } from "sonner";
 import { Spinner } from "../components/ui/spinner";
 import { toast } from "sonner";
 
@@ -13,8 +12,7 @@ export default function Home() {
   const [opportunities, setOpportunities] = useState<Opportunity[]>([]);
   const [students, setStudents] = useState<Student[]>([]);
   const [employers, setEmployers] = useState<Employer[]>([]);
-  const [fetchingOpportunities, setFetchingOpportunities] =
-    useState<boolean>(true);
+  const [fetchingOpportunities, setFetchingOpportunities] = useState<boolean>(true);
   const [fetchingStudents, setFetchingStudents] = useState<boolean>(true);
   const [fetchingEmployers, setFetchingEmployers] = useState<boolean>(true);
 
@@ -22,42 +20,38 @@ export default function Home() {
 
   useEffect(() => {
     const fetchOpportunities = async () => {
-      try {
-        const response = await testApi.get("/opportunities");
-        const listOfAllOpportunities: Opportunity[] = response.data;
-        setOpportunities(listOfAllOpportunities);
-      } catch (error) {
-        console.log(error);
-        toast.error("Algo deu errado ao tentar carregas as oportunidades");
-      } finally {
-        setFetchingOpportunities(false);
-      }
+      const response = await localApi.get("/opportunities");
+      const listOfAllOpportunities: Opportunity[] = response.data;
+      /* listOfAllOpportunities.forEach((opportunity) => {
+        const employerId = opportunity.employer;
+        console.log(employerId);
+        const employerName = employers.find(
+          (employer) => employer._id === employerId
+        )?.name;
+        console.log("AAAAAAAAAA", employerName);
+        if (employerName) {
+          opportunity.employer = employerName;
+        }
+      }); */
+      setOpportunities(listOfAllOpportunities);
+      console.log(listOfAllOpportunities);
+      setFetchingOpportunities(false);
     };
 
     const fetchStudents = async () => {
-      try {
-        const response = await testApi.get("/students/search");
-        const listOfStudents: Student[] = response.data;
-        setStudents(listOfStudents);
-      } catch (error) {
-        console.log(error);
-        toast.error("Algo deu errado ao tentar carregas os estudantes");
-      } finally {
-        setFetchingStudents(false);
-      }
+      const response = await localApi.get("/students/search");
+      const listOfStudents: Student[] = response.data;
+      console.log(listOfStudents);
+      setStudents(listOfStudents);
+      setFetchingStudents(false);
     };
 
     const fetchEmployers = async () => {
-      try {
-        const response = await testApi.get("/employers");
-        const listOfEmployers: Employer[] = response.data;
-        setEmployers(listOfEmployers);
-      } catch (error) {
-        console.log(error);
-        toast.error("Algo deu errado ao tentar carregas os contratantes");
-      } finally {
-        setFetchingEmployers(false);
-      }
+      const response = await localApi.get("/employers");
+      const listOfEmployers: Employer[] = response.data;
+      console.log(listOfEmployers);
+      setEmployers(listOfEmployers);
+      setFetchingEmployers(false);
     };
 
     fetchEmployers();
@@ -75,60 +69,43 @@ export default function Home() {
           onChange={(e) => setSearchQuery(e.target.value)}
           filterActive={null}
           regime=""
-          setRegime={() => {}}
+          setRegime={() => { }}
           salary=""
-          setSalary={() => {}}
+          setSalary={() => { }}
           workload=""
-          setWorkload={() => {}}
-          onFilterOpportunities={() => {}}
-          onClearOpportunities={() => {}}
+          setWorkload={() => { }}
+          onFilterOpportunities={() => { }}
+          onClearOpportunities={() => { }}
           course=""
-          setCourse={() => {}}
+          setCourse={() => { }}
           entrySemester=""
-          setEntrySemester={() => {}}
-          onFilterStudents={() => {}}
-          onClearStudents={() => {}}
+          setEntrySemester={() => { }}
+          onFilterStudents={() => { }}
+          onClearStudents={() => { }}
         />
 
         <div className="self-stretch inline-flex justify-start items-start gap-12">
           <div className="flex-1 self-stretch inline-flex flex-col justify-start items-start gap-8">
             <div className="self-stretch inline-flex flex-col justify-center items-start gap-1">
-              <div className="self-stretch justify-start text-violet-50 text-xl font-semibold leading-[150%]">
-                Vagas recentes
-              </div>
-              <div className="self-stretch justify-start text-zinc-300 text-sm font-medium leading-[150%]">
-                As últimas oportunidades publicadas na plataforma
-              </div>
+              <div className="self-stretch justify-start text-violet-50 text-xl font-semibold leading-[150%]">Vagas recentes</div>
+              <div className="self-stretch justify-start text-zinc-300 text-sm font-medium leading-[150%]">As últimas oportunidades publicadas na plataforma</div>
             </div>
-            <div className="mt-5 flex flex-wrap w-full">
-              {!fetchingOpportunities && opportunities.length > 0 ? (
-                opportunities.map((opportunity) => (
+
+            <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-5">
+              {fetchingOpportunities ? (
+                <Spinner />
+              ) : (
+                opportunities.slice(0, 12).map((opportunity) => (
                   <InfoCard
                     key={opportunity._id}
                     title={opportunity.title}
                     subtitle={opportunity.employer.name}
-                    imageUrl=""
+                    imageUrl={opportunity.employer.profileImage || ""}
                     student={false}
-                    href={`/opportunity/${opportunity._id}`}
-                    className="m-[10px] w-90"
+                    href={`/opportunities/${opportunity._id}`}
+                    className="w-full"
                   />
                 ))
-              ) : fetchingOpportunities ? (
-                <Spinner />
-              ) : (
-                opportunities
-                  .slice(0, 12)
-                  .map((opportunity) => (
-                    <InfoCard
-                      key={opportunity._id}
-                      title={opportunity.title}
-                      subtitle={opportunity.employer.name}
-                      imageUrl={opportunity.employer.profileImage || ""}
-                      student={false}
-                      href={`/opportunities/${opportunity._id}`}
-                      className="w-full"
-                    />
-                  ))
               )}
             </div>
           </div>
@@ -136,66 +113,55 @@ export default function Home() {
           <div className="w-[400px] inline-flex flex-col justify-start items-start gap-6">
             <div className="self-stretch inline-flex flex-col justify-start items-start gap-8">
               <div className="self-stretch inline-flex flex-col justify-center items-start gap-1">
-                <div className="self-stretch justify-start text-violet-50 text-xl font-semibold leading-[150%]">
-                  Alunos em destaque
-                </div>
-                <div className="self-stretch justify-start text-zinc-300 text-sm font-medium leading-[150%]">
-                  Os talentos que se destacam na nossa comunidade
-                </div>
+                <div className="self-stretch justify-start text-violet-50 text-xl font-semibold leading-[150%]">Alunos em destaque</div>
+                <div className="self-stretch justify-start text-zinc-300 text-sm font-medium leading-[150%]">Os talentos que se destacam na nossa comunidade</div>
               </div>
 
               <div className="w-full self-stretch inline-flex flex-col justify-start items-center gap-5">
                 {fetchingStudents ? (
                   <Spinner />
                 ) : (
-                  students
-                    .slice(0, 3)
-                    .map((student) => (
-                      <InfoCard
-                        key={student._id}
-                        title={student.name}
-                        subtitle={student.course}
-                        imageUrl={student.profileImage || ""}
-                        student={true}
-                        href={`/students/${student._id}`}
-                        className="w-full"
-                      />
-                    ))
+                  students.slice(0, 3).map((student) => (
+                    <InfoCard
+                      key={student._id}
+                      title={student.name}
+                      subtitle={student.course}
+                      imageUrl={student.profileImage || ""}
+                      student={true}
+                      href={`/students/${student._id}`}
+                      className="w-full"
+                    />
+                  ))
                 )}
               </div>
             </div>
 
             <div className="self-stretch inline-flex flex-col justify-start items-start gap-8">
               <div className="self-stretch inline-flex flex-col justify-center items-start gap-1">
-                <div className="self-stretch justify-start text-violet-50 text-xl font-semibold leading-[150%]">
-                  Contratantes em alta
-                </div>
-                <div className="self-stretch justify-start text-zinc-300 text-sm font-medium leading-[150%]">
-                  As maiores taxas de contratação no ConectaUFC
-                </div>
+                <div className="self-stretch justify-start text-violet-50 text-xl font-semibold leading-[150%]">Contratantes em alta</div>
+                <div className="self-stretch justify-start text-zinc-300 text-sm font-medium leading-[150%]">As maiores taxas de contratação no ConectaUFC</div>
               </div>
 
               <div className="w-full self-stretch inline-flex flex-col justify-start items-center gap-5">
                 {fetchingEmployers ? (
                   <Spinner />
                 ) : (
-                  employers
-                    .slice(0, 2)
-                    .map((employer) => (
-                      <InfoCard
-                        key={employer._id}
-                        title={employer.name}
-                        subtitle={employer.name}
-                        imageUrl={employer.profileImage || ""}
-                        student={false}
-                        href={`/employers/${employer._id}`}
-                        className="w-full"
-                      />
-                    ))
+                  employers.slice(0, 2).map((employer) => (
+                    <InfoCard
+                      key={employer._id}
+                      title={employer.name}
+                      subtitle={employer.name}
+                      imageUrl={employer.profileImage || ""}
+                      student={false}
+                      href={`/employers/${employer._id}`}
+                      className="w-full"
+                    />
+                  ))
                 )}
               </div>
             </div>
           </div>
+
         </div>
       </div>
     </main>

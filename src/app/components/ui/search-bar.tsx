@@ -2,15 +2,15 @@ import * as React from "react";
 import { Search, Sparkles, UsersRound, X } from "lucide-react";
 
 import { cn } from "@/lib/utils";
+import { Button } from "./button";
 import { Popover, PopoverContent, PopoverTrigger } from "./popover";
 import Select from "./select";
 import Input from "./input";
 import { courseOptions } from "@/constants/courses";
-import { Button } from "./Button";
 
 export interface SearchBarProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
-  filterActive: "opportunities" | "students" | null;
+  filterActive: 'opportunities' | 'students' | null;
   regime: string;
   setRegime: (value: string) => void;
   salary: string;
@@ -34,17 +34,17 @@ const SearchBar = React.forwardRef<HTMLInputElement, SearchBarProps>(
       className,
       filterActive,
       regime = "",
-      setRegime = () => {},
+      setRegime = () => { },
       salary = "",
-      setSalary = () => {},
+      setSalary = () => { },
       workload = "",
-      setWorkload = () => {},
+      setWorkload = () => { },
       onFilterOpportunities,
       onClearOpportunities,
       course = "",
-      setCourse = () => {},
+      setCourse = () => { },
       entrySemester = "",
-      setEntrySemester = () => {},
+      setEntrySemester = () => { },
       onFilterStudents,
       onClearStudents,
       containerClassName,
@@ -54,6 +54,7 @@ const SearchBar = React.forwardRef<HTMLInputElement, SearchBarProps>(
     },
     ref
   ) => {
+
     const handleClear = (e: React.MouseEvent<HTMLButtonElement>) => {
       const syntheticEvent = {
         ...e,
@@ -71,18 +72,14 @@ const SearchBar = React.forwardRef<HTMLInputElement, SearchBarProps>(
     };
 
     return (
-      <div className={cn("flex items-center gap-3 w-full", containerClassName)}>
+      <div
+        className={cn("flex items-center gap-3 w-full", containerClassName)}
+      >
         <div className="inline-flex justify-start items-center gap-2">
           <Popover>
             <PopoverTrigger asChild>
               <Button
-                variant={
-                  filterActive === null
-                    ? "outline_white"
-                    : filterActive === "opportunities"
-                    ? "primary"
-                    : "disabled"
-                }
+                variant={filterActive === null ? "outline_white" : filterActive === 'opportunities' ? "primary" : "disabled"}
                 className="whitespace-nowrap h-10"
               >
                 <Sparkles className="h-4 w-4 mr-2" />
@@ -93,9 +90,7 @@ const SearchBar = React.forwardRef<HTMLInputElement, SearchBarProps>(
               <>
                 <div className="self-stretch flex flex-col justify-start items-start gap-4">
                   <div className="self-stretch inline-flex justify-start items-center gap-2">
-                    <div className="flex-1 min-w-16 justify-start text-violet-50 text-sm font-semibold font-['Inter'] leading-snug">
-                      Filtrar vagas
-                    </div>
+                    <div className="flex-1 min-w-16 justify-start text-violet-50 text-sm font-semibold font-['Inter'] leading-snug">Filtrar vagas</div>
                   </div>
                   <Select
                     id="regime"
@@ -104,9 +99,9 @@ const SearchBar = React.forwardRef<HTMLInputElement, SearchBarProps>(
                     placeholder="Selecione o regime da vaga"
                     value={regime}
                     options={[
-                      { value: "remote", label: "Remoto" },
-                      { value: "hybrid", label: "Híbrido" },
-                      { value: "in-person", label: "Presencial" },
+                      { value: 'remote', label: 'Remoto' },
+                      { value: 'hybrid', label: 'Híbrido' },
+                      { value: 'in-person', label: 'Presencial' },
                     ]}
                     onChange={(e) => setRegime(e.target.value)}
                     status="default"
@@ -137,15 +132,8 @@ const SearchBar = React.forwardRef<HTMLInputElement, SearchBarProps>(
                 </div>
 
                 <div className="w-full self-stretch pt-4 inline-flex justify-between items-center">
-                  <Button
-                    variant="outline_white"
-                    onClick={onClearOpportunities}
-                  >
-                    Limpar
-                  </Button>
-                  <Button variant="primary" onClick={onFilterOpportunities}>
-                    Aplicar
-                  </Button>
+                  <Button variant="outline_white" onClick={onClearOpportunities}>Limpar</Button>
+                  <Button variant="primary" onClick={onFilterOpportunities}>Aplicar</Button>
                 </div>
               </>
             </PopoverContent>
@@ -154,13 +142,7 @@ const SearchBar = React.forwardRef<HTMLInputElement, SearchBarProps>(
           <Popover>
             <PopoverTrigger asChild>
               <Button
-                variant={
-                  filterActive === null
-                    ? "outline_white"
-                    : filterActive === "students"
-                    ? "primary"
-                    : "disabled"
-                }
+                variant={filterActive === null ? "outline_white" : filterActive === 'students' ? "primary" : "disabled"}
                 className="whitespace-nowrap h-10"
               >
                 <UsersRound className="h-4 w-4 mr-2" />
@@ -171,9 +153,7 @@ const SearchBar = React.forwardRef<HTMLInputElement, SearchBarProps>(
               <>
                 <div className="self-stretch flex flex-col justify-start items-start gap-4">
                   <div className="self-stretch inline-flex justify-start items-center gap-2">
-                    <div className="flex-1 min-w-16 justify-start text-violet-50 text-sm font-semibold font-['Inter'] leading-snug">
-                      Filtrar alunos
-                    </div>
+                    <div className="flex-1 min-w-16 justify-start text-violet-50 text-sm font-semibold font-['Inter'] leading-snug">Filtrar alunos</div>
                   </div>
                   <Select
                     id="course"
@@ -197,15 +177,12 @@ const SearchBar = React.forwardRef<HTMLInputElement, SearchBarProps>(
                     status="default"
                     errorMessage=""
                   />
+
                 </div>
 
                 <div className="w-full self-stretch pt-4 inline-flex justify-between items-center">
-                  <Button variant="outline_white" onClick={onClearStudents}>
-                    Limpar
-                  </Button>
-                  <Button variant="primary" onClick={onFilterStudents}>
-                    Aplicar
-                  </Button>
+                  <Button variant="outline_white" onClick={onClearStudents}>Limpar</Button>
+                  <Button variant="primary" onClick={onFilterStudents}>Aplicar</Button>
                 </div>
               </>
             </PopoverContent>

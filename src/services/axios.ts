@@ -42,12 +42,12 @@ renewTokenApi.interceptors.request.use((config) => {
   return config;
 });
 
-export const testApi: AxiosInstance = axios.create({
+export const localApi: AxiosInstance = axios.create({
   baseURL: "http://localhost:8080/api/v1",
   timeout: 100000000,
 });
 
-testApi.interceptors.request.use((config) => {
+localApi.interceptors.request.use((config) => {
   const accessToken = localStorage.getItem("acessToken");
 
   if (accessToken) {
@@ -56,7 +56,7 @@ testApi.interceptors.request.use((config) => {
   return config;
 });
 
-testApi.interceptors.response.use(
+localApi.interceptors.response.use(
   (response) => response,
   async (error) => {
     console.log("AAAAAAAAAA");
@@ -66,7 +66,7 @@ testApi.interceptors.response.use(
     localStorage.setItem("acessToken", renewAcessToken.data.accessToken);
 
     console.log(renewAcessToken);
-    return testApi(originalRequest);
+    return localApi(originalRequest);
   }
 );
 

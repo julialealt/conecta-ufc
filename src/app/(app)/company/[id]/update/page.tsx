@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/app/components/ui/Button";
+import { Button } from "@/app/components/ui/button";
 import Input from "@/app/components/ui/input";
 import { PhotoInput } from "@/app/components/ui/photo-input";
 import TextAreaInput from "@/app/components/ui/text-area-input";

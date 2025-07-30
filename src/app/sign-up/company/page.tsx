@@ -4,12 +4,12 @@ import { useState, useContext } from "react";
 import Image from "next/image";
 import logo from "../../../../public/assets/logo_lg.svg";
 import { useRouter } from "next/navigation";
-import { Button } from "@/app/components/ui/Button";
+import { Button } from "@/app/components/ui/button";
 import Input from "@/app/components/ui/input";
 import Select from "@/app/components/ui/select";
-import api from "@/services/axios";
 import { AppContext, AppContextType, Employer } from "@/context/appContext";
-import { Spinner } from "@/app/components/ui/spinner";
+import { localApi } from "@/services/axios";
+import { toast } from "sonner";
 
 export default function CompanySignUpPage() {
   const router = useRouter();
@@ -19,10 +19,8 @@ export default function CompanySignUpPage() {
   const [profile, setProfile] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
 
   const handleSignUp = async () => {
-    setIsLoading(true);
     try {
       const newUserData: Employer = {
         _id: "",
@@ -41,20 +39,16 @@ export default function CompanySignUpPage() {
         "employer"
       );
 
-      const emailResponse = await api.post("/auth/send-email", {
+      const emailResponse = await localApi.post("/auth/send-email", {
         userEmail: email,
       });
       if (emailResponse.status === 200) {
-        alert(
-          "Falta pouco para finalizar o cadastro, por favor clique em ok para confirmar seu email"
-        );
         router.push(`/sign-up/validate-email/employers`);
       }
     } catch (error) {
       console.log(error);
-      alert("Algo deu errado, tente mais tarde");
+      toast.error("Erro ao cadastrar usuário");
     }
-    setIsLoading(false);
   };
 
   const handleBackToSignIn = () => {
@@ -63,7 +57,6 @@ export default function CompanySignUpPage() {
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-zinc-950 p-8">
-      {isLoading && <Spinner />}
       <div className="w-[390px] inline-flex flex-col justify-start items-start gap-8">
         <div className="self-stretch flex flex-col justify-start items-center gap-3">
           <Image src={logo} alt="Logo ConectaUFC" />

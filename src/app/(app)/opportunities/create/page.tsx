@@ -1,18 +1,18 @@
 "use client";
 
-import { Button } from "@/app/components/ui/Button";
+import { Button } from "@/app/components/ui/button";
 import Input from "@/app/components/ui/input";
 import Select from "@/app/components/ui/select";
 import TextAreaInput from "@/app/components/ui/text-area-input";
 import { useContext, useState } from "react";
 import { ProtectedRoute } from "@/app/components/protectRoute/ProtectRoute";
 import { toast } from "sonner";
-import { testApi } from "@/services/axios";
 import { AppContext, AppContextType, Employer } from "@/context/appContext";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
+import { localApi } from "@/services/axios";
 
 export default function CreateOpportunityPage() {
-  /* const router = useRouter(); */
+  const router = useRouter();
 
   const { state } = useContext(AppContext) as AppContextType;
   const [title, setTitle] = useState("");
@@ -25,7 +25,7 @@ export default function CreateOpportunityPage() {
 
   const handleCreateOpportunity = async () => {
     try {
-      const response = await testApi.post("/opportunities", {
+      const response = await localApi.post("/opportunities", {
         title,
         description,
         salary: Number(salary),
@@ -44,7 +44,7 @@ export default function CreateOpportunityPage() {
   };
 
   const handleCancel = () => {
-    /* router.back(); */
+    router.back();
   };
 
   return (

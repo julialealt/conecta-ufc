@@ -1,11 +1,13 @@
-"use client";
+"use client"
 
-import { Home, Briefcase, UserRound } from "lucide-react";
-import Image from "next/image";
-import logo from "../../../../public/assets/logo_sm.svg";
-import { NavLink } from "./nav-link";
-import { useContext } from "react";
-import { AppContext, AppContextType } from "@/context/appContext";
+import { Home, Briefcase, UserRound, Settings, LogOut } from "lucide-react"
+import Image from "next/image"
+import logo from "../../../../public/assets/logo_sm.svg"
+import { NavLink } from "./nav-link"
+import { Button } from "./button"
+import { Popover, PopoverContent, PopoverTrigger } from "./popover"
+import { useContext } from "react"
+import { AppContext, type AppContextType } from "@/context/appContext"
 
 export function Header() {
   const { state } = useContext(AppContext) as AppContextType;
@@ -14,9 +16,9 @@ export function Header() {
   let profileLink = "";
   console.log(userType);
   if (userType === "student") {
-    profileLink = "/student-profile";
+    profileLink = "/student";
   } else {
-    profileLink = "/company-profile";
+    profileLink = "/company";
   }
 
   return (
@@ -33,15 +35,26 @@ export function Header() {
             <Briefcase className="h-4 w-4" />
             Vagas
           </NavLink>
-          <NavLink href="/company/1">
-            {" "}
+          <NavLink href={`/${profileLink}/1`}>
             {/* depende do user ativo /company/${id} ou /student/${id} */}
             <UserRound className="h-4 w-4" />
             Perfil
           </NavLink>
         </nav>
 
-        <div className="w-[133px]" />
+        <div className="w-[133px] flex justify-end">
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button variant="text" size="icon" Icon={Settings} />
+            </PopoverTrigger>
+            <PopoverContent side="bottom" align="end" className="w-[200px] p-2">
+              <div className="flex flex-col self-stretch justify-between items-start">
+                <Button variant="text" onClick={() => { }} className="w-full justify-start"><UserRound className="w-4 h-4 text-violet-50" /> Meu perfil</Button>
+                <Button variant="text" onClick={() => { }} className="text-red-600 w-full justify-start hover:text-red-600"><LogOut className="w-4 h-4 text-red-600" /> Sair da conta</Button>
+              </div>
+            </PopoverContent>
+          </Popover>
+        </div>
       </div>
     </header>
   );

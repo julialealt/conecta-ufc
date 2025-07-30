@@ -2,16 +2,16 @@
 
 import { useState, useContext } from "react";
 import Image from "next/image";
-import { Button } from "../components/ui/Button";
+import { Button } from "../components/ui/button";
 import Input from "../components/ui/input";
 import logo from "../../../public/assets/logo_lg.svg";
 import { useRouter } from "next/navigation";
-import api, { testApi } from "@/services/axios";
 import { AppContext, AppContextType } from "@/context/appContext";
 import { jwtDecode } from "jwt-decode";
 
 import { toast } from "sonner";
 import { Spinner } from "../components/ui/spinner";
+import { localApi } from "@/services/axios";
 
 export default function SignInPage() {
   const router = useRouter();
@@ -23,7 +23,7 @@ export default function SignInPage() {
   const handleLogin = async () => {
     setIsLoading(true);
     try {
-      const response = await testApi.post("/auth/login", {
+      const response = await localApi.post("/auth/login", {
         email,
         password,
       });

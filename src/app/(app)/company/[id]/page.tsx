@@ -4,10 +4,10 @@ import { Pen } from "lucide-react";
 import { AppContext, AppContextType, Employer } from "@/context/appContext";
 import { Opportunity } from "@/types/entities";
 import { useRouter } from "next/navigation";
-import api from "@/services/axios";
-import { Button } from "@/app/components/ui/Button";
+import { Button } from "@/app/components/ui/button";
 import Avatar from "@/app/components/ui/avatar";
 import JobCard from "@/app/components/ui/job-card";
+import { localApi } from "@/services/axios";
 
 export default function CompanyProfilePage() {
   const router = useRouter();
@@ -19,7 +19,7 @@ export default function CompanyProfilePage() {
 
   useEffect(() => {
     const fetchOpportunities = async () => {
-      const opportunitiesResponse = await api.get(
+      const opportunitiesResponse = await localApi.get(
         `/opportunities/employer/${employerData._id}`
       );
       if (opportunitiesResponse.status === 200) {
@@ -48,9 +48,11 @@ export default function CompanyProfilePage() {
           <div className="justify-start text-white text-xl font-semibold leading-[150%]">
             {employerData.name}
           </div>
-          {/* <div className="self-stretch justify-start text-zinc-300 text-sm font-medium leading-[150%]">
-            
-          </div> */}
+
+          <div className="self-stretch justify-start text-zinc-300 text-sm font-medium leading-[150%]">
+            Descrição vai aqui
+          </div>
+
           {employerData.hiringRate !== undefined && (
             <div className="justify-start text-violet-500 text-xs font-medium leading-[150%]">
               {`${employerData.hiringRate}% de taxa de contratação no ConectaUFC`}
@@ -98,15 +100,14 @@ export default function CompanyProfilePage() {
             </div>
             <div className="w-full justify-start text-zinc-300 text-base font-medium leading-[150%]">
               {employerData.specializations &&
-              employerData.specializations.length > 1
-                ? `${employerData.specializations.slice(0, -1).join(",")} e ${
-                    employerData.specializations[
-                      employerData.specializations.length - 1
-                    ]
-                  }`
+                employerData.specializations.length > 1
+                ? `${employerData.specializations.slice(0, -1).join(",")} e ${employerData.specializations[
+                employerData.specializations.length - 1
+                ]
+                }`
                 : employerData.specializations
-                ? `${employerData.specializations[0]}`
-                : "Não informado"}
+                  ? `${employerData.specializations[0]}`
+                  : "Não informado"}
             </div>
           </div>
           <div className="flex flex-col justify-start items-start gap-2">
@@ -127,19 +128,19 @@ export default function CompanyProfilePage() {
           <div className="self-stretch inline-flex flex-col justify-start items-start gap-4">
             {employerOpportunities.length > 0
               ? employerOpportunities.map((opportunity) => (
-                  <JobCard
-                    key={opportunity._id}
-                    opportunityId={opportunity._id}
-                    logoUrl={employerData.profileImage || ""}
-                    companyName={employerData.name}
-                    jobTitle={opportunity.title}
-                    description={opportunity.description}
-                    location={opportunity.workLocation}
-                    salary={opportunity.salary.toString()}
-                    workload={`${opportunity.weeklyHours}h semanais`}
-                    buttonText="Ver candidatos"
-                  />
-                ))
+                <JobCard
+                  key={opportunity._id}
+                  opportunityId={opportunity._id}
+                  logoUrl={employerData.profileImage || ""}
+                  companyName={employerData.name}
+                  jobTitle={opportunity.title}
+                  description={opportunity.description}
+                  location={opportunity.workLocation}
+                  salary={opportunity.salary.toString()}
+                  workload={`${opportunity.weeklyHours}h semanais`}
+                  buttonText="Ver candidatos"
+                />
+              ))
               : "Não há oportunidades cadastradas"}
 
             {/* <JobCard

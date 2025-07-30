@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { Button } from "../components/ui/Button";
+import { Button } from "../components/ui/button";
 import Input from "../components/ui/input";
 import logo from "../../../public/assets/logo_lg.svg";
 import { useRouter } from "next/navigation";
@@ -18,10 +18,8 @@ export default function RecoverPasswordPage() {
   };
 
   const handleRecoverPassword = () => {
-    alert(
-      `Nova senha: ${newPassword}\nConfirmação de senha: ${confirmNewPassword}`
-    );
-  };
+    console.log('call function to recover password')
+  }
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-zinc-950 p-4">

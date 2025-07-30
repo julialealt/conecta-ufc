@@ -5,7 +5,7 @@ import Image from "next/image";
 import logo from "../../../../public/assets/logo_lg.svg";
 import { useRouter } from "next/navigation";
 import Input from "@/app/components/ui/input";
-import { Button } from "@/app/components/ui/Button";
+import { Button } from "@/app/components/ui/button";
 
 export default function RequestEmailVerificationPage() {
   const router = useRouter();
@@ -13,8 +13,8 @@ export default function RequestEmailVerificationPage() {
   const [email, setEmail] = useState("");
 
   const handleSend = () => {
-    alert(`Email: ${email}`);
-  };
+    console.log('call function to send email verification code', email);
+  }
 
   const handleBack = () => {
     router.push("/sign-in");
