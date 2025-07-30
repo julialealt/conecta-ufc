@@ -20,6 +20,8 @@ export default function OpportuniyPage() {
   const params = useParams<{ id: string }>();
   const [opportunityData, setOpportunityData] = useState<Opportunity>();
   const [studentAldearyApplied, setStudentAldearyApplied] = useState(true);
+  const [wasStudentRecruited, setWasStudentRecruited] = useState(false);
+  const [contractId, setContractId] = useState("");
 
   useEffect(() => {
     const fetchOpportunity = async () => {
@@ -30,6 +32,16 @@ export default function OpportuniyPage() {
           const hasSudentAlreadyApplied =
             response.data.applicants.includes(userId);
           setStudentAldearyApplied(hasSudentAlreadyApplied);
+
+          const contractsWithUserId = response.data.contracts.filter(
+            (contract: any) => contract.employeeId === userId
+          );
+          console.log(contractsWithUserId, contractsWithUserId.length);
+          if (contractsWithUserId.length > 0) {
+            console.log("LASKDALKDALKSDJLASKD");
+            setWasStudentRecruited(true);
+            setContractId(contractsWithUserId[0]._id);
+          }
         }
         setOpportunityData(response.data);
       } catch (error) {
@@ -59,10 +71,21 @@ export default function OpportuniyPage() {
     // deve voltar para a página anterior
   };
 
-  /* const handleSeeApplicants = () => {
-    route
-  }
- */
+  const handleConfirmContract = async () => {
+    try {
+      const response = await testApi.post("/contracts/confirm/", {
+        opportunityId: params.id,
+        contractId: contractId,
+      });
+      if (response.status === 201) {
+        toast.success("Contrato confirmado com sucesso.");
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Erro ao confirmar contratação, tente mais tarde");
+    }
+  };
+
   return (
     <div className="self-stretch w-full px-30 pt-6 pb-16 bg-zinc-950 inline-flex flex-col justify-start items-start gap-8">
       <div className="w-full inline-flex justify-start items-start gap-3">
@@ -92,7 +115,11 @@ export default function OpportuniyPage() {
 
         {userType === "student" && (
           <div className="self-stretch inline-flex justify-start items-start gap-2">
-            {!studentAldearyApplied ? (
+            {wasStudentRecruited ? (
+              <Button variant="primary" onClick={handleConfirmContract}>
+                Confirmar contratação
+              </Button>
+            ) : !studentAldearyApplied ? (
               <Button variant="primary" onClick={handleApplyToOpportunity}>
                 Aplicar
               </Button>

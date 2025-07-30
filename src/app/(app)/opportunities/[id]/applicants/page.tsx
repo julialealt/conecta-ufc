@@ -1,21 +1,23 @@
 "use client";
 
-import LoadingStatus from "@/app/components/loadingStatus/LoadingStatus";
 import ApplicantCard from "@/app/components/ui/applicant-card";
+import { Spinner } from "@/app/components/ui/spinner";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/app/components/ui/tooltip";
-import { Student } from "@/context/appContext";
+import { AppContext, AppContextType, Student } from "@/context/appContext";
 import { testApi } from "@/services/axios";
 import { ChevronLeft, CircleAlert } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { toast } from "sonner";
 
 export default function OpportunityApplicantsPage() {
+  const { state } = useContext(AppContext) as AppContextType;
+  const employerId = state.userData.user?._id;
   const router = useRouter();
   const params = useParams<{ id: string }>();
   const [isLoading, setIsLoading] = useState(true);
@@ -56,9 +58,25 @@ export default function OpportunityApplicantsPage() {
     router.back();
   };
 
+  const handleRecruit = async (userId: string) => {
+    try {
+      const response = await testApi.post("/contracts/request/", {
+        userId,
+        employerId: employerId,
+        opportunityId: params.id,
+      });
+      if (response.status === 201) {
+        toast.success("Proceso de contrato iniciado");
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Houve um erro ao recrutar candidato, tente mais tarde");
+    }
+  };
+
   return (
     <TooltipProvider>
-      {isLoading && <LoadingStatus />}
+      {isLoading && <Spinner />}
       <div className="w-full self-stretch px-30 pt-6 pb-16 bg-zinc-950 inline-flex flex-col justify-start items-start gap-8">
         <div className="w-full inline-flex justify-start items-start gap-3">
           <div className="self-stretch pt-0.5 inline-flex flex-col justify-start items-start gap-1">
@@ -138,7 +156,9 @@ export default function OpportunityApplicantsPage() {
                 enterSemester={applicant.entrySemester}
                 variant="default"
                 onDecline={() => {}}
-                onRecruit={() => {}}
+                onRecruit={() => {
+                  handleRecruit(applicant._id);
+                }}
               />
             ))
           ) : (
