@@ -1,5 +1,6 @@
 "use client";
 
+import ContactInfo from "@/app/components/contact-info";
 import Avatar from "@/app/components/ui/avatar";
 import { Button } from "@/app/components/ui/button";
 import { Pen, Pencil, Plus } from "lucide-react";
@@ -19,9 +20,23 @@ export default function StudentProfile() {
             Software Developer | React | React Native | TypeScript | JavaScript
           </div>
 
-          <div className="justify-start text-violet-500 text-xs font-medium leading-[150%]">
-            Informações de contato
-          </div>
+          <ContactInfo
+            email="gabrielbruno@gmail.com"
+            links={[
+              { url: 'github.com/julialealt', label: 'Portfólio' },
+              { url: 'behance.net/julialealt', label: 'Portfólio' },
+              { url: 'lattes.cnpq.com.br/123456789', label: 'Currículo' }
+            ]}
+            birthDate="27/09/2002"
+            emailValue=""
+            onChangeEmail={() => { }}
+            linkUrl1=""
+            onChangeLinkUrl1={() => { }}
+            linkDescription1=""
+            onChangeLinkDescription1={() => { }}
+            birthDateValue="27/09/2002"
+            onChangeBirthDate={() => { }}
+          />
         </div>
 
         <Button variant="outline_violet" Icon={Pen} size="icon" />
