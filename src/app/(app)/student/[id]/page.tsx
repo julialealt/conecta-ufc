@@ -1,9 +1,14 @@
 "use client";
 
+import ArticleDialog from "@/app/components/article-dialog";
+import CertificateDialog from "@/app/components/certificate-dialog";
 import ContactInfo from "@/app/components/contact-info";
+import ProfessionalExpDialog from "@/app/components/professioal-exp-dialog";
+import ProjectDialog from "@/app/components/project-dialog";
+import SkillsDialog from "@/app/components/skills-dialog";
 import Avatar from "@/app/components/ui/avatar";
 import { Button } from "@/app/components/ui/button";
-import { Pen, Pencil, Plus } from "lucide-react";
+import { Pen } from "lucide-react";
 
 export default function StudentProfile() {
   return (
@@ -70,12 +75,46 @@ export default function StudentProfile() {
         <div className="w-full pt-8 border-t border-zinc-500 inline-flex flex-col justify-start items-start gap-4">
           <div className="self-stretch inline-flex justify-between items-start">
             <div className="justify-start text-white text-xl font-semibold leading-[150%]">Experiência profissional</div>
-            <Button variant="primary" Icon={Plus} size="icon" />
+            <ProfessionalExpDialog
+              type="create"
+              title=""
+              onChangeTitle={() => { }}
+              organization=""
+              onChangeOrganization={() => { }}
+              description=""
+              onChangeDescription={() => { }}
+              monthStart=""
+              onChangeMonthStart={() => { }}
+              yearStart=""
+              onChangeYearStart={() => { }}
+              monthEnd=""
+              onChangeMonthEnd={() => { }}
+              yearEnd=""
+              onChangeYearEnd={() => { }}
+              onConfirmButtonClick={() => { }}
+            />
           </div>
           <div className="flex flex-col justify-start items-start gap-2">
             <div className="self-stretch inline-flex justify-start items-center gap-1">
               <div className="justify-start text-violet-500 text-lg font-semibold leading-[150%]">UI/UX Designer - IBM</div>
-              <Button variant="icon" Icon={Pencil} size="icon" />
+              <ProfessionalExpDialog
+                type="edit"
+                title=""
+                onChangeTitle={() => { }}
+                organization=""
+                onChangeOrganization={() => { }}
+                description=""
+                onChangeDescription={() => { }}
+                monthStart="1"
+                onChangeMonthStart={() => { }}
+                yearStart="2024"
+                onChangeYearStart={() => { }}
+                monthEnd="12"
+                onChangeMonthEnd={() => { }}
+                yearEnd="2025"
+                onChangeYearEnd={() => { }}
+                onConfirmButtonClick={() => { }}
+              />
             </div>
             <div className="w-full justify-start text-white text-base font-semibold leading-[150%] italic">maio de 2024 - atual</div>
             <div className="w-full justify-start text-zinc-300 text-base font-medium leading-[150%]">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</div>
@@ -84,7 +123,24 @@ export default function StudentProfile() {
           <div className="flex flex-col justify-start items-start gap-2">
             <div className="self-stretch inline-flex justify-start items-center gap-1">
               <div className="justify-start text-violet-500 text-lg font-semibold leading-[150%]">UI/UX Designer - GoTest</div>
-              <Button variant="icon" Icon={Pencil} size="icon" />
+              <ProfessionalExpDialog
+                type="edit"
+                title=""
+                onChangeTitle={() => { }}
+                organization=""
+                onChangeOrganization={() => { }}
+                description=""
+                onChangeDescription={() => { }}
+                monthStart="1"
+                onChangeMonthStart={() => { }}
+                yearStart="2024"
+                onChangeYearStart={() => { }}
+                monthEnd="12"
+                onChangeMonthEnd={() => { }}
+                yearEnd="2025"
+                onChangeYearEnd={() => { }}
+                onConfirmButtonClick={() => { }}
+              />
             </div>
             <div className="w-full justify-start text-white text-base font-semibold leading-[150%] italic">novembro de 2023 - maio de 2024</div>
             <div className="w-full justify-start text-zinc-300 text-base font-medium leading-[150%]">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</div>
@@ -93,7 +149,24 @@ export default function StudentProfile() {
           <div className="flex flex-col justify-start items-start gap-2">
             <div className="self-stretch inline-flex justify-start items-center gap-1">
               <div className="justify-start text-violet-500 text-lg font-semibold leading-[150%]">Bolsista Voluntária de Inovação Tecnológica - Laboratório Alan Turing</div>
-              <Button variant="icon" Icon={Pencil} size="icon" />
+              <ProfessionalExpDialog
+                type="edit"
+                title=""
+                onChangeTitle={() => { }}
+                organization=""
+                onChangeOrganization={() => { }}
+                description=""
+                onChangeDescription={() => { }}
+                monthStart="1"
+                onChangeMonthStart={() => { }}
+                yearStart="2024"
+                onChangeYearStart={() => { }}
+                monthEnd="12"
+                onChangeMonthEnd={() => { }}
+                yearEnd="2025"
+                onChangeYearEnd={() => { }}
+                onConfirmButtonClick={() => { }}
+              />
             </div>
             <div className="w-full justify-start text-white text-base font-semibold leading-[150%] italic">abril de 2023 - novembro de 2023</div>
             <div className="w-full justify-start text-zinc-300 text-base font-medium leading-[150%]">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</div>
@@ -103,7 +176,12 @@ export default function StudentProfile() {
         <div className="w-full self-stretch pt-8 border-t border-zinc-500 inline-flex flex-col justify-start items-start gap-4">
           <div className="self-stretch inline-flex justify-between items-start">
             <div className="justify-start text-white text-xl font-semibold leading-9">Habilidades</div>
-            <Button variant="primary" Icon={Pencil} size="icon" />
+            <SkillsDialog
+              skills={["React", "React Native", "JavaScript", "TypeScript", "Figma", "Python", "Salesforce", "Inglês fluente"]}
+              onAddSkill={() => { }}
+              onRemoveSkill={() => { }}
+              onConfirmButtonClick={() => { }}
+            />
           </div>
           <div className="self-stretch inline-flex justify-start items-start gap-2 flex-wrap content-start">
             <Button variant="ghost">React</Button>
@@ -120,13 +198,35 @@ export default function StudentProfile() {
         <div className="w-full pt-8 border-t border-zinc-500 inline-flex flex-col justify-start items-start gap-4">
           <div className="self-stretch inline-flex justify-between items-start">
             <div className="justify-start text-white text-xl font-semibold leading-[150%]">Projetos</div>
-            <Button variant="primary" Icon={Plus} size="icon" />
+            <ProjectDialog
+              type="create"
+              title=""
+              onChangeTitle={() => { }}
+              description=""
+              onChangeDescription={() => { }}
+              category=""
+              onChangeCategory={() => { }}
+              link=""
+              onChangeLink={() => { }}
+              onConfirmButtonClick={() => { }}
+            />
           </div>
 
           <div className="inline-flex flex-col justify-start items-start gap-2">
             <div className="self-stretch inline-flex justify-start items-center gap-1">
               <div className="justify-start text-white text-lg font-semibold leading-[150%]">Pizza Shop</div>
-              <Button variant="icon" Icon={Pencil} size="icon" />
+              <ProjectDialog
+                type="edit"
+                title=""
+                onChangeTitle={() => { }}
+                description=""
+                onChangeDescription={() => { }}
+                category=""
+                onChangeCategory={() => { }}
+                link=""
+                onChangeLink={() => { }}
+                onConfirmButtonClick={() => { }}
+              />
             </div>
             <div className="w-full justify-start text-zinc-300 text-base font-medium leading-[150%]">Pizza Shop is a modern web app to help restaurant owners manage orders, track sales, and run daily operations smoothly. Built with React, TypeScript, Tailwind CSS, Shadcn UI, TanStack React Query, Zod, Recharts and more!</div>
             <div className="self-stretch inline-flex justify-start items-center gap-2">
@@ -138,7 +238,18 @@ export default function StudentProfile() {
           <div className="inline-flex flex-col justify-start items-start gap-2">
             <div className="self-stretch inline-flex justify-start items-center gap-1">
               <div className="justify-start text-white text-lg font-semibold leading-[150%]">Receite.me</div>
-              <Button variant="icon" Icon={Pencil} size="icon" />
+              <ProjectDialog
+                type="edit"
+                title=""
+                onChangeTitle={() => { }}
+                description=""
+                onChangeDescription={() => { }}
+                category=""
+                onChangeCategory={() => { }}
+                link=""
+                onChangeLink={() => { }}
+                onConfirmButtonClick={() => { }}
+              />
             </div>
             <div className="w-full justify-start text-zinc-300 text-base font-medium leading-[150%]">O app Receite.me foi desenvolvido na disciplina de Engenharia de Software e é um aplicativo de receitas inteligente!</div>
             <div className="self-stretch inline-flex justify-start items-center gap-2">
@@ -151,13 +262,31 @@ export default function StudentProfile() {
         <div className="w-full pt-8 border-t border-zinc-500 inline-flex flex-col justify-start items-start gap-4">
           <div className="self-stretch inline-flex justify-between items-start">
             <div className="justify-start text-white text-xl font-semibold leading-[150%]">Artigos publicados</div>
-            <Button variant="primary" Icon={Plus} size="icon" />
+            <ArticleDialog
+              type="create"
+              title=""
+              onChangeTitle={() => { }}
+              description=""
+              onChangeDescription={() => { }}
+              link=""
+              onChangeLink={() => { }}
+              onConfirmButtonClick={() => { }}
+            />
           </div>
 
           <div className="inline-flex flex-col justify-start items-start gap-2">
             <div className="self-stretch inline-flex justify-start items-center gap-1">
               <div className="justify-start text-white text-lg font-semibold leading-[150%]">Impacto da Inteligência Artificial no Mercado de Trabalho</div>
-              <Button variant="icon" Icon={Pencil} size="icon" />
+              <ArticleDialog
+                type="edit"
+                title=""
+                onChangeTitle={() => { }}
+                description=""
+                onChangeDescription={() => { }}
+                link=""
+                onChangeLink={() => { }}
+                onConfirmButtonClick={() => { }}
+              />
             </div>
             <div className="w-full justify-start text-zinc-300 text-base font-medium leading-[150%]">Breve resumo do artigo. Descrição sobre ele, autores, co-autores, Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</div>
             <div className="self-stretch inline-flex justify-start items-center gap-2">
@@ -170,7 +299,18 @@ export default function StudentProfile() {
         <div className="w-full pt-8 border-t border-zinc-500 inline-flex flex-col justify-start items-start gap-4">
           <div className="self-stretch inline-flex justify-between items-start">
             <div className="justify-start text-white text-xl font-semibold leading-[150%]">Certificados</div>
-            <Button variant="primary" Icon={Plus} size="icon" />
+            <CertificateDialog
+              type="create"
+              title=""
+              onChangeTitle={() => { }}
+              organization=""
+              onChangeOrganization={() => { }}
+              certificate=""
+              onChangeCertificate={() => { }}
+              certificationDate=""
+              onChangeCertificationDate={() => { }}
+              onConfirmButtonClick={() => { }}
+            />
           </div>
 
           <div className="self-stretch inline-flex justify-start items-start gap-4">
@@ -178,7 +318,18 @@ export default function StudentProfile() {
             <div className="self-stretch inline-flex flex-col justify-start items-start">
               <div className="self-stretch inline-flex justify-start items-center gap-1">
                 <div className="justify-start text-white text-lg font-semibold leading-[150%]">Formação React</div>
-                <Button variant="icon" Icon={Pencil} size="icon" />
+                <CertificateDialog
+                  type="edit"
+                  title=""
+                  onChangeTitle={() => { }}
+                  organization=""
+                  onChangeOrganization={() => { }}
+                  certificate=""
+                  onChangeCertificate={() => { }}
+                  certificationDate=""
+                  onChangeCertificationDate={() => { }}
+                  onConfirmButtonClick={() => { }}
+                />
               </div>
               <div className="self-stretch inline-flex justify-start items-start gap-2">
                 <div className="justify-start text-zinc-300 text-sm font-medium leading-[150%]">Rocketseat</div>
@@ -194,7 +345,18 @@ export default function StudentProfile() {
             <div className="self-stretch inline-flex flex-col justify-start items-start">
               <div className="self-stretch inline-flex justify-start items-center gap-1">
                 <div className="justify-start text-white text-lg font-semibold leading-[150%]">Formação React</div>
-                <Button variant="icon" Icon={Pencil} size="icon" />
+                <CertificateDialog
+                  type="edit"
+                  title=""
+                  onChangeTitle={() => { }}
+                  organization=""
+                  onChangeOrganization={() => { }}
+                  certificate=""
+                  onChangeCertificate={() => { }}
+                  certificationDate=""
+                  onChangeCertificationDate={() => { }}
+                  onConfirmButtonClick={() => { }}
+                />
               </div>
               <div className="self-stretch inline-flex justify-start items-start gap-2">
                 <div className="justify-start text-zinc-300 text-sm font-medium leading-[150%]">Rocketseat</div>
