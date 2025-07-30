@@ -5,7 +5,7 @@ const api: AxiosInstance = axios.create({
   timeout: 100000000,
 });
 
-export const testApi: AxiosInstance = axios.create({
+export const localApi: AxiosInstance = axios.create({
   baseURL: "http://localhost:8080/api/v1",
   timeout: 100000000,
 });

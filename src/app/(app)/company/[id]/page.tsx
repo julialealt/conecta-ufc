@@ -4,10 +4,10 @@ import { Pen } from "lucide-react";
 import { AppContext, AppContextType, Employer } from "@/context/appContext";
 import { Opportunity } from "@/types/entities";
 import { useRouter } from "next/navigation";
-import api from "@/services/axios";
 import { Button } from "@/app/components/ui/button";
 import Avatar from "@/app/components/ui/avatar";
 import JobCard from "@/app/components/ui/job-card";
+import { localApi } from "@/services/axios";
 
 export default function CompanyProfilePage() {
   const router = useRouter();
@@ -19,7 +19,7 @@ export default function CompanyProfilePage() {
 
   useEffect(() => {
     const fetchOpportunities = async () => {
-      const opportunitiesResponse = await api.get(
+      const opportunitiesResponse = await localApi.get(
         `/opportunities/employer/${employerData._id}`
       );
       if (opportunitiesResponse.status === 200) {

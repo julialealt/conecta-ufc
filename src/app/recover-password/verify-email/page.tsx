@@ -13,7 +13,7 @@ export default function RecoverPasswordVerifyEmailPage() {
   const [code, setCode] = useState('')
 
   const handleVerify = () => {
-    alert(`Código: ${code}`)
+    console.log('Verifying code:', code);
   }
 
   const handleBack = () => {

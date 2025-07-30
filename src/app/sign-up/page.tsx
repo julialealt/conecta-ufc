@@ -47,7 +47,7 @@ export default function SignUpPage() {
               onClick={handleCompany}
               className="w-full"
             >
-              Sou professor
+              Sou professor ou empresa
             </Button>
           </div>
         </div>

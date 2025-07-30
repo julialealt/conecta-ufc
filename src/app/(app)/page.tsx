@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { Opportunity } from "@/types/entities";
-import api from "@/services/axios";
+import { localApi } from "@/services/axios";
 import { Employer, Student } from "@/context/appContext";
 import { InfoCard } from "../components/ui/info-card";
 import { SearchBar } from "../components/ui/search-bar";
@@ -19,7 +19,7 @@ export default function Home() {
 
   useEffect(() => {
     const fetchOpportunities = async () => {
-      const response = await api.get("/opportunities");
+      const response = await localApi.get("/opportunities");
       const listOfAllOpportunities: Opportunity[] = response.data;
       /* listOfAllOpportunities.forEach((opportunity) => {
         const employerId = opportunity.employer;
@@ -38,7 +38,7 @@ export default function Home() {
     };
 
     const fetchStudents = async () => {
-      const response = await api.get("/students/search");
+      const response = await localApi.get("/students/search");
       const listOfStudents: Student[] = response.data;
       console.log(listOfStudents);
       setStudents(listOfStudents);
@@ -46,8 +46,7 @@ export default function Home() {
     };
 
     const fetchEmployers = async () => {
-      console.log("EMPLOYERSSSSSSSS");
-      const response = await api.get("/employers");
+      const response = await localApi.get("/employers");
       const listOfEmployers: Employer[] = response.data;
       console.log(listOfEmployers);
       setEmployers(listOfEmployers);

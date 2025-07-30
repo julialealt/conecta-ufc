@@ -6,12 +6,13 @@ import logo from "../../../../../public/assets/logo_lg.svg";
 import { useRouter } from "next/navigation";
 import Input from "@/app/components/ui/input";
 import { Button } from "@/app/components/ui/button";
-import api from "@/services/axios";
 import { useParams } from "next/navigation";
 import { AppContext, AppContextType } from "@/context/appContext";
 import { Spinner } from "@/app/components/ui/spinner";
+import { localApi } from "@/services/axios";
+import { toast } from "sonner";
 
-export default function SignInPage() {
+export default function ValidateEmailPage() {
   const router = useRouter();
   const params = useParams<{ userType: string }>();
   const { state, setUserData } = useContext(AppContext) as AppContextType;
@@ -22,33 +23,30 @@ export default function SignInPage() {
     setIsLoading(true);
     try {
       if (state.userData.user) {
-        const response = await api.post("/auth/verify-email-code", {
+        const response = await localApi.post("/auth/verify-email-code", {
           code,
           userEmail: decodeURIComponent(state.userData.user.email),
         });
-        alert(`Email vericiado código: ${code}`);
         if (response.status === 200) {
-          //const newUserToCreate =
-          const createUserResponse = await api.post(
+          const createUserResponse = await localApi.post(
             `/${params.userType}/register`,
             state.userData.user
           );
-          console.log("CREATE USER ", createUserResponse);
+
           if (createUserResponse.status === 201) {
-            console.log("QAASLDKJSLDKjalskdjlkj");
             setUserData({
               accessToken: createUserResponse.data.accessToken,
               refreshToken: createUserResponse.data.refreshToken,
               user: createUserResponse.data.data,
             });
-            alert("Cadastro finalizado com sucesso!");
+            toast.success("Cadastro finalizado com sucesso!");
+            router.push("/sign-in");
           }
-          router.push("./");
         }
       }
     } catch (error) {
       console.log(error);
-      alert("Algo deu errado, tente mais tarde");
+      toast.error("Erro ao verificar o código de e-mail. Verifique se o código está correto ou se o e-mail foi enviado corretamente.");
     }
     setIsLoading(false);
   };

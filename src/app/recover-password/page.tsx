@@ -18,7 +18,7 @@ export default function RecoverPasswordPage() {
   }
 
   const handleRecoverPassword = () => {
-    alert(`Nova senha: ${newPassword}\nConfirmação de senha: ${confirmNewPassword}`);
+    console.log('call function to recover password')
   }
 
   return (

@@ -13,7 +13,7 @@ export default function RequestEmailVerificationPage() {
   const [email, setEmail] = useState('')
 
   const handleSend = () => {
-    alert(`Email: ${email}`)
+    console.log('call function to send email verification code', email);
   }
 
   const handleBack = () => {
