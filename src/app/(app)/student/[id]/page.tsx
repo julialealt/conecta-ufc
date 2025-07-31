@@ -4,24 +4,63 @@ import Avatar from "@/app/components/ui/avatar";
 import { Button } from "@/app/components/ui/Button";
 import { AppContext, AppContextType, Student } from "@/context/appContext";
 import { Pen, Plus } from "lucide-react";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
+import { Spinner } from "@/app/components/ui/spinner";
+
+import { useParams, useRouter } from "next/navigation";
+import { toast } from "sonner";
+import api from "@/services/axios";
 
 export default function StudentProfile() {
-  const { state } = useContext(AppContext) as AppContextType;
-  const userData = state.userData.user as Student;
+  const router = useRouter();
+  const params = useParams<{ id: string }>();
 
-  return (
+  const { state } = useContext(AppContext) as AppContextType;
+  const [userData, setUserData] = useState<Student>();
+  const [isLoading, setIsLoading] = useState(true);
+  const userType = useContext(AppContext)?.state.userType || "";
+  const userId = useContext(AppContext)?.state.userData.user?._id;
+  //const userData = state.userData.user as Student;
+
+  useEffect(() => {
+    const fetchStudent = async () => {
+      try {
+        const response = await api.get(`/students/${params.id}/profile`);
+        if (response.status === 200) {
+          setUserData(response.data);
+          setIsLoading(false);
+        }
+      } catch (error) {
+        console.log("Error while fetching student profile");
+        toast.error("Erro ao carregar perfil do estudante");
+      }
+    };
+    if (userType === "student" && params.id === userId) {
+      setUserData(state.userData.user as Student);
+      setIsLoading(false);
+    } else {
+      fetchStudent();
+    }
+  }, [userType, state]);
+
+  return isLoading ? (
+    <>
+      <Spinner />
+    </>
+  ) : (
     <div className="w-full self-stretch px-30 pt-6 pb-16 bg-zinc-950 inline-flex flex-col justify-start items-start gap-16">
       <div className="self-stretch w-full inline-flex justify-start items-start gap-6">
         <Avatar imageUrl={""} name={"Jimin"} variant="person" size="lg" />
 
         <div className="self-stretch w-full inline-flex flex-col justify-center items-start gap-1">
           <div className="justify-start text-white text-xl font-semibold leading-[150%]">
-            {userData.name}
+            {userData?.name}
           </div>
         </div>
 
-        <Button variant="outline_violet" Icon={Pen} className="p-2.5" />
+        {params.id === userId && (
+          <Button variant="outline_violet" Icon={Pen} className="p-2.5" />
+        )}
       </div>
 
       <div className="w-full inline-flex flex-col justify-start items-start gap-6">
@@ -30,7 +69,7 @@ export default function StudentProfile() {
             Sobre
           </div>
           <div className="w-full justify-start text-zinc-300 text-base font-medium leading-[150%]">
-            {userData.description}
+            {userData?.description}
           </div>
         </div>
 
@@ -44,7 +83,7 @@ export default function StudentProfile() {
                 Curso
               </div>
               <div className="w-full justify-start text-white text-base font-normal leading-[150%]">
-                {userData.course}
+                {userData?.course}
               </div>
             </div>
             <div className="flex flex-col">
@@ -52,7 +91,7 @@ export default function StudentProfile() {
                 Semestre de ingresso
               </div>
               <div className="w-full justify-start text-white text-base font-normal leading-[150%]">
-                {userData.entrySemester}
+                {userData?.entrySemester}
               </div>
             </div>
             <div className="flex flex-col">
@@ -60,7 +99,7 @@ export default function StudentProfile() {
                 Previsão de termino
               </div>
               <div className="w-full justify-start text-white text-base font-normal leading-[150%]">
-                {userData.graduationForecast}
+                {userData?.graduationForecast}
               </div>
             </div>
           </div>
@@ -74,8 +113,8 @@ export default function StudentProfile() {
             <Button variant="filled_icon" Icon={Plus} className="p-2.5  " />
           </div>
 
-          {userData.experiences && userData.experiences.length > 0 ? (
-            userData.experiences.map((experience) => (
+          {userData?.experiences && userData?.experiences.length > 0 ? (
+            userData?.experiences.map((experience) => (
               <div className="w-full justify-start text-zinc-300 text-base font-medium leading-[150%]">
                 <div className=" flex justify-start">
                   <div className=" justify-start text-violet text-xl font-semibold leading-[150%]">
@@ -111,8 +150,8 @@ export default function StudentProfile() {
             <Button variant="filled_icon" Icon={Pen} className="p-2.5  " />
           </div>
           <div className="w-full flex flex-wrap justify-start text-zinc-300 text-base font-medium leading-[150%]">
-            {userData.skills && userData.skills.length > 0 ? (
-              userData.skills.map((skill) => (
+            {userData?.skills && userData?.skills.length > 0 ? (
+              userData?.skills.map((skill) => (
                 <div className="mr-[10px] w-fit pt-[10px] pb-[10px] pl-[16px] pr-[16px] border-1 border-solid border-zinc-500 rounded-[8px]">
                   {skill}
                 </div>
@@ -132,8 +171,8 @@ export default function StudentProfile() {
             </div>
             <Button variant="filled_icon" Icon={Plus} className="p-2.5" />
           </div>
-          {userData.projects && userData.projects.length > 0 ? (
-            userData.projects.map((project) => (
+          {userData?.projects && userData?.projects.length > 0 ? (
+            userData?.projects.map((project) => (
               <div className="w-full justify-start text-zinc-300 text-base font-medium leading-[150%]">
                 <div className=" flex justify-start">
                   <div className=" justify-start text-violet text-white font-semibold leading-[150%]">
@@ -174,8 +213,8 @@ export default function StudentProfile() {
             <Button variant="filled_icon" Icon={Plus} className="p-2.5" />
           </div>
           <div className="w-full justify-start text-zinc-300 text-base font-medium leading-[150%]">
-            {userData.articles && userData.articles.length > 0 ? (
-              userData.articles.map((article) => (
+            {userData?.articles && userData?.articles.length > 0 ? (
+              userData?.articles.map((article) => (
                 <div className="w-full justify-start text-zinc-300 text-base font-medium leading-[150%]">
                   <div className=" flex justify-start">
                     <div className=" justify-start text-violet text-white font-semibold leading-[150%]">
@@ -216,8 +255,8 @@ export default function StudentProfile() {
             </div>
             <Button variant="filled_icon" Icon={Plus} className="p-2.5" />
           </div>
-          {userData.certificates && userData.certificates.length > 0 ? (
-            userData.certificates.map((certificate) => (
+          {userData?.certificates && userData?.certificates.length > 0 ? (
+            userData?.certificates.map((certificate) => (
               <div className="w-full flex justify-start text-zinc-300 text-base font-medium leading-[150%]">
                 <Avatar
                   imageUrl={""}

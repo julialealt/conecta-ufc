@@ -9,7 +9,6 @@ api.interceptors.request.use((config) => {
   const accessToken = localStorage.getItem("acessToken");
 
   if (accessToken) {
-    console.log("AAAAAAAAAc ", accessToken);
     config.headers.Authorization = `Bearer ${accessToken}`;
   }
   return config;
@@ -18,8 +17,9 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (response) => response,
   async (error) => {
+    console.log("AAAAAAAAAA");
     const originalRequest = error.config;
-    console.log(originalRequest);
+
     const renewAcessToken = await renewTokenApi.post("/auth/refresh");
     localStorage.setItem("acessToken", renewAcessToken.data.accessToken);
 
@@ -29,7 +29,7 @@ api.interceptors.response.use(
 );
 
 const renewTokenApi: AxiosInstance = axios.create({
-  baseURL: "http://localhost:8080/api/v1",
+  baseURL: "https://ufc-conecta-backend.onrender.com/api/v1",
   timeout: 100000000,
 });
 

@@ -7,7 +7,6 @@ import { InfoCard } from "../components/ui/info-card";
 import { SearchBar } from "../components/ui/search-bar";
 import { toast } from "sonner";
 import { Spinner } from "../components/ui/spinner";
-import { toast } from "sonner";
 
 export default function Home() {
   const [opportunities, setOpportunities] = useState<Opportunity[]>([]);
@@ -23,7 +22,7 @@ export default function Home() {
   useEffect(() => {
     const fetchOpportunities = async () => {
       try {
-        const response = await testApi.get("/opportunities");
+        const response = await api.get("/opportunities");
         const listOfAllOpportunities: Opportunity[] = response.data;
         setOpportunities(listOfAllOpportunities);
       } catch (error) {
@@ -36,7 +35,7 @@ export default function Home() {
 
     const fetchStudents = async () => {
       try {
-        const response = await testApi.get("/students/search");
+        const response = await api.get("/students/search");
         const listOfStudents: Student[] = response.data;
         setStudents(listOfStudents);
       } catch (error) {
@@ -49,7 +48,7 @@ export default function Home() {
 
     const fetchEmployers = async () => {
       try {
-        const response = await testApi.get("/employers");
+        const response = await api.get("/employers");
         const listOfEmployers: Employer[] = response.data;
         setEmployers(listOfEmployers);
       } catch (error) {
@@ -101,19 +100,7 @@ export default function Home() {
               </div>
             </div>
             <div className="mt-5 flex flex-wrap w-full">
-              {!fetchingOpportunities && opportunities.length > 0 ? (
-                opportunities.map((opportunity) => (
-                  <InfoCard
-                    key={opportunity._id}
-                    title={opportunity.title}
-                    subtitle={opportunity.employer.name}
-                    imageUrl=""
-                    student={false}
-                    href={`/opportunity/${opportunity._id}`}
-                    className="m-[10px] w-90"
-                  />
-                ))
-              ) : fetchingOpportunities ? (
+              {fetchingOpportunities ? (
                 <Spinner />
               ) : (
                 opportunities
@@ -157,7 +144,7 @@ export default function Home() {
                         subtitle={student.course}
                         imageUrl={student.profileImage || ""}
                         student={true}
-                        href={`/students/${student._id}`}
+                        href={`/student/${student._id}`}
                         className="w-full"
                       />
                     ))
@@ -188,7 +175,7 @@ export default function Home() {
                         subtitle={employer.name}
                         imageUrl={employer.profileImage || ""}
                         student={false}
-                        href={`/employers/${employer._id}`}
+                        href={`/company/${employer._id}`}
                         className="w-full"
                       />
                     ))

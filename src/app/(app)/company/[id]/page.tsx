@@ -3,11 +3,13 @@ import { useContext, useEffect, useState } from "react";
 import { Pen } from "lucide-react";
 import { AppContext, AppContextType, Employer } from "@/context/appContext";
 import { Opportunity } from "@/types/entities";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import api from "@/services/axios";
 import { Button } from "@/app/components/ui/Button";
 import Avatar from "@/app/components/ui/avatar";
 import JobCard from "@/app/components/ui/job-card";
+import { Spinner } from "@/app/components/ui/spinner";
+import { toast } from "sonner";
 
 export default function CompanyProfilePage() {
   const router = useRouter();
@@ -15,26 +17,56 @@ export default function CompanyProfilePage() {
   const [employerOpportunities, setEmployerOpportunities] = useState<
     Opportunity[]
   >([]);
-  const employerData: Employer = state.userData.user as Employer;
+  //const employerData: Employer = state.userData.user as Employer;
+  const params = useParams<{ id: string }>();
+  const [employerData, setEmployerData] = useState<Employer>();
+  const [isLoading, setIsLoading] = useState(true);
+  const userType = useContext(AppContext)?.state.userType || "";
+  const userId = useContext(AppContext)?.state.userData.user?._id;
 
   useEffect(() => {
     const fetchOpportunities = async () => {
       const opportunitiesResponse = await api.get(
-        `/opportunities/employer/${employerData._id}`
+        `/opportunities/employer/${employerData?._id}`
       );
       if (opportunitiesResponse.status === 200) {
         setEmployerOpportunities(opportunitiesResponse.data);
       }
     };
     fetchOpportunities();
-  }, []);
+  }, [employerData]);
+
+  useEffect(() => {
+    const fetchStudent = async () => {
+      try {
+        const response = await api.get(`/employers/${params.id}/profile`);
+        if (response.status === 200) {
+          setEmployerData(response.data);
+          setIsLoading(false);
+        }
+      } catch (error) {
+        console.log("Error while fetching student profile");
+        toast.error("Erro ao carregar perfil do estudante");
+      }
+    };
+    if (userType === "student" && params.id === userId) {
+      setEmployerData(state.userData.user as Employer);
+      setIsLoading(false);
+    } else {
+      fetchStudent();
+    }
+  }, [userType, state]);
 
   const handleUpdateProfile = () => {
-    router.push(`/company/[id]/update`);
+    router.push(`/company/${params.id}/update`);
     // substituir `[id]` pelo ID do empregador
   };
 
-  return (
+  return isLoading ? (
+    <>
+      <Spinner />
+    </>
+  ) : (
     <div className="w-full self-stretch px-30 pt-6 pb-16 bg-zinc-950 inline-flex flex-col justify-start items-start gap-16">
       <div className="self-stretch w-full inline-flex justify-start items-start gap-6">
         <Avatar
@@ -46,24 +78,26 @@ export default function CompanyProfilePage() {
 
         <div className="self-stretch w-full inline-flex flex-col justify-center items-start gap-1">
           <div className="justify-start text-white text-xl font-semibold leading-[150%]">
-            {employerData.name}
+            {employerData?.name}
           </div>
           {/* <div className="self-stretch justify-start text-zinc-300 text-sm font-medium leading-[150%]">
             
           </div> */}
-          {employerData.hiringRate !== undefined && (
+          {employerData?.hiringRate !== undefined && (
             <div className="justify-start text-violet-500 text-xs font-medium leading-[150%]">
-              {`${employerData.hiringRate}% de taxa de contratação no ConectaUFC`}
+              {`${employerData?.hiringRate}% de taxa de contratação no ConectaUFC`}
             </div>
           )}
         </div>
 
-        <Button
-          variant="outline_violet"
-          Icon={Pen}
-          onClick={handleUpdateProfile}
-          size="icon"
-        />
+        {params.id === userId && (
+          <Button
+            variant="outline_violet"
+            Icon={Pen}
+            onClick={handleUpdateProfile}
+            size="icon"
+          />
+        )}
       </div>
 
       <div className="w-full inline-flex flex-col justify-start items-start gap-12">
@@ -73,7 +107,7 @@ export default function CompanyProfilePage() {
               Sobre
             </div>
             <div className="w-full justify-start text-zinc-300 text-base font-medium leading-[150%]">
-              {employerData.description}
+              {employerData?.description}
             </div>
           </div>
           <div className="flex flex-col justify-start items-start gap-2">
@@ -81,7 +115,7 @@ export default function CompanyProfilePage() {
               Site
             </div>
             <div className="w-full justify-start text-zinc-300 text-base font-medium leading-[150%]">
-              {employerData.site ? employerData.site : "Não informado"}
+              {employerData?.site ? employerData?.site : "Não informado"}
             </div>
           </div>
           <div className="flex flex-col justify-start items-start gap-2">
@@ -89,7 +123,9 @@ export default function CompanyProfilePage() {
               Sede
             </div>
             <div className="w-full justify-start text-zinc-300 text-base font-medium leading-[150%]">
-              {employerData.location ? employerData.location : "Não informado"}
+              {employerData?.location
+                ? employerData?.location
+                : "Não informado"}
             </div>
           </div>
           <div className="flex flex-col justify-start items-start gap-2">
@@ -97,15 +133,15 @@ export default function CompanyProfilePage() {
               Especializações
             </div>
             <div className="w-full justify-start text-zinc-300 text-base font-medium leading-[150%]">
-              {employerData.specializations &&
-              employerData.specializations.length > 1
-                ? `${employerData.specializations.slice(0, -1).join(",")} e ${
-                    employerData.specializations[
-                      employerData.specializations.length - 1
+              {employerData?.specializations &&
+              employerData?.specializations.length > 1
+                ? `${employerData?.specializations.slice(0, -1).join(",")} e ${
+                    employerData?.specializations[
+                      employerData?.specializations.length - 1
                     ]
                   }`
-                : employerData.specializations
-                ? `${employerData.specializations[0]}`
+                : employerData?.specializations
+                ? `${employerData?.specializations[0]}`
                 : "Não informado"}
             </div>
           </div>
@@ -114,7 +150,7 @@ export default function CompanyProfilePage() {
               Contato
             </div>
             <div className="w-full justify-start text-zinc-300 text-base font-medium leading-[150%]">
-              {employerData.email}
+              {employerData?.email}
             </div>
           </div>
         </div>
@@ -130,8 +166,8 @@ export default function CompanyProfilePage() {
                   <JobCard
                     key={opportunity._id}
                     opportunityId={opportunity._id}
-                    logoUrl={employerData.profileImage || ""}
-                    companyName={employerData.name}
+                    logoUrl={employerData?.profileImage || ""}
+                    companyName={employerData?.name || ""}
                     jobTitle={opportunity.title}
                     description={opportunity.description}
                     location={opportunity.workLocation}

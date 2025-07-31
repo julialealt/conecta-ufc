@@ -23,7 +23,7 @@ export default function SignInPage() {
   const handleLogin = async () => {
     setIsLoading(true);
     try {
-      const response = await testApi.post("/auth/login", {
+      const response = await api.post("/auth/login", {
         email,
         password,
       });

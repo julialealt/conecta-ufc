@@ -3,31 +3,33 @@
 import { Button } from "@/app/components/ui/Button";
 import UserCard from "@/app/components/ui/user-card";
 import { AppContext, AppContextType, Employer } from "@/context/appContext";
-import { testApi } from "@/services/axios";
+import api, { testApi } from "@/services/axios";
 import { Opportunity } from "@/types/entities";
 import { ChevronLeft, Sparkles } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 import { toast } from "sonner";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 export default function OpportuniyPage() {
-  /*   const router = useRouter();*/
+  const router = useRouter();
   const { state } = useContext(AppContext) as AppContextType;
-  const userType = state.userType;
+  const userType = useContext(AppContext)?.state.userType || "";
   const userId = state.userData.user?._id;
 
   const params = useParams<{ id: string }>();
   const [opportunityData, setOpportunityData] = useState<Opportunity>();
   const [studentAldearyApplied, setStudentAldearyApplied] = useState(true);
   const [wasStudentRecruited, setWasStudentRecruited] = useState(false);
+  const [wasStudentRefused, setWasStudentRefused] = useState(false);
+  const [wasStudentHired, setWasStudentHired] = useState(false);
   const [contractId, setContractId] = useState("");
 
   useEffect(() => {
     const fetchOpportunity = async () => {
       try {
-        const response = await testApi.get(`/opportunities/${params.id}`);
-        console.log(response.data);
+        const response = await api.get(`/opportunities/${params.id}`);
+
         if (userType === "student") {
           const hasSudentAlreadyApplied =
             response.data.applicants.includes(userId);
@@ -36,11 +38,18 @@ export default function OpportuniyPage() {
           const contractsWithUserId = response.data.contracts.filter(
             (contract: any) => contract.employeeId === userId
           );
-          console.log(contractsWithUserId, contractsWithUserId.length);
-          if (contractsWithUserId.length > 0) {
-            console.log("LASKDALKDALKSDJLASKD");
+          const refusedWithUserId = response.data.refusedApplicants.filter(
+            (contract: any) => contract.employeeId === userId
+          );
+
+          if (refusedWithUserId.length > 0) {
+            setWasStudentRefused(true);
+          } else if (contractsWithUserId.length > 0) {
             setWasStudentRecruited(true);
             setContractId(contractsWithUserId[0]._id);
+            if (contractsWithUserId[0].status === "confirmed") {
+              setWasStudentHired(true);
+            }
           }
         }
         setOpportunityData(response.data);
@@ -54,7 +63,7 @@ export default function OpportuniyPage() {
 
   const handleApplyToOpportunity = async () => {
     try {
-      const response = await testApi.post(`/opportunities/${params.id}/apply`, {
+      const response = await api.post(`/opportunities/${params.id}/apply`, {
         studentId: userId,
       });
       if (response.status === 200) {
@@ -68,12 +77,12 @@ export default function OpportuniyPage() {
   };
 
   const handleBack = () => {
-    // deve voltar para a página anterior
+    router.back();
   };
 
   const handleConfirmContract = async () => {
     try {
-      const response = await testApi.post("/contracts/confirm/", {
+      const response = await api.post("/contracts/confirm/", {
         opportunityId: params.id,
         contractId: contractId,
       });
@@ -115,7 +124,11 @@ export default function OpportuniyPage() {
 
         {userType === "student" && (
           <div className="self-stretch inline-flex justify-start items-start gap-2">
-            {wasStudentRecruited ? (
+            {wasStudentHired ? (
+              <Button variant="under_review">Contratado</Button>
+            ) : wasStudentRefused ? (
+              <Button variant="rejected">Recusado</Button>
+            ) : wasStudentRecruited ? (
               <Button variant="primary" onClick={handleConfirmContract}>
                 Confirmar contratação
               </Button>

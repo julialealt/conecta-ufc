@@ -9,7 +9,7 @@ import {
   TooltipTrigger,
 } from "@/app/components/ui/tooltip";
 import { AppContext, AppContextType, Student } from "@/context/appContext";
-import { testApi } from "@/services/axios";
+import api, { testApi } from "@/services/axios";
 import { ChevronLeft, CircleAlert } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
@@ -26,7 +26,7 @@ export default function OpportunityApplicantsPage() {
   useEffect(() => {
     const fetchApplicants = async () => {
       try {
-        const opportunityResponse = await testApi.get(
+        const opportunityResponse = await api.get(
           `/opportunities/${params.id}`
         );
         if (opportunityResponse.status === 200) {
@@ -35,7 +35,7 @@ export default function OpportunityApplicantsPage() {
           const applicantsObjects: Student[] = [];
           for (const id of applicantsIds) {
             console.log("SEARCH FOR ID", id);
-            const studentReponse = await testApi.get(`/students/${id}/profile`);
+            const studentReponse = await api.get(`/students/${id}/profile`);
             if (studentReponse.status === 200) {
               console.log("STUDE", studentReponse);
               applicantsObjects.push(studentReponse.data);
@@ -60,13 +60,29 @@ export default function OpportunityApplicantsPage() {
 
   const handleRecruit = async (userId: string) => {
     try {
-      const response = await testApi.post("/contracts/request/", {
+      const response = await api.post("/contracts/request/", {
         userId,
         employerId: employerId,
         opportunityId: params.id,
       });
       if (response.status === 201) {
         toast.success("Proceso de contrato iniciado");
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Houve um erro ao recrutar candidato, tente mais tarde");
+    }
+  };
+
+  const handleRefuseApplicant = async (userId: string) => {
+    try {
+      const response = await api.post("/contracts/refuse/", {
+        userId,
+        employerId: employerId,
+        opportunityId: params.id,
+      });
+      if (response.status === 201) {
+        toast.success("Estudante recusado");
       }
     } catch (error) {
       console.log(error);
@@ -155,7 +171,9 @@ export default function OpportunityApplicantsPage() {
                 course={applicant.course}
                 enterSemester={applicant.entrySemester}
                 variant="default"
-                onDecline={() => {}}
+                onDecline={() => {
+                  handleRefuseApplicant(applicant._id);
+                }}
                 onRecruit={() => {
                   handleRecruit(applicant._id);
                 }}

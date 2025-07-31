@@ -9,6 +9,7 @@ export type Opportunity = {
   workLocation: string;
   employer: Employer;
   applicants: [string];
+  refusedApplicants: [string];
   contracts: [
     {
       _id: string;
