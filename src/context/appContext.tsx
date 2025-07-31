@@ -1,5 +1,4 @@
 "use client";
-import { jwtDecode } from "jwt-decode";
 import React, { createContext, useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 
@@ -65,7 +64,7 @@ export type Employer = {
   specializations?: [string];
   contactEmail?: string;
   profileImage?: string;
-  hiringRate?: Number;
+  hiringRate?: number;
 };
 
 export type Adm = {

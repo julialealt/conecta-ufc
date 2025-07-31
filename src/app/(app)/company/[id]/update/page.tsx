@@ -4,12 +4,20 @@ import { Button } from "@/app/components/ui/button";
 import Input from "@/app/components/ui/input";
 import { PhotoInput } from "@/app/components/ui/photo-input";
 import TextAreaInput from "@/app/components/ui/text-area-input";
+import { AppContext, type AppContextType, type Employer } from "@/context/appContext";
+import { localApi } from "@/services/axios";
 import { ChevronLeft } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useParams, useRouter } from "next/navigation";
+import { useContext, useEffect, useState } from "react";
+import { toast } from "sonner";
 
 export default function CompanyProfileUpdatePage() {
   const router = useRouter();
+  const { state } = useContext(AppContext) as AppContextType;
+  const params = useParams<{ id: string }>();
+  const [employerData, setEmployerData] = useState<Employer>();
+  const userType = useContext(AppContext)?.state.userType || "";
+  const userId = useContext(AppContext)?.state.userData.user?._id;
 
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
@@ -20,14 +28,41 @@ export default function CompanyProfileUpdatePage() {
   const [specialities, setSpecialities] = useState("");
   const [contact, setContact] = useState("");
 
+  useEffect(() => {
+    const fetchStudent = async () => {
+      try {
+        const response = await localApi.get(`/employers/${params.id}/profile`);
+        if (response.status === 200) {
+          setEmployerData(response.data);
+
+          setEmail(response.data.email || "");
+          setName(response.data.name || "");
+          setDescription(response.data.description || "");
+          setAbout(response.data.description || "");
+          setSite(response.data.site || "");
+          setLocation(response.data.location || "");
+          setSpecialities(response.data.specializations || "");
+          setContact(response.data.contactEmail || "");
+        }
+      } catch (error) {
+        console.log("Error while fetching profile: ", error);
+        toast.error("Erro ao carregar informações");
+      }
+    };
+    if (userType === "student" && params.id === userId) {
+      setEmployerData(state.userData.user as Employer);
+    } else {
+      fetchStudent();
+    }
+  }, [userType, state]);
+
   const handlePhotoChange = (file: File) => {
     console.log("Novo logo de organização selecionado:", file.name);
     // Lógica de upload...
   };
 
   const handleBack = () => {
-    router.push("/company/[id]");
-    // Você pode substituir '[id]' pelo ID real da empresa, se necessário.
+    router.push(`/company/${userId}`);
   };
 
   const handleResetPassword = () => {
