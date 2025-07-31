@@ -1,18 +1,16 @@
 "use client";
 
-import { Button } from "@/app/components/ui/button";
+import Button from "@/app/components/ui/Button";
 import UserCard from "@/app/components/ui/user-card";
 import { AppContext, AppContextType } from "@/context/appContext";
-import { localApi } from "@/services/axios";
-import { AppContext, AppContextType, Employer } from "@/context/appContext";
-import api, { testApi } from "@/services/axios";
+import api, { localApi } from "@/services/axios";
 import { Opportunity } from "@/types/entities";
 import { getRegime } from "@/utils/getRegime";
 import { ChevronLeft, Sparkles } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
+
 import { Spinner } from "@/app/components/ui/spinner";
 
 export default function OpportuniyPage() {
@@ -35,7 +33,6 @@ export default function OpportuniyPage() {
       try {
         const response = await localApi.get(`/opportunities/${params.id}`);
         console.log(response.data);
-        const response = await testApi.get(`/opportunities/${params.id}`);
 
         if (userType === "student") {
           const hasSudentAlreadyApplied =
@@ -72,9 +69,12 @@ export default function OpportuniyPage() {
 
   const handleApplyToOpportunity = async () => {
     try {
-      const response = await localApi.post(`/opportunities/${params.id}/apply`, {
-        studentId: userId,
-      });
+      const response = await localApi.post(
+        `/opportunities/${params.id}/apply`,
+        {
+          studentId: userId,
+        }
+      );
       if (response.status === 200) {
         toast.success("Candidatura salva com sucesso");
         setStudentAldearyApplied(true);

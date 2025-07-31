@@ -1,13 +1,20 @@
-import React from 'react';
-import { Dialog, DialogClose, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from './ui/dialog';
-import { Button } from './ui/button';
-import { Pencil, Plus, X } from 'lucide-react';
-import Input from './ui/input';
-import TextAreaInput from './ui/text-area-input';
-import Select from './ui/select';
+import React from "react";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "./ui/dialog";
+import Button from "./ui/Button";
+import { Pencil, Plus, X } from "lucide-react";
+import Input from "./ui/input";
+import TextAreaInput from "./ui/text-area-input";
+import Select from "./ui/select";
 
 export type ProfessionalExpDialogProps = {
-  type: 'create' | 'edit';
+  type: "create" | "edit";
   title: string;
   onChangeTitle: (e: React.ChangeEvent<HTMLInputElement>) => void;
   organization: string;
@@ -24,7 +31,6 @@ export type ProfessionalExpDialogProps = {
   onChangeYearEnd: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   onConfirmButtonClick: () => void;
 };
-
 
 const ProfessionalExpDialog: React.FC<ProfessionalExpDialogProps> = ({
   type,
@@ -44,11 +50,10 @@ const ProfessionalExpDialog: React.FC<ProfessionalExpDialogProps> = ({
   onChangeYearEnd,
   onConfirmButtonClick,
 }) => {
-
   return (
     <Dialog>
       <DialogTrigger asChild>
-        {type === 'create' ? (
+        {type === "create" ? (
           <Button variant="primary" Icon={Plus} size="icon" />
         ) : (
           <Button variant="icon" Icon={Pencil} size="icon" />
@@ -57,7 +62,10 @@ const ProfessionalExpDialog: React.FC<ProfessionalExpDialogProps> = ({
 
       <DialogContent className="w-[740px]">
         <DialogHeader>
-          <DialogTitle>{type === 'create' ? 'Adicionar' : 'Editar'} experiência profissional</DialogTitle>
+          <DialogTitle>
+            {type === "create" ? "Adicionar" : "Editar"} experiência
+            profissional
+          </DialogTitle>
           <DialogClose asChild>
             <Button variant="text" Icon={X} size="icon" />
           </DialogClose>
@@ -105,18 +113,18 @@ const ProfessionalExpDialog: React.FC<ProfessionalExpDialogProps> = ({
               placeholder="Mês"
               value={monthStart}
               options={[
-                { value: '1', label: 'Janeiro' },
-                { value: '2', label: 'Fevereiro' },
-                { value: '3', label: 'Março' },
-                { value: '4', label: 'Abril' },
-                { value: '5', label: 'Maio' },
-                { value: '6', label: 'Junho' },
-                { value: '7', label: 'Julho' },
-                { value: '8', label: 'Agosto' },
-                { value: '9', label: 'Setembro' },
-                { value: '10', label: 'Outubro' },
-                { value: '11', label: 'Novembro' },
-                { value: '12', label: 'Dezembro' },
+                { value: "1", label: "Janeiro" },
+                { value: "2", label: "Fevereiro" },
+                { value: "3", label: "Março" },
+                { value: "4", label: "Abril" },
+                { value: "5", label: "Maio" },
+                { value: "6", label: "Junho" },
+                { value: "7", label: "Julho" },
+                { value: "8", label: "Agosto" },
+                { value: "9", label: "Setembro" },
+                { value: "10", label: "Outubro" },
+                { value: "11", label: "Novembro" },
+                { value: "12", label: "Dezembro" },
               ]}
               onChange={onChangeMonthStart}
               status="default"
@@ -128,10 +136,10 @@ const ProfessionalExpDialog: React.FC<ProfessionalExpDialogProps> = ({
               placeholder="Ano"
               value={yearStart}
               options={[
-                { value: '2023', label: '2023' },
-                { value: '2024', label: '2024' },
-                { value: '2025', label: '2025' },
-                { value: '2026', label: '2026' }, // ... adicione mais anos 
+                { value: "2023", label: "2023" },
+                { value: "2024", label: "2024" },
+                { value: "2025", label: "2025" },
+                { value: "2026", label: "2026" }, // ... adicione mais anos
               ]}
               onChange={onChangeYearStart}
               status="default"
@@ -147,18 +155,18 @@ const ProfessionalExpDialog: React.FC<ProfessionalExpDialogProps> = ({
               placeholder="Mês"
               value={monthEnd}
               options={[
-                { value: '1', label: 'Janeiro' },
-                { value: '2', label: 'Fevereiro' },
-                { value: '3', label: 'Março' },
-                { value: '4', label: 'Abril' },
-                { value: '5', label: 'Maio' },
-                { value: '6', label: 'Junho' },
-                { value: '7', label: 'Julho' },
-                { value: '8', label: 'Agosto' },
-                { value: '9', label: 'Setembro' },
-                { value: '10', label: 'Outubro' },
-                { value: '11', label: 'Novembro' },
-                { value: '12', label: 'Dezembro' },
+                { value: "1", label: "Janeiro" },
+                { value: "2", label: "Fevereiro" },
+                { value: "3", label: "Março" },
+                { value: "4", label: "Abril" },
+                { value: "5", label: "Maio" },
+                { value: "6", label: "Junho" },
+                { value: "7", label: "Julho" },
+                { value: "8", label: "Agosto" },
+                { value: "9", label: "Setembro" },
+                { value: "10", label: "Outubro" },
+                { value: "11", label: "Novembro" },
+                { value: "12", label: "Dezembro" },
               ]}
               onChange={onChangeMonthEnd}
               status="default"
@@ -170,10 +178,10 @@ const ProfessionalExpDialog: React.FC<ProfessionalExpDialogProps> = ({
               placeholder="Ano"
               value={yearEnd}
               options={[
-                { value: '2023', label: '2023' },
-                { value: '2024', label: '2024' },
-                { value: '2025', label: '2025' },
-                { value: '2026', label: '2026' }, // ... adicione mais anos 
+                { value: "2023", label: "2023" },
+                { value: "2024", label: "2024" },
+                { value: "2025", label: "2025" },
+                { value: "2026", label: "2026" }, // ... adicione mais anos
               ]}
               onChange={onChangeYearEnd}
               status="default"
@@ -186,7 +194,9 @@ const ProfessionalExpDialog: React.FC<ProfessionalExpDialogProps> = ({
           <DialogClose asChild>
             <Button variant="outline_white">Cancelar</Button>
           </DialogClose>
-          <Button variant="primary" onClick={onConfirmButtonClick}>{type === 'create' ? 'Adicionar' : 'Salvar'}</Button>
+          <Button variant="primary" onClick={onConfirmButtonClick}>
+            {type === "create" ? "Adicionar" : "Salvar"}
+          </Button>
         </div>
       </DialogContent>
     </Dialog>

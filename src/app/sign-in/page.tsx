@@ -2,7 +2,7 @@
 
 import { useState, useContext } from "react";
 import Image from "next/image";
-import { Button } from "../components/ui/button";
+import Button from "../components/ui/Button";
 import Input from "../components/ui/input";
 import logo from "../../../public/assets/logo_lg.svg";
 import { useRouter } from "next/navigation";

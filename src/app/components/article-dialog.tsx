@@ -1,12 +1,19 @@
-import React from 'react';
-import { Dialog, DialogClose, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from './ui/dialog';
-import { Button } from './ui/button';
-import { Pencil, Plus, X } from 'lucide-react';
-import Input from './ui/input';
-import TextAreaInput from './ui/text-area-input';
+import React from "react";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "./ui/dialog";
+import Button from "./ui/Button";
+import { Pencil, Plus, X } from "lucide-react";
+import Input from "./ui/input";
+import TextAreaInput from "./ui/text-area-input";
 
 export type ArticleDialogProps = {
-  type: 'create' | 'edit';
+  type: "create" | "edit";
   title: string;
   onChangeTitle: (e: React.ChangeEvent<HTMLInputElement>) => void;
   description: string;
@@ -15,7 +22,6 @@ export type ArticleDialogProps = {
   onChangeLink: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onConfirmButtonClick: () => void;
 };
-
 
 const ArticleDialog: React.FC<ArticleDialogProps> = ({
   type,
@@ -27,11 +33,10 @@ const ArticleDialog: React.FC<ArticleDialogProps> = ({
   onChangeLink,
   onConfirmButtonClick,
 }) => {
-
   return (
     <Dialog>
       <DialogTrigger asChild>
-        {type === 'create' ? (
+        {type === "create" ? (
           <Button variant="primary" Icon={Plus} size="icon" />
         ) : (
           <Button variant="icon" Icon={Pencil} size="icon" />
@@ -40,7 +45,9 @@ const ArticleDialog: React.FC<ArticleDialogProps> = ({
 
       <DialogContent className="w-[740px]">
         <DialogHeader>
-          <DialogTitle>{type === 'create' ? 'Adicionar' : 'Editar'} artigo</DialogTitle>
+          <DialogTitle>
+            {type === "create" ? "Adicionar" : "Editar"} artigo
+          </DialogTitle>
           <DialogClose asChild>
             <Button variant="text" Icon={X} size="icon" />
           </DialogClose>
@@ -85,7 +92,9 @@ const ArticleDialog: React.FC<ArticleDialogProps> = ({
           <DialogClose asChild>
             <Button variant="outline_white">Cancelar</Button>
           </DialogClose>
-          <Button variant="primary" onClick={onConfirmButtonClick}>{type === 'create' ? 'Adicionar' : 'Salvar'}</Button>
+          <Button variant="primary" onClick={onConfirmButtonClick}>
+            {type === "create" ? "Adicionar" : "Salvar"}
+          </Button>
         </div>
       </DialogContent>
     </Dialog>

@@ -9,17 +9,24 @@ const buttonVariants = cva(
     variants: {
       variant: {
         primary: "bg-violet-500 text-violet-50 hover:bg-violet-600",
-        outline_white: "border border-zinc-100 bg-transparent text-zinc-100 hover:bg-zinc-100/10",
-        outline_violet: "border border-violet-500 bg-transparent text-violet-500 hover:bg-violet-500/10",
-        ghost: "bg-black outline outline-1 outline-offset-[-1px] outline-zinc-500 pointer-events-none",
-        disabled: "border border-zinc-600 bg-black text-zinc-400 hover:bg-violet-600 hover:text-violet-50 pointer-events-none",
+        outline_white:
+          "border border-zinc-100 bg-transparent text-zinc-100 hover:bg-zinc-100/10",
+        outline_violet:
+          "border border-violet-500 bg-transparent text-violet-500 hover:bg-violet-500/10",
+        ghost:
+          "bg-black outline outline-1 outline-offset-[-1px] outline-zinc-500 pointer-events-none",
+        disabled:
+          "border border-zinc-600 bg-black text-zinc-400 hover:bg-violet-600 hover:text-violet-50 pointer-events-none",
         text: "bg-transparent text-violet-50 hover:bg-zinc-800 hover:text-zinc-50",
-        danger: "border border-red-600 text-red-600 hover:bg-red-600 hover:text-zinc-50",
+        danger:
+          "border border-red-600 text-red-600 hover:bg-red-600 hover:text-zinc-50",
         link: "bg-transparent text-violet-500 hover:text-violet-700",
         icon: "bg-transparent text-violet-500 hover:text-violet-600 focus-visible:ring-2 focus-visible:ring-violet-400",
-        under_review: "border border-zinc-600 bg-black text-zinc-400 cursor-default",
+        under_review:
+          "border border-zinc-600 bg-black text-zinc-400 cursor-default",
         rejected: "border border-red-600 bg-black text-red-600 cursor-default",
-        recruited: "border border-black text-black bg-gradient-to-r from-pink-400 to-violet-500 cursor-default",
+        recruited:
+          "border border-black text-black bg-gradient-to-r from-pink-400 to-violet-500 cursor-default",
       },
       size: {
         default: "px-4 py-2.5 gap-2",
@@ -36,7 +43,7 @@ const buttonVariants = cva(
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-  VariantProps<typeof buttonVariants> {
+    VariantProps<typeof buttonVariants> {
   Icon?: LucideIcon;
 }
 
@@ -56,4 +63,6 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 );
 Button.displayName = "Button";
 
-export { Button, buttonVariants };
+export { buttonVariants };
+
+export default Button;

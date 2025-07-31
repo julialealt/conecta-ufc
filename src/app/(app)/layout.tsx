@@ -1,5 +1,5 @@
 import AppProvider from "@/context/appContext";
-import { Header } from "../components/ui/header";
+import { Header } from "../components/ui/Header";
 
 export default function AppLayout({
   children,
