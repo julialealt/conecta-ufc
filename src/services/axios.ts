@@ -42,7 +42,7 @@ authAPi.interceptors.request.use((config) => {
 });
 
 export const localApi: AxiosInstance = axios.create({
-  baseURL: "http://localhost:8080/api/v1",
+  baseURL: "https://ufc-conecta-backend.onrender.com/api/v1",
   timeout: 100000000,
 });
 

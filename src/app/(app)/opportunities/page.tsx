@@ -89,7 +89,7 @@ export default function OpportunitiesPage() {
             Suas {userType === "student" ? "candidaturas" : "vagas publicadas"}
           </div>
 
-          {userType === "company" && (
+          {userType === "employer" && (
             <div className="flex-1 self-stretch justify-start text-zinc-300 text-sm font-medium leading-[150%]">
               Gerencie todas as oportunidades que você criou.
               <br />
@@ -108,7 +108,7 @@ export default function OpportunitiesPage() {
           )}
         </div>
 
-        {userType === "company" && (
+        {userType === "employer" && (
           <Button
             variant="primary"
             onClick={() => router.push("/opportunities/create")}
