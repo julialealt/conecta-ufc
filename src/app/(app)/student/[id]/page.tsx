@@ -68,7 +68,7 @@ export default function StudentProfile() {
           </div>
 
           <div className="self-stretch justify-start text-zinc-300 text-sm font-medium leading-[150%]">
-            {userData?.course} {/** depois mudar para description */}
+            {userData?.description}
           </div>
 
           <ContactInfo
@@ -81,13 +81,13 @@ export default function StudentProfile() {
             ]}
             birthDate="27/09/2002"
             emailValue=""
-            onChangeEmail={() => {}}
+            onChangeEmail={() => { }}
             linkUrl1=""
-            onChangeLinkUrl1={() => {}}
+            onChangeLinkUrl1={() => { }}
             linkDescription1=""
-            onChangeLinkDescription1={() => {}}
+            onChangeLinkDescription1={() => { }}
             birthDateValue="27/09/2002"
-            onChangeBirthDate={() => {}}
+            onChangeBirthDate={() => { }}
           />
         </div>
 
@@ -108,15 +108,6 @@ export default function StudentProfile() {
           </div>
           <div className="w-full justify-start text-zinc-300 text-base font-medium leading-[150%]">
             {userData?.about}
-          </div>
-        </div>
-
-        <div className="w-full pt-8 border-t border-zinc-500 inline-flex flex-col justify-start items-start gap-4">
-          <div className="w-full justify-start text-white text-xl font-semibold leading-[150%]">
-            Descrição
-          </div>
-          <div className="w-full justify-start text-zinc-300 text-base font-medium leading-[150%]">
-            {userData?.description}
           </div>
         </div>
 
@@ -160,20 +151,20 @@ export default function StudentProfile() {
             <ProfessionalExpDialog
               type="create"
               title=""
-              onChangeTitle={() => {}}
+              onChangeTitle={() => { }}
               organization=""
-              onChangeOrganization={() => {}}
+              onChangeOrganization={() => { }}
               description=""
-              onChangeDescription={() => {}}
+              onChangeDescription={() => { }}
               monthStart=""
-              onChangeMonthStart={() => {}}
+              onChangeMonthStart={() => { }}
               yearStart=""
-              onChangeYearStart={() => {}}
+              onChangeYearStart={() => { }}
               monthEnd=""
-              onChangeMonthEnd={() => {}}
+              onChangeMonthEnd={() => { }}
               yearEnd=""
-              onChangeYearEnd={() => {}}
-              onConfirmButtonClick={() => {}}
+              onChangeYearEnd={() => { }}
+              onConfirmButtonClick={() => { }}
             />
           </div>
           {userData?.experiences && userData.experiences.length > 0 ? (
@@ -189,20 +180,20 @@ export default function StudentProfile() {
                   <ProfessionalExpDialog
                     type="edit"
                     title=""
-                    onChangeTitle={() => {}}
+                    onChangeTitle={() => { }}
                     organization=""
-                    onChangeOrganization={() => {}}
+                    onChangeOrganization={() => { }}
                     description=""
-                    onChangeDescription={() => {}}
+                    onChangeDescription={() => { }}
                     monthStart="1"
-                    onChangeMonthStart={() => {}}
+                    onChangeMonthStart={() => { }}
                     yearStart="2024"
-                    onChangeYearStart={() => {}}
+                    onChangeYearStart={() => { }}
                     monthEnd="12"
-                    onChangeMonthEnd={() => {}}
+                    onChangeMonthEnd={() => { }}
                     yearEnd="2025"
-                    onChangeYearEnd={() => {}}
-                    onConfirmButtonClick={() => {}}
+                    onChangeYearEnd={() => { }}
+                    onConfirmButtonClick={() => { }}
                   />
                 </div>
                 <div className="w-full justify-start text-white text-base font-semibold leading-[150%] italic">
@@ -236,9 +227,9 @@ export default function StudentProfile() {
                 "Salesforce",
                 "Inglês fluente",
               ]}
-              onAddSkill={() => {}}
-              onRemoveSkill={() => {}}
-              onConfirmButtonClick={() => {}}
+              onAddSkill={() => { }}
+              onRemoveSkill={() => { }}
+              onConfirmButtonClick={() => { }}
             />
           </div>
           <div className="self-stretch inline-flex justify-start items-start gap-2 flex-wrap content-start">
@@ -264,14 +255,14 @@ export default function StudentProfile() {
             <ProjectDialog
               type="create"
               title=""
-              onChangeTitle={() => {}}
+              onChangeTitle={() => { }}
               description=""
-              onChangeDescription={() => {}}
+              onChangeDescription={() => { }}
               category=""
-              onChangeCategory={() => {}}
+              onChangeCategory={() => { }}
               link=""
-              onChangeLink={() => {}}
-              onConfirmButtonClick={() => {}}
+              onChangeLink={() => { }}
+              onConfirmButtonClick={() => { }}
             />
           </div>
 
@@ -288,14 +279,14 @@ export default function StudentProfile() {
                   <ProjectDialog
                     type="edit"
                     title=""
-                    onChangeTitle={() => {}}
+                    onChangeTitle={() => { }}
                     description=""
-                    onChangeDescription={() => {}}
+                    onChangeDescription={() => { }}
                     category=""
-                    onChangeCategory={() => {}}
+                    onChangeCategory={() => { }}
                     link=""
-                    onChangeLink={() => {}}
-                    onConfirmButtonClick={() => {}}
+                    onChangeLink={() => { }}
+                    onConfirmButtonClick={() => { }}
                   />
                 </div>
                 <div className="w-full justify-start text-zinc-300 text-base font-medium leading-[150%]">
@@ -326,12 +317,12 @@ export default function StudentProfile() {
             <ArticleDialog
               type="create"
               title=""
-              onChangeTitle={() => {}}
+              onChangeTitle={() => { }}
               description=""
-              onChangeDescription={() => {}}
+              onChangeDescription={() => { }}
               link=""
-              onChangeLink={() => {}}
-              onConfirmButtonClick={() => {}}
+              onChangeLink={() => { }}
+              onConfirmButtonClick={() => { }}
             />
           </div>
 
@@ -348,12 +339,12 @@ export default function StudentProfile() {
                   <ArticleDialog
                     type="edit"
                     title=""
-                    onChangeTitle={() => {}}
+                    onChangeTitle={() => { }}
                     description=""
-                    onChangeDescription={() => {}}
+                    onChangeDescription={() => { }}
                     link=""
-                    onChangeLink={() => {}}
-                    onConfirmButtonClick={() => {}}
+                    onChangeLink={() => { }}
+                    onConfirmButtonClick={() => { }}
                   />
                 </div>
                 <div className="w-full justify-start text-zinc-300 text-base font-medium leading-[150%]">
@@ -384,14 +375,14 @@ export default function StudentProfile() {
             <CertificateDialog
               type="create"
               title=""
-              onChangeTitle={() => {}}
+              onChangeTitle={() => { }}
               organization=""
-              onChangeOrganization={() => {}}
+              onChangeOrganization={() => { }}
               certificate=""
-              onChangeCertificate={() => {}}
+              onChangeCertificate={() => { }}
               certificationDate=""
-              onChangeCertificationDate={() => {}}
-              onConfirmButtonClick={() => {}}
+              onChangeCertificationDate={() => { }}
+              onConfirmButtonClick={() => { }}
             />
           </div>
 
@@ -414,14 +405,14 @@ export default function StudentProfile() {
                     <CertificateDialog
                       type="edit"
                       title=""
-                      onChangeTitle={() => {}}
+                      onChangeTitle={() => { }}
                       organization=""
-                      onChangeOrganization={() => {}}
+                      onChangeOrganization={() => { }}
                       certificate=""
-                      onChangeCertificate={() => {}}
+                      onChangeCertificate={() => { }}
                       certificationDate=""
-                      onChangeCertificationDate={() => {}}
-                      onConfirmButtonClick={() => {}}
+                      onChangeCertificationDate={() => { }}
+                      onConfirmButtonClick={() => { }}
                     />
                   </div>
                   <div className="self-stretch inline-flex justify-start items-start gap-2">

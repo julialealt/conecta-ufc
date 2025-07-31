@@ -89,7 +89,7 @@ export default function CompanyProfilePage() {
           </div>
 
           <div className="self-stretch justify-start text-zinc-300 text-sm font-medium leading-[150%]">
-            Descrição vai aqui
+            {employerData?.description}
           </div>
 
           {employerData?.hiringRate !== undefined && (
@@ -116,7 +116,7 @@ export default function CompanyProfilePage() {
               Sobre
             </div>
             <div className="w-full justify-start text-zinc-300 text-base font-medium leading-[150%]">
-              {employerData?.description}
+              {employerData?.about}
             </div>
           </div>
           <div className="flex flex-col justify-start items-start gap-2">
@@ -143,15 +143,14 @@ export default function CompanyProfilePage() {
             </div>
             <div className="w-full justify-start text-zinc-300 text-base font-medium leading-[150%]">
               {employerData?.specializations &&
-              employerData?.specializations.length > 1
-                ? `${employerData?.specializations.slice(0, -1).join(",")} e ${
-                    employerData?.specializations[
-                      employerData?.specializations.length - 1
-                    ]
-                  }`
+                employerData?.specializations.length > 1
+                ? `${employerData?.specializations.slice(0, -1).join(",")} e ${employerData?.specializations[
+                employerData?.specializations.length - 1
+                ]
+                }`
                 : employerData?.specializations
-                ? `${employerData?.specializations[0]}`
-                : "Não informado"}
+                  ? `${employerData?.specializations[0]}`
+                  : "Não informado"}
             </div>
           </div>
           <div className="flex flex-col justify-start items-start gap-2">
@@ -172,28 +171,28 @@ export default function CompanyProfilePage() {
           <div className="self-stretch inline-flex flex-col justify-start items-start gap-4">
             {employerOpportunities.length > 0
               ? employerOpportunities.map((opportunity) => (
-                  <JobCard
-                    key={opportunity._id}
-                    opportunityId={opportunity._id}
-                    logoUrl={employerData?.profileImage || ""}
-                    companyName={employerData?.name || ""}
-                    jobTitle={opportunity.title}
-                    description={opportunity.description}
-                    location={opportunity.workLocation}
-                    salary={opportunity.salary.toString()}
-                    workload={`${opportunity.weeklyHours}h semanais`}
-                    buttonText={
-                      userType === "employer"
-                        ? params.id === userId
-                          ? "Ver candidatos"
-                          : undefined
-                        : "Ver detalhes"
-                    }
-                    onClickButton={() =>
-                      handleOnClickButtonOpportunity(opportunity._id)
-                    }
-                  />
-                ))
+                <JobCard
+                  key={opportunity._id}
+                  opportunityId={opportunity._id}
+                  logoUrl={employerData?.profileImage || ""}
+                  companyName={employerData?.name || ""}
+                  jobTitle={opportunity.title}
+                  description={opportunity.description}
+                  location={opportunity.workLocation}
+                  salary={opportunity.salary.toString()}
+                  workload={`${opportunity.weeklyHours}h semanais`}
+                  buttonText={
+                    userType === "employer"
+                      ? params.id === userId
+                        ? "Ver candidatos"
+                        : undefined
+                      : "Ver detalhes"
+                  }
+                  onClickButton={() =>
+                    handleOnClickButtonOpportunity(opportunity._id)
+                  }
+                />
+              ))
               : "Não há oportunidades cadastradas"}
           </div>
         </div>
