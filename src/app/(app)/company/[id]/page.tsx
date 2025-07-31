@@ -4,7 +4,7 @@ import { Pen } from "lucide-react";
 import { AppContext, AppContextType, Employer } from "@/context/appContext";
 import { Opportunity } from "@/types/entities";
 import { useParams, useRouter } from "next/navigation";
-import api from "@/services/axios";
+import api, { testApi } from "@/services/axios";
 import { Button } from "@/app/components/ui/Button";
 import Avatar from "@/app/components/ui/avatar";
 import JobCard from "@/app/components/ui/job-card";
@@ -26,20 +26,20 @@ export default function CompanyProfilePage() {
 
   useEffect(() => {
     const fetchOpportunities = async () => {
-      const opportunitiesResponse = await api.get(
+      const opportunitiesResponse = await testApi.get(
         `/opportunities/employer/${employerData?._id}`
       );
       if (opportunitiesResponse.status === 200) {
         setEmployerOpportunities(opportunitiesResponse.data);
       }
     };
-    fetchOpportunities();
+    if (employerData && employerData._id) fetchOpportunities();
   }, [employerData]);
 
   useEffect(() => {
     const fetchStudent = async () => {
       try {
-        const response = await api.get(`/employers/${params.id}/profile`);
+        const response = await testApi.get(`/employers/${params.id}/profile`);
         if (response.status === 200) {
           setEmployerData(response.data);
           setIsLoading(false);
@@ -59,7 +59,14 @@ export default function CompanyProfilePage() {
 
   const handleUpdateProfile = () => {
     router.push(`/company/${params.id}/update`);
-    // substituir `[id]` pelo ID do empregador
+  };
+
+  const handleOnClickButtonOpportunity = (opportunityId: string) => {
+    if (userType === "student") {
+      router.push(`/opportunities/${opportunityId}`);
+    } else {
+      router.push(`/opportunities/${opportunityId}/applicants`);
+    }
   };
 
   return isLoading ? (
@@ -173,23 +180,15 @@ export default function CompanyProfilePage() {
                     location={opportunity.workLocation}
                     salary={opportunity.salary.toString()}
                     workload={`${opportunity.weeklyHours}h semanais`}
-                    buttonText="Ver candidatos"
+                    buttonText={
+                      userType === "employer" ? "Ver candidatos" : "ver vaga"
+                    }
+                    onClickButton={() => {
+                      handleOnClickButtonOpportunity(opportunity._id);
+                    }}
                   />
                 ))
               : "Não há oportunidades cadastradas"}
-
-            {/* <JobCard
-              logoUrl={""}
-              companyName={"IBM"}
-              jobTitle={"UI/UX Designer"}
-              description={
-                "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release.  It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release."
-              }
-              location={"Remoto"}
-              salary={"R$1.200,00"}
-              workload={"20h semanais"}
-              buttonText="Ver candidatos"
-            /> */}
           </div>
         </div>
       </div>

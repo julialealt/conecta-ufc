@@ -43,7 +43,7 @@ export default function StudentSignUpPage() {
         },
         "student"
       );
-      const emailResponse = await api.post("/auth/send-email", {
+      const emailResponse = await testApi.post("/auth/send-email", {
         userEmail: email,
       });
       if (emailResponse.status === 200) {

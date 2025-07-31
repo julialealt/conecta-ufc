@@ -26,7 +26,7 @@ export default function OpportunityApplicantsPage() {
   useEffect(() => {
     const fetchApplicants = async () => {
       try {
-        const opportunityResponse = await api.get(
+        const opportunityResponse = await testApi.get(
           `/opportunities/${params.id}`
         );
         if (opportunityResponse.status === 200) {
@@ -35,7 +35,7 @@ export default function OpportunityApplicantsPage() {
           const applicantsObjects: Student[] = [];
           for (const id of applicantsIds) {
             console.log("SEARCH FOR ID", id);
-            const studentReponse = await api.get(`/students/${id}/profile`);
+            const studentReponse = await testApi.get(`/students/${id}/profile`);
             if (studentReponse.status === 200) {
               console.log("STUDE", studentReponse);
               applicantsObjects.push(studentReponse.data);
@@ -60,7 +60,7 @@ export default function OpportunityApplicantsPage() {
 
   const handleRecruit = async (userId: string) => {
     try {
-      const response = await api.post("/contracts/request/", {
+      const response = await testApi.post("/contracts/request/", {
         userId,
         employerId: employerId,
         opportunityId: params.id,
@@ -76,7 +76,7 @@ export default function OpportunityApplicantsPage() {
 
   const handleRefuseApplicant = async (userId: string) => {
     try {
-      const response = await api.post("/contracts/refuse/", {
+      const response = await testApi.post("/contracts/refuse/", {
         userId,
         employerId: employerId,
         opportunityId: params.id,

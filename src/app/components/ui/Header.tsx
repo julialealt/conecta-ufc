@@ -9,14 +9,16 @@ import { AppContext, AppContextType } from "@/context/appContext";
 
 export function Header() {
   const { state } = useContext(AppContext) as AppContextType;
+  const userId = useContext(AppContext)?.state.userData.user?._id;
+
   console.log("STATE", state);
   const userType = state.userType;
   let profileLink = "";
   console.log(userType);
   if (userType === "student") {
-    profileLink = "/student-profile";
+    profileLink = `/student/${userId}`;
   } else {
-    profileLink = "/company-profile";
+    profileLink = `/company/${userId}`;
   }
 
   return (
@@ -33,7 +35,7 @@ export function Header() {
             <Briefcase className="h-4 w-4" />
             Vagas
           </NavLink>
-          <NavLink href="/company/1">
+          <NavLink href={profileLink}>
             {" "}
             {/* depende do user ativo /company/${id} ou /student/${id} */}
             <UserRound className="h-4 w-4" />

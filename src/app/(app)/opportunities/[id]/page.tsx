@@ -10,6 +10,7 @@ import { useParams } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { Spinner } from "@/app/components/ui/spinner";
 
 export default function OpportuniyPage() {
   const router = useRouter();
@@ -23,12 +24,13 @@ export default function OpportuniyPage() {
   const [wasStudentRecruited, setWasStudentRecruited] = useState(false);
   const [wasStudentRefused, setWasStudentRefused] = useState(false);
   const [wasStudentHired, setWasStudentHired] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [contractId, setContractId] = useState("");
 
   useEffect(() => {
     const fetchOpportunity = async () => {
       try {
-        const response = await api.get(`/opportunities/${params.id}`);
+        const response = await testApi.get(`/opportunities/${params.id}`);
 
         if (userType === "student") {
           const hasSudentAlreadyApplied =
@@ -53,6 +55,7 @@ export default function OpportuniyPage() {
           }
         }
         setOpportunityData(response.data);
+        setIsLoading(false);
       } catch (error) {
         toast.error("Falha ao carregar oportunidade");
       }
@@ -63,7 +66,7 @@ export default function OpportuniyPage() {
 
   const handleApplyToOpportunity = async () => {
     try {
-      const response = await api.post(`/opportunities/${params.id}/apply`, {
+      const response = await testApi.post(`/opportunities/${params.id}/apply`, {
         studentId: userId,
       });
       if (response.status === 200) {
@@ -82,7 +85,7 @@ export default function OpportuniyPage() {
 
   const handleConfirmContract = async () => {
     try {
-      const response = await api.post("/contracts/confirm/", {
+      const response = await testApi.post("/contracts/confirm/", {
         opportunityId: params.id,
         contractId: contractId,
       });
@@ -95,7 +98,12 @@ export default function OpportuniyPage() {
     }
   };
 
-  return (
+  return isLoading ? (
+    <>
+      {" "}
+      <Spinner />{" "}
+    </>
+  ) : (
     <div className="self-stretch w-full px-30 pt-6 pb-16 bg-zinc-950 inline-flex flex-col justify-start items-start gap-8">
       <div className="w-full inline-flex justify-start items-start gap-3">
         <div className="self-stretch pt-0.5 inline-flex flex-col justify-start items-start gap-1">

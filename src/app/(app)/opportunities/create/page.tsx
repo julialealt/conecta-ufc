@@ -25,7 +25,7 @@ export default function CreateOpportunityPage() {
 
   const handleCreateOpportunity = async () => {
     try {
-      const response = await api.post("/opportunities", {
+      const response = await testApi.post("/opportunities", {
         title,
         description,
         salary: Number(salary),

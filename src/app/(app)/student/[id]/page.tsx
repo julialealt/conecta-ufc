@@ -25,7 +25,7 @@ export default function StudentProfile() {
   useEffect(() => {
     const fetchStudent = async () => {
       try {
-        const response = await api.get(`/students/${params.id}/profile`);
+        const response = await testApi.get(`/students/${params.id}/profile`);
         if (response.status === 200) {
           setUserData(response.data);
           setIsLoading(false);

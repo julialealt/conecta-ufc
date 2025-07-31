@@ -22,7 +22,7 @@ export default function Home() {
   useEffect(() => {
     const fetchOpportunities = async () => {
       try {
-        const response = await api.get("/opportunities");
+        const response = await testApi.get("/opportunities");
         const listOfAllOpportunities: Opportunity[] = response.data;
         setOpportunities(listOfAllOpportunities);
       } catch (error) {
@@ -35,7 +35,7 @@ export default function Home() {
 
     const fetchStudents = async () => {
       try {
-        const response = await api.get("/students/search");
+        const response = await testApi.get("/students/search");
         const listOfStudents: Student[] = response.data;
         setStudents(listOfStudents);
       } catch (error) {
@@ -48,7 +48,7 @@ export default function Home() {
 
     const fetchEmployers = async () => {
       try {
-        const response = await api.get("/employers");
+        const response = await testApi.get("/employers");
         const listOfEmployers: Employer[] = response.data;
         setEmployers(listOfEmployers);
       } catch (error) {
