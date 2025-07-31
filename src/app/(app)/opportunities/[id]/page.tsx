@@ -2,9 +2,10 @@
 
 import { Button } from "@/app/components/ui/button";
 import UserCard from "@/app/components/ui/user-card";
-import { AppContext, AppContextType, Employer } from "@/context/appContext";
+import { AppContext, AppContextType } from "@/context/appContext";
 import { localApi } from "@/services/axios";
 import { Opportunity } from "@/types/entities";
+import { getRegime } from "@/utils/getRegime";
 import { ChevronLeft, Sparkles } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
@@ -33,7 +34,10 @@ export default function OpportuniyPage() {
           setStudentAldearyApplied(hasSudentAlreadyApplied);
 
           const contractsWithUserId = response.data.contracts.filter(
-            (contract: any) => contract.employeeId === userId
+            (contract: any) => {
+              console.log("CONTRACT", contract);
+              return contract.employeeId === userId
+            }
           );
           console.log(contractsWithUserId, contractsWithUserId.length);
           if (contractsWithUserId.length > 0) {
@@ -164,7 +168,7 @@ export default function OpportuniyPage() {
               Regime
             </div>
             <div className="self-stretch justify-start text-zinc-300 text-base font-medium leading-[150%]">
-              {opportunityData?.workLocation}
+              {getRegime(opportunityData?.workLocation || "Não especificado")}
             </div>
           </div>
           <div className="flex-1 inline-flex flex-col justify-start items-start gap-2">

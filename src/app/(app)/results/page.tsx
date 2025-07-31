@@ -72,6 +72,12 @@ export default function ResultsPage() {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [filterActive, setFilterActive] = useState<'opportunities' | 'students' | null>(null);
 
+  const [regime, setRegime] = useState<string | null>(null);
+  const [salary, setSalary] = useState<string | null>(null);
+  const [workload, setWorkload] = useState<string | null>(null);
+  const [course, setCourse] = useState<string | null>(null);
+  const [entrySemester, setEntrySemester] = useState<string | null>(null);
+
   const results = useMemo(() => {
     if (filterActive === 'opportunities') {
       return mockOpportunities;
@@ -95,18 +101,18 @@ export default function ResultsPage() {
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           filterActive={null}
-          regime=""
-          setRegime={() => { }}
-          salary=""
-          setSalary={() => { }}
-          workload=""
-          setWorkload={() => { }}
+          regime={regime || ""}
+          setRegime={setRegime}
+          salary={salary || ""}
+          setSalary={setSalary}
+          workload={workload || ""}
+          setWorkload={setWorkload}
           onFilterOpportunities={() => { }}
           onClearOpportunities={() => { }}
-          course=""
-          setCourse={() => { }}
-          entrySemester=""
-          setEntrySemester={() => { }}
+          course={course || ""}
+          setCourse={setCourse}
+          entrySemester={entrySemester || ""}
+          setEntrySemester={setEntrySemester}
           onFilterStudents={() => { }}
           onClearStudents={() => { }}
         />

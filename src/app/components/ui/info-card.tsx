@@ -1,10 +1,10 @@
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
-import Image from 'next/image';
+import Avatar from './avatar';
 
 export interface InfoCardProps {
   student: boolean;
-  imageUrl: string;
+  imageUrl?: string;
   title: string;
   subtitle: string;
   href: string;
@@ -19,9 +19,6 @@ export const InfoCard: React.FC<InfoCardProps> = ({
   href,
   className,
 }) => {
-  const imageShapeClass = student ? 'rounded-full' : 'rounded-lg';
-  const imageSizeClass = 'h-[46px] w-[46px]';
-
   return (
     <Link
       href={href}
@@ -31,15 +28,13 @@ export const InfoCard: React.FC<InfoCardProps> = ({
         className
       )}
     >
-      <div className={cn('flex-shrink-0', imageSizeClass)}>
-        <Image
-          src={imageUrl}
-          alt={`Logo de ${title}`}
-          width={46}
-          height={46}
-          className={cn('h-full w-full object-cover', imageShapeClass)}
-        />
-      </div>
+      <Avatar
+        imageUrl={imageUrl}
+        name={title}
+        variant={student ? 'person' : 'organization'}
+        size="sm"
+        className='w-[46px] h-[46px] flex-shrink-0'
+      />
 
       <div className="flex flex-col gap-0.5">
         <span className="font-semibold text-sm text-zinc-50 line-clamp-1 leading-[150%]">{title}</span>

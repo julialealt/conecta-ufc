@@ -6,7 +6,6 @@ import { Employer, Student } from "@/context/appContext";
 import { InfoCard } from "../components/ui/info-card";
 import { SearchBar } from "../components/ui/search-bar";
 import { Spinner } from "../components/ui/spinner";
-import { toast } from "sonner";
 
 export default function Home() {
   const [opportunities, setOpportunities] = useState<Opportunity[]>([]);
@@ -17,6 +16,11 @@ export default function Home() {
   const [fetchingEmployers, setFetchingEmployers] = useState<boolean>(true);
 
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const [regime, setRegime] = useState<string | null>(null);
+  const [salary, setSalary] = useState<string | null>(null);
+  const [workload, setWorkload] = useState<string | null>(null);
+  const [course, setCourse] = useState<string | null>(null);
+  const [entrySemester, setEntrySemester] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchOpportunities = async () => {
@@ -68,18 +72,18 @@ export default function Home() {
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           filterActive={null}
-          regime=""
-          setRegime={() => { }}
-          salary=""
-          setSalary={() => { }}
-          workload=""
-          setWorkload={() => { }}
+          regime={regime || ""}
+          setRegime={setRegime}
+          salary={salary || ""}
+          setSalary={setSalary}
+          workload={workload || ""}
+          setWorkload={setWorkload}
           onFilterOpportunities={() => { }}
           onClearOpportunities={() => { }}
-          course=""
-          setCourse={() => { }}
-          entrySemester=""
-          setEntrySemester={() => { }}
+          course={course || ""}
+          setCourse={setCourse}
+          entrySemester={entrySemester || ""}
+          setEntrySemester={setEntrySemester}
           onFilterStudents={() => { }}
           onClearStudents={() => { }}
         />
@@ -100,7 +104,7 @@ export default function Home() {
                     key={opportunity._id}
                     title={opportunity.title}
                     subtitle={opportunity.employer.name}
-                    imageUrl={opportunity.employer.profileImage || ""}
+                    imageUrl={opportunity.employer.profileImage}
                     student={false}
                     href={`/opportunities/${opportunity._id}`}
                     className="w-full"
@@ -128,7 +132,7 @@ export default function Home() {
                       subtitle={student.course}
                       imageUrl={student.profileImage || ""}
                       student={true}
-                      href={`/students/${student._id}`}
+                      href={`/student/${student._id}`}
                       className="w-full"
                     />
                   ))
@@ -153,7 +157,7 @@ export default function Home() {
                       subtitle={employer.name}
                       imageUrl={employer.profileImage || ""}
                       student={false}
-                      href={`/employers/${employer._id}`}
+                      href={`/company/${employer._id}`}
                       className="w-full"
                     />
                   ))

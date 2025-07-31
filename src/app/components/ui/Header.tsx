@@ -4,10 +4,10 @@ import { Home, Briefcase, UserRound, Settings, LogOut } from "lucide-react"
 import Image from "next/image"
 import logo from "../../../../public/assets/logo_sm.svg"
 import { NavLink } from "./nav-link"
-import { Button } from "./button"
 import { Popover, PopoverContent, PopoverTrigger } from "./popover"
 import { useContext } from "react"
 import { AppContext, type AppContextType } from "@/context/appContext"
+import { Button } from "./button"
 
 export function Header() {
   const { state } = useContext(AppContext) as AppContextType;
