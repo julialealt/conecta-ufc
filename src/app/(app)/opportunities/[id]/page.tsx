@@ -4,23 +4,30 @@ import { Button } from "@/app/components/ui/button";
 import UserCard from "@/app/components/ui/user-card";
 import { AppContext, AppContextType } from "@/context/appContext";
 import { localApi } from "@/services/axios";
+import { AppContext, AppContextType, Employer } from "@/context/appContext";
+import api, { testApi } from "@/services/axios";
 import { Opportunity } from "@/types/entities";
 import { getRegime } from "@/utils/getRegime";
 import { ChevronLeft, Sparkles } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import { Spinner } from "@/app/components/ui/spinner";
 
 export default function OpportuniyPage() {
   const router = useRouter();
   const { state } = useContext(AppContext) as AppContextType;
-  const userType = state.userType;
+  const userType = useContext(AppContext)?.state.userType || "";
   const userId = state.userData.user?._id;
 
   const params = useParams<{ id: string }>();
   const [opportunityData, setOpportunityData] = useState<Opportunity>();
   const [studentAldearyApplied, setStudentAldearyApplied] = useState(true);
   const [wasStudentRecruited, setWasStudentRecruited] = useState(false);
+  const [wasStudentRefused, setWasStudentRefused] = useState(false);
+  const [wasStudentHired, setWasStudentHired] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [contractId, setContractId] = useState("");
 
   useEffect(() => {
@@ -28,25 +35,32 @@ export default function OpportuniyPage() {
       try {
         const response = await localApi.get(`/opportunities/${params.id}`);
         console.log(response.data);
+        const response = await testApi.get(`/opportunities/${params.id}`);
+
         if (userType === "student") {
           const hasSudentAlreadyApplied =
             response.data.applicants.includes(userId);
           setStudentAldearyApplied(hasSudentAlreadyApplied);
 
           const contractsWithUserId = response.data.contracts.filter(
-            (contract: any) => {
-              console.log("CONTRACT", contract);
-              return contract.employeeId === userId
-            }
+            (contract: any) => contract.employeeId === userId
           );
-          console.log(contractsWithUserId, contractsWithUserId.length);
-          if (contractsWithUserId.length > 0) {
-            console.log("LASKDALKDALKSDJLASKD");
+          const refusedWithUserId = response.data.refusedApplicants.filter(
+            (contract: any) => contract.employeeId === userId
+          );
+
+          if (refusedWithUserId.length > 0) {
+            setWasStudentRefused(true);
+          } else if (contractsWithUserId.length > 0) {
             setWasStudentRecruited(true);
             setContractId(contractsWithUserId[0]._id);
+            if (contractsWithUserId[0].status === "confirmed") {
+              setWasStudentHired(true);
+            }
           }
         }
         setOpportunityData(response.data);
+        setIsLoading(false);
       } catch (error) {
         console.error("Error fetching opportunity:", error);
         toast.error("Falha ao carregar oportunidade");
@@ -90,7 +104,12 @@ export default function OpportuniyPage() {
     }
   };
 
-  return (
+  return isLoading ? (
+    <>
+      {" "}
+      <Spinner />{" "}
+    </>
+  ) : (
     <div className="self-stretch w-full px-30 pt-6 pb-16 bg-zinc-950 inline-flex flex-col justify-start items-start gap-8">
       <div className="w-full inline-flex justify-start items-start gap-3">
         <div className="self-stretch pt-0.5 inline-flex flex-col justify-start items-start gap-1">
@@ -119,13 +138,14 @@ export default function OpportuniyPage() {
 
         {userType === "student" && (
           <div className="self-stretch inline-flex justify-start items-start gap-2">
-            {wasStudentRecruited ? (
-              <div className="inline-flex justify-end items-center gap-4">
-                <Button variant="recruited" Icon={Sparkles}>Recrutado</Button>
-                <Button variant="primary" onClick={handleConfirmContract}>
-                  Confirmar contratação
-                </Button>
-              </div>
+            {wasStudentHired ? (
+              <Button variant="under_review">Contratado</Button>
+            ) : wasStudentRefused ? (
+              <Button variant="rejected">Recusado</Button>
+            ) : wasStudentRecruited ? (
+              <Button variant="primary" onClick={handleConfirmContract}>
+                Confirmar contratação
+              </Button>
             ) : !studentAldearyApplied ? (
               <Button variant="primary" onClick={handleApplyToOpportunity}>
                 Aplicar

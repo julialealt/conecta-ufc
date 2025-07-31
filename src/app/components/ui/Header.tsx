@@ -8,17 +8,20 @@ import { Popover, PopoverContent, PopoverTrigger } from "./popover"
 import { useContext } from "react"
 import { AppContext, type AppContextType } from "@/context/appContext"
 import { Button } from "./button"
+import { useRouter } from "next/navigation"
 
 export function Header() {
+  const router = useRouter()
   const { state } = useContext(AppContext) as AppContextType;
-  console.log("STATE", state);
+  const userId = useContext(AppContext)?.state.userData.user?._id;
+
   const userType = state.userType;
   let profileLink = "";
-  console.log(userType);
+
   if (userType === "student") {
-    profileLink = "/student";
+    profileLink = `/student/${userId}`;
   } else {
-    profileLink = "/company";
+    profileLink = `/company/${userId}`;
   }
 
   return (
@@ -35,8 +38,7 @@ export function Header() {
             <Briefcase className="h-4 w-4" />
             Vagas
           </NavLink>
-          <NavLink href={`/${profileLink}/1`}>
-            {/* depende do user ativo /company/${id} ou /student/${id} */}
+          <NavLink href={profileLink}>
             <UserRound className="h-4 w-4" />
             Perfil
           </NavLink>
@@ -49,7 +51,7 @@ export function Header() {
             </PopoverTrigger>
             <PopoverContent side="bottom" align="end" className="w-[200px] p-2">
               <div className="flex flex-col self-stretch justify-between items-start">
-                <Button variant="text" onClick={() => { }} className="w-full justify-start"><UserRound className="w-4 h-4 text-violet-50" /> Meu perfil</Button>
+                <Button variant="text" onClick={() => router.push(profileLink)} className="w-full justify-start"><UserRound className="w-4 h-4 text-violet-50" /> Meu perfil</Button>
                 <Button variant="text" onClick={() => { }} className="text-red-600 w-full justify-start hover:text-red-600"><LogOut className="w-4 h-4 text-red-600" /> Sair da conta</Button>
               </div>
             </PopoverContent>

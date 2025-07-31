@@ -6,6 +6,7 @@ import { Employer, Student } from "@/context/appContext";
 import { InfoCard } from "../components/ui/info-card";
 import { SearchBar } from "../components/ui/search-bar";
 import { Spinner } from "../components/ui/spinner";
+import { toast } from "sonner";
 
 export default function Home() {
   const [opportunities, setOpportunities] = useState<Opportunity[]>([]);
@@ -24,38 +25,42 @@ export default function Home() {
 
   useEffect(() => {
     const fetchOpportunities = async () => {
-      const response = await localApi.get("/opportunities");
-      const listOfAllOpportunities: Opportunity[] = response.data;
-      /* listOfAllOpportunities.forEach((opportunity) => {
-        const employerId = opportunity.employer;
-        console.log(employerId);
-        const employerName = employers.find(
-          (employer) => employer._id === employerId
-        )?.name;
-        console.log("AAAAAAAAAA", employerName);
-        if (employerName) {
-          opportunity.employer = employerName;
-        }
-      }); */
-      setOpportunities(listOfAllOpportunities);
-      console.log(listOfAllOpportunities);
-      setFetchingOpportunities(false);
+      try {
+        const response = await localApi.get("/opportunities");
+        const listOfAllOpportunities: Opportunity[] = response.data;
+        setOpportunities(listOfAllOpportunities);
+      } catch (error) {
+        console.log(error);
+        toast.error("Algo deu errado ao tentar carregas as oportunidades");
+      } finally {
+        setFetchingOpportunities(false);
+      }
     };
 
     const fetchStudents = async () => {
-      const response = await localApi.get("/students/search");
-      const listOfStudents: Student[] = response.data;
-      console.log(listOfStudents);
-      setStudents(listOfStudents);
-      setFetchingStudents(false);
+      try {
+        const response = await localApi.get("/students/search");
+        const listOfStudents: Student[] = response.data;
+        setStudents(listOfStudents);
+      } catch (error) {
+        console.log(error);
+        toast.error("Algo deu errado ao tentar carregas os estudantes");
+      } finally {
+        setFetchingStudents(false);
+      }
     };
 
     const fetchEmployers = async () => {
-      const response = await localApi.get("/employers");
-      const listOfEmployers: Employer[] = response.data;
-      console.log(listOfEmployers);
-      setEmployers(listOfEmployers);
-      setFetchingEmployers(false);
+      try {
+        const response = await localApi.get("/employers");
+        const listOfEmployers: Employer[] = response.data;
+        setEmployers(listOfEmployers);
+      } catch (error) {
+        console.log(error);
+        toast.error("Algo deu errado ao tentar carregas os contratantes");
+      } finally {
+        setFetchingEmployers(false);
+      }
     };
 
     fetchEmployers();

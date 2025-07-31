@@ -55,8 +55,7 @@ export default function CreateOpportunityPage() {
             Publicar oportunidade
           </div>
           <div className="self-stretch justify-start text-zinc-300 text-sm font-medium leading-[150%]">
-            Conecte sua vaga aos talentos da universidade pública. Preencha as
-            informações para alcançar os perfis certos.
+            Conecte sua vaga aos talentos da universidade pública. Preencha as informações para alcançar os perfis certos.
           </div>
         </div>
 

@@ -3,38 +3,75 @@ import { useContext, useEffect, useState } from "react";
 import { Pen } from "lucide-react";
 import { AppContext, AppContextType, Employer } from "@/context/appContext";
 import { Opportunity } from "@/types/entities";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { Button } from "@/app/components/ui/button";
 import Avatar from "@/app/components/ui/avatar";
 import JobCard from "@/app/components/ui/job-card";
 import { localApi } from "@/services/axios";
+import { toast } from "sonner";
+import { Spinner } from "@/app/components/ui/spinner";
 
 export default function CompanyProfilePage() {
   const router = useRouter();
   const { state } = useContext(AppContext) as AppContextType;
-  const [employerOpportunities, setEmployerOpportunities] = useState<
-    Opportunity[]
-  >([]);
-  const employerData: Employer = state.userData.user as Employer;
+  const [employerOpportunities, setEmployerOpportunities] = useState<Opportunity[]>([]);
+  //const employerData: Employer = state.userData.user as Employer;
+  const params = useParams<{ id: string }>();
+  const [employerData, setEmployerData] = useState<Employer>();
+  const [isLoading, setIsLoading] = useState(true);
+  const userType = useContext(AppContext)?.state.userType || "";
+  const userId = useContext(AppContext)?.state.userData.user?._id;
 
   useEffect(() => {
     const fetchOpportunities = async () => {
       const opportunitiesResponse = await localApi.get(
-        `/opportunities/employer/${employerData._id}`
+        `/opportunities/employer/${employerData?._id}`
       );
       if (opportunitiesResponse.status === 200) {
         setEmployerOpportunities(opportunitiesResponse.data);
       }
     };
-    fetchOpportunities();
-  }, []);
+    if (employerData && employerData._id) fetchOpportunities();
+  }, [employerData]);
+
+  useEffect(() => {
+    const fetchStudent = async () => {
+      try {
+        const response = await localApi.get(`/employers/${params.id}/profile`);
+        if (response.status === 200) {
+          setEmployerData(response.data);
+          setIsLoading(false);
+        }
+      } catch (error) {
+        console.log("Error while fetching profile: ", error);
+        toast.error("Erro ao carregar perfil");
+      }
+    };
+    if (userType === "student" && params.id === userId) {
+      setEmployerData(state.userData.user as Employer);
+      setIsLoading(false);
+    } else {
+      fetchStudent();
+    }
+  }, [userType, state]);
 
   const handleUpdateProfile = () => {
-    router.push(`/company/[id]/update`);
-    // substituir `[id]` pelo ID do empregador
+    router.push(`/company/${params.id}/update`);
   };
 
-  return (
+  const handleOnClickButtonOpportunity = (opportunityId: string) => {
+    if (userType === "student") {
+      router.push(`/opportunities/${opportunityId}`);
+    } else {
+      router.push(`/opportunities/${opportunityId}/applicants`);
+    }
+  };
+
+  return isLoading ? (
+    <>
+      <Spinner />
+    </>
+  ) : (
     <div className="w-full self-stretch px-30 pt-6 pb-16 bg-zinc-950 inline-flex flex-col justify-start items-start gap-16">
       <div className="self-stretch w-full inline-flex justify-start items-start gap-6">
         <Avatar
@@ -46,26 +83,28 @@ export default function CompanyProfilePage() {
 
         <div className="self-stretch w-full inline-flex flex-col justify-center items-start gap-1">
           <div className="justify-start text-white text-xl font-semibold leading-[150%]">
-            {employerData.name}
+            {employerData?.name}
           </div>
 
           <div className="self-stretch justify-start text-zinc-300 text-sm font-medium leading-[150%]">
             Descrição vai aqui
           </div>
 
-          {employerData.hiringRate !== undefined && (
+          {employerData?.hiringRate !== undefined && (
             <div className="justify-start text-violet-500 text-xs font-medium leading-[150%]">
-              {`${employerData.hiringRate}% de taxa de contratação no ConectaUFC`}
+              {`${employerData?.hiringRate}% de taxa de contratação no ConectaUFC`}
             </div>
           )}
         </div>
 
-        <Button
-          variant="outline_violet"
-          Icon={Pen}
-          onClick={handleUpdateProfile}
-          size="icon"
-        />
+        {params.id === userId && (
+          <Button
+            variant="outline_violet"
+            Icon={Pen}
+            onClick={handleUpdateProfile}
+            size="icon"
+          />
+        )}
       </div>
 
       <div className="w-full inline-flex flex-col justify-start items-start gap-12">
@@ -75,7 +114,7 @@ export default function CompanyProfilePage() {
               Sobre
             </div>
             <div className="w-full justify-start text-zinc-300 text-base font-medium leading-[150%]">
-              {employerData.description}
+              {employerData?.description}
             </div>
           </div>
           <div className="flex flex-col justify-start items-start gap-2">
@@ -83,7 +122,7 @@ export default function CompanyProfilePage() {
               Site
             </div>
             <div className="w-full justify-start text-zinc-300 text-base font-medium leading-[150%]">
-              {employerData.site ? employerData.site : "Não informado"}
+              {employerData?.site ? employerData?.site : "Não informado"}
             </div>
           </div>
           <div className="flex flex-col justify-start items-start gap-2">
@@ -91,7 +130,9 @@ export default function CompanyProfilePage() {
               Sede
             </div>
             <div className="w-full justify-start text-zinc-300 text-base font-medium leading-[150%]">
-              {employerData.location ? employerData.location : "Não informado"}
+              {employerData?.location
+                ? employerData?.location
+                : "Não informado"}
             </div>
           </div>
           <div className="flex flex-col justify-start items-start gap-2">
@@ -99,14 +140,14 @@ export default function CompanyProfilePage() {
               Especializações
             </div>
             <div className="w-full justify-start text-zinc-300 text-base font-medium leading-[150%]">
-              {employerData.specializations &&
-                employerData.specializations.length > 1
-                ? `${employerData.specializations.slice(0, -1).join(",")} e ${employerData.specializations[
-                employerData.specializations.length - 1
+              {employerData?.specializations &&
+                employerData?.specializations.length > 1
+                ? `${employerData?.specializations.slice(0, -1).join(",")} e ${employerData?.specializations[
+                employerData?.specializations.length - 1
                 ]
                 }`
-                : employerData.specializations
-                  ? `${employerData.specializations[0]}`
+                : employerData?.specializations
+                  ? `${employerData?.specializations[0]}`
                   : "Não informado"}
             </div>
           </div>
@@ -115,7 +156,7 @@ export default function CompanyProfilePage() {
               Contato
             </div>
             <div className="w-full justify-start text-zinc-300 text-base font-medium leading-[150%]">
-              {employerData.email}
+              {employerData?.email}
             </div>
           </div>
         </div>
@@ -131,30 +172,18 @@ export default function CompanyProfilePage() {
                 <JobCard
                   key={opportunity._id}
                   opportunityId={opportunity._id}
-                  logoUrl={employerData.profileImage || ""}
-                  companyName={employerData.name}
+                  logoUrl={employerData?.profileImage || ""}
+                  companyName={employerData?.name || ""}
                   jobTitle={opportunity.title}
                   description={opportunity.description}
                   location={opportunity.workLocation}
                   salary={opportunity.salary.toString()}
                   workload={`${opportunity.weeklyHours}h semanais`}
-                  buttonText="Ver candidatos"
+                  buttonText={userType === "employer" ? params.id === userId ? "Ver candidatos" : undefined : "Ver detalhes"}
+                  onClickButton={() => handleOnClickButtonOpportunity(opportunity._id)}
                 />
               ))
               : "Não há oportunidades cadastradas"}
-
-            {/* <JobCard
-              logoUrl={""}
-              companyName={"IBM"}
-              jobTitle={"UI/UX Designer"}
-              description={
-                "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release.  It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release."
-              }
-              location={"Remoto"}
-              salary={"R$1.200,00"}
-              workload={"20h semanais"}
-              buttonText="Ver candidatos"
-            /> */}
           </div>
         </div>
       </div>

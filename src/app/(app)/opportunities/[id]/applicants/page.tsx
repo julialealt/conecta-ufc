@@ -74,6 +74,22 @@ export default function OpportunityApplicantsPage() {
     }
   };
 
+  const handleRefuseApplicant = async (userId: string) => {
+    try {
+      const response = await testApi.post("/contracts/refuse/", {
+        userId,
+        employerId: employerId,
+        opportunityId: params.id,
+      });
+      if (response.status === 201) {
+        toast.success("Estudante recusado");
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Houve um erro ao recrutar candidato, tente mais tarde");
+    }
+  };
+
   return (
     <TooltipProvider>
       {isLoading && <Spinner />}
@@ -156,7 +172,9 @@ export default function OpportunityApplicantsPage() {
                 course={applicant.course}
                 enterSemester={applicant.entrySemester}
                 variant="default"
-                onDecline={() => { }}
+                onDecline={() => {
+                  handleRefuseApplicant(applicant._id);
+                }}
                 onRecruit={() => {
                   handleRecruit(applicant._id);
                 }}

@@ -5,6 +5,7 @@ import { Pen, X } from 'lucide-react';
 import Input from './ui/input';
 
 export type ContactInfoProps = {
+  allowEdit: boolean
   email: string;
   links: { url: string; label: string }[];
   birthDate: string;
@@ -28,6 +29,7 @@ export type ContactInfoProps = {
 
 
 const ContactInfo: React.FC<ContactInfoProps> = ({
+  allowEdit,
   email,
   links,
   birthDate,
@@ -59,7 +61,13 @@ const ContactInfo: React.FC<ContactInfoProps> = ({
         <DialogHeader>
           <DialogTitle>Informações de contato</DialogTitle>
 
-          <Dialog>
+          {!allowEdit && (
+            <DialogClose asChild>
+              <Button variant="text" Icon={X} size="icon" />
+            </DialogClose>
+          )}
+
+          {allowEdit && (<Dialog>
             <DialogTrigger asChild>
               <Button variant="icon" Icon={Pen} size="icon" />
             </DialogTrigger>
@@ -167,7 +175,7 @@ const ContactInfo: React.FC<ContactInfoProps> = ({
                 <Button variant="primary">Salvar</Button>
               </div>
             </DialogContent>
-          </Dialog>
+          </Dialog>)}
 
         </DialogHeader>
 
