@@ -1,6 +1,6 @@
 import React from "react";
 import { MapPin, CircleDollarSign, Clock, Sparkles } from "lucide-react";
-import { Button } from "./button";
+import Button from "./Button";
 import Avatar from "./avatar";
 import { useRouter } from "next/navigation";
 

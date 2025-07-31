@@ -4,7 +4,7 @@ import { Pen } from "lucide-react";
 import { AppContext, AppContextType, Employer } from "@/context/appContext";
 import { Opportunity } from "@/types/entities";
 import { useParams, useRouter } from "next/navigation";
-import { Button } from "@/app/components/ui/button";
+import Button from "@/app/components/ui/Button";
 import Avatar from "@/app/components/ui/avatar";
 import JobCard from "@/app/components/ui/job-card";
 import { localApi } from "@/services/axios";
@@ -14,7 +14,9 @@ import { Spinner } from "@/app/components/ui/spinner";
 export default function CompanyProfilePage() {
   const router = useRouter();
   const { state } = useContext(AppContext) as AppContextType;
-  const [employerOpportunities, setEmployerOpportunities] = useState<Opportunity[]>([]);
+  const [employerOpportunities, setEmployerOpportunities] = useState<
+    Opportunity[]
+  >([]);
   //const employerData: Employer = state.userData.user as Employer;
   const params = useParams<{ id: string }>();
   const [employerData, setEmployerData] = useState<Employer>();
@@ -141,14 +143,15 @@ export default function CompanyProfilePage() {
             </div>
             <div className="w-full justify-start text-zinc-300 text-base font-medium leading-[150%]">
               {employerData?.specializations &&
-                employerData?.specializations.length > 1
-                ? `${employerData?.specializations.slice(0, -1).join(",")} e ${employerData?.specializations[
-                employerData?.specializations.length - 1
-                ]
-                }`
+              employerData?.specializations.length > 1
+                ? `${employerData?.specializations.slice(0, -1).join(",")} e ${
+                    employerData?.specializations[
+                      employerData?.specializations.length - 1
+                    ]
+                  }`
                 : employerData?.specializations
-                  ? `${employerData?.specializations[0]}`
-                  : "Não informado"}
+                ? `${employerData?.specializations[0]}`
+                : "Não informado"}
             </div>
           </div>
           <div className="flex flex-col justify-start items-start gap-2">
@@ -169,20 +172,28 @@ export default function CompanyProfilePage() {
           <div className="self-stretch inline-flex flex-col justify-start items-start gap-4">
             {employerOpportunities.length > 0
               ? employerOpportunities.map((opportunity) => (
-                <JobCard
-                  key={opportunity._id}
-                  opportunityId={opportunity._id}
-                  logoUrl={employerData?.profileImage || ""}
-                  companyName={employerData?.name || ""}
-                  jobTitle={opportunity.title}
-                  description={opportunity.description}
-                  location={opportunity.workLocation}
-                  salary={opportunity.salary.toString()}
-                  workload={`${opportunity.weeklyHours}h semanais`}
-                  buttonText={userType === "employer" ? params.id === userId ? "Ver candidatos" : undefined : "Ver detalhes"}
-                  onClickButton={() => handleOnClickButtonOpportunity(opportunity._id)}
-                />
-              ))
+                  <JobCard
+                    key={opportunity._id}
+                    opportunityId={opportunity._id}
+                    logoUrl={employerData?.profileImage || ""}
+                    companyName={employerData?.name || ""}
+                    jobTitle={opportunity.title}
+                    description={opportunity.description}
+                    location={opportunity.workLocation}
+                    salary={opportunity.salary.toString()}
+                    workload={`${opportunity.weeklyHours}h semanais`}
+                    buttonText={
+                      userType === "employer"
+                        ? params.id === userId
+                          ? "Ver candidatos"
+                          : undefined
+                        : "Ver detalhes"
+                    }
+                    onClickButton={() =>
+                      handleOnClickButtonOpportunity(opportunity._id)
+                    }
+                  />
+                ))
               : "Não há oportunidades cadastradas"}
           </div>
         </div>

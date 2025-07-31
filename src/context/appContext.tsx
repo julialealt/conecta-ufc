@@ -6,6 +6,7 @@ export type Student = {
   _id: string;
   name: string;
   description: string;
+  about?: string;
   course: string;
   entrySemester: string;
   email: string;
@@ -56,6 +57,7 @@ export type Employer = {
   _id: string;
   name: string;
   description: string;
+  about?: string;
   email: string;
   profile: string;
   password?: string;
@@ -87,6 +89,7 @@ export type AppContextType = {
   state: AppState;
   setUserData: (userData: UserData, userType: string) => void;
   setUserType: (type: string) => void;
+  updateUserData: (userData: Student | Employer) => void;
 };
 
 type props = {
@@ -123,6 +126,12 @@ const AppProvider: React.FC<props> = ({ children }) => {
     setState(newState);
   };
 
+  const updateUserData = (userData: Student | Employer) => {
+    const newState = { ...state };
+    newState.userData.user = userData;
+    setState(newState);
+  };
+
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
     const refreshToken = localStorage.getItem("refreshToken");
@@ -150,6 +159,7 @@ const AppProvider: React.FC<props> = ({ children }) => {
         state,
         setUserData,
         setUserType,
+        updateUserData,
       }}
     >
       {children}

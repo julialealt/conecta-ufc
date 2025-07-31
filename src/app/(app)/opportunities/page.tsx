@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/app/components/ui/button";
+import Button from "@/app/components/ui/Button";
 import JobCard from "@/app/components/ui/job-card";
 import { Spinner } from "@/app/components/ui/spinner";
 import { AppContext, AppContextType } from "@/context/appContext";
@@ -15,7 +15,8 @@ export default function OpportunitiesPage() {
   const { state } = useContext(AppContext) as AppContextType;
   const userType = useContext(AppContext)?.state.userType || "";
   const userId = state.userData.user?._id;
-  const [listOfOpportunities, setListOfOpportunities] = useState<Opportunity[]>();
+  const [listOfOpportunities, setListOfOpportunities] =
+    useState<Opportunity[]>();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -55,7 +56,7 @@ export default function OpportunitiesPage() {
 
       if (hasSudentAlreadyApplied) result = "Em análise";
 
-      console.log('CONTRACTS', opportunity.contracts);
+      console.log("CONTRACTS", opportunity.contracts);
 
       const contractsWithUserId = opportunity.contracts.filter(
         (contract: any) => contract.employeeId === userId

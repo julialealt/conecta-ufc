@@ -35,7 +35,9 @@ export default function OpportunityApplicantsPage() {
           const applicantsObjects: Student[] = [];
           for (const id of applicantsIds) {
             console.log("SEARCH FOR ID", id);
-            const studentReponse = await localApi.get(`/students/${id}/profile`);
+            const studentReponse = await localApi.get(
+              `/students/${id}/profile`
+            );
             if (studentReponse.status === 200) {
               console.log("STUDE", studentReponse);
               applicantsObjects.push(studentReponse.data);
@@ -76,7 +78,7 @@ export default function OpportunityApplicantsPage() {
 
   const handleRefuseApplicant = async (userId: string) => {
     try {
-      const response = await testApi.post("/contracts/refuse/", {
+      const response = await localApi.post("/contracts/refuse/", {
         userId,
         employerId: employerId,
         opportunityId: params.id,

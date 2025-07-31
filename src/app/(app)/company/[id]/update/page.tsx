@@ -1,10 +1,14 @@
 "use client";
 
-import { Button } from "@/app/components/ui/button";
+import Button from "@/app/components/ui/Button";
 import Input from "@/app/components/ui/input";
 import { PhotoInput } from "@/app/components/ui/photo-input";
 import TextAreaInput from "@/app/components/ui/text-area-input";
-import { AppContext, type AppContextType, type Employer } from "@/context/appContext";
+import {
+  AppContext,
+  type AppContextType,
+  type Employer,
+} from "@/context/appContext";
 import { localApi } from "@/services/axios";
 import { ChevronLeft } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
@@ -13,7 +17,7 @@ import { toast } from "sonner";
 
 export default function CompanyProfileUpdatePage() {
   const router = useRouter();
-  const { state } = useContext(AppContext) as AppContextType;
+  const { state, updateUserData } = useContext(AppContext) as AppContextType;
   const params = useParams<{ id: string }>();
   const [employerData, setEmployerData] = useState<Employer>();
   const userType = useContext(AppContext)?.state.userType || "";
@@ -25,7 +29,7 @@ export default function CompanyProfileUpdatePage() {
   const [about, setAbout] = useState("");
   const [site, setSite] = useState("");
   const [location, setLocation] = useState("");
-  const [specialities, setSpecialities] = useState("");
+  const [specialities, setSpecialities] = useState<string[]>([]);
   const [contact, setContact] = useState("");
 
   useEffect(() => {
@@ -38,10 +42,10 @@ export default function CompanyProfileUpdatePage() {
           setEmail(response.data.email || "");
           setName(response.data.name || "");
           setDescription(response.data.description || "");
-          setAbout(response.data.description || "");
+          setAbout(response.data.about || "");
           setSite(response.data.site || "");
           setLocation(response.data.location || "");
-          setSpecialities(response.data.specializations || "");
+          setSpecialities(response.data.specializations);
           setContact(response.data.contactEmail || "");
         }
       } catch (error) {
@@ -67,6 +71,29 @@ export default function CompanyProfileUpdatePage() {
 
   const handleResetPassword = () => {
     router.push("/reset-password");
+  };
+
+  const handleUpdateProfile = async () => {
+    try {
+      const response = await localApi.put(`/employers/${userId}/profile`, {
+        name,
+        description,
+        about,
+        email,
+        site,
+        location,
+        specializations: specialities,
+        contact,
+      });
+      if (response.status === 200) {
+        const newStudentData: Employer = response.data;
+        updateUserData(newStudentData);
+        toast.success("Perfil atualizado com sucesso");
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Erro ao atualizar perfil");
+    }
   };
 
   return (
@@ -175,8 +202,8 @@ export default function CompanyProfileUpdatePage() {
           name="specialities"
           label="Especializações*"
           placeholder="Especializações"
-          value={specialities}
-          onChange={(e) => setSpecialities(e.target.value)}
+          value={specialities.join(",")}
+          onChange={(e) => setSpecialities(e.target.value.split(","))}
           status="default"
           errorMessage=""
         />
@@ -197,7 +224,9 @@ export default function CompanyProfileUpdatePage() {
 
           <div className="inline-flex justify-start items-center gap-4">
             <Button variant="outline_white">Cancelar</Button>
-            <Button variant="primary">Salvar alterações</Button>
+            <Button variant="primary" onClick={handleUpdateProfile}>
+              Salvar alterações
+            </Button>
           </div>
         </div>
       </div>
