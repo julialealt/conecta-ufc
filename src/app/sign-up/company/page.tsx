@@ -4,7 +4,7 @@ import { useState, useContext } from "react";
 import Image from "next/image";
 import logo from "../../../../public/assets/logo_lg.svg";
 import { useRouter } from "next/navigation";
-import { Button } from "@/app/components/ui/button";
+import Button from "@/app/components/ui/Button";
 import Input from "@/app/components/ui/input";
 import Select from "@/app/components/ui/select";
 import { AppContext, AppContextType, Employer } from "@/context/appContext";

@@ -10,6 +10,7 @@ import {
 } from "@/app/components/ui/tooltip";
 import { AppContext, AppContextType, Student } from "@/context/appContext";
 import { localApi } from "@/services/axios";
+import type { Opportunity } from "@/types/entities";
 import { ChevronLeft, CircleAlert } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
@@ -21,6 +22,7 @@ export default function OpportunityApplicantsPage() {
   const router = useRouter();
   const params = useParams<{ id: string }>();
   const [isLoading, setIsLoading] = useState(true);
+  const [opportunity, setOpportunity] = useState<Opportunity>();
   const [listOfApplicants, setListOfApplicants] = useState<Student[]>([]);
 
   useEffect(() => {
@@ -31,6 +33,7 @@ export default function OpportunityApplicantsPage() {
         );
         if (opportunityResponse.status === 200) {
           console.log(opportunityResponse);
+          setOpportunity(opportunityResponse.data);
           const applicantsIds: string[] = opportunityResponse.data.applicants;
           const applicantsObjects: Student[] = [];
           for (const id of applicantsIds) {
@@ -110,7 +113,7 @@ export default function OpportunityApplicantsPage() {
                 Candidatos à vaga:
               </div>
               <div className="flex-1 self-stretch justify-start text-violet-500 text-xl font-semibold leading-[150%]">
-                UI/UX Designer
+                {opportunity?.title}
               </div>
 
               <Tooltip>
@@ -118,7 +121,7 @@ export default function OpportunityApplicantsPage() {
                   <div className="inline-flex justify-start items-center gap-1 text-violet-500">
                     <CircleAlert className="h-3.5 w-3.5" />
                     <div className="justify-start text-xs leading-[150%] cursor-default">
-                      Você tem 24 dias para recrutar candidatos
+                      Você tem 30 dias para recrutar candidatos
                     </div>
                   </div>
                 </TooltipTrigger>

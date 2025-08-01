@@ -3,10 +3,11 @@ import { MapPin, CircleDollarSign, Clock, Sparkles } from "lucide-react";
 import Button from "./Button";
 import Avatar from "./avatar";
 import { useRouter } from "next/navigation";
+import { getRegime } from "@/utils/getRegime";
 
 export type JobCardProps = {
   opportunityId: string;
-  logoUrl: string;
+  logoUrl?: string;
   companyName: string;
   jobTitle: string;
   description: string;
@@ -79,7 +80,7 @@ const JobCard: React.FC<JobCardProps> = ({
           <div className="inline-flex justify-start items-start gap-5">
             <div className="flex items-center gap-1.5">
               <MapPin size={16} />
-              <span>{location}</span>
+              <span>{getRegime(location)}</span>
             </div>
             <div className="flex items-center gap-1.5">
               <CircleDollarSign size={16} />

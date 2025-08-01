@@ -5,7 +5,7 @@ import Image from "next/image";
 import logo from "../../../../public/assets/logo_lg.svg";
 import { useRouter } from "next/navigation";
 import Input from "@/app/components/ui/input";
-import { Button } from "@/app/components/ui/button";
+import Button from "@/app/components/ui/Button";
 
 export default function RecoverPasswordVerifyEmailPage() {
   const router = useRouter();

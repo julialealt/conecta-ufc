@@ -71,8 +71,6 @@ export default function OpportunitiesPage() {
       );
 
       if (refusedWithUserId.length > 0) result = "Recusado";
-    } else {
-      result = "editar";
     }
     return result;
   };
@@ -123,7 +121,7 @@ export default function OpportunitiesPage() {
           <JobCard
             key={opportunity._id}
             opportunityId={opportunity._id}
-            logoUrl={""}
+            logoUrl={opportunity.employer.profileImage}
             companyName={opportunity.employer.name}
             jobTitle={opportunity.title}
             description={opportunity.description}

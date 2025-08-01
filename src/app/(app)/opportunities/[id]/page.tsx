@@ -132,7 +132,7 @@ export default function OpportuniyPage() {
           opportunityData?.employer._id === userId && (
             <div className="self-stretch inline-flex justify-start items-start gap-2">
               <Button variant="danger">Excluir oportunidade</Button>
-              <Button variant="primary">Ver candidatos</Button>
+              <Button variant="primary" onClick={() => router.push(`/opportunities/${params.id}/applicants`)}>Ver candidatos</Button>
             </div>
           )}
 
@@ -212,7 +212,7 @@ export default function OpportuniyPage() {
         <UserCard
           variant="organization"
           name={opportunityData?.employer.name || ""}
-          profileUrl="/company/id"
+          profileUrl={`/company/${opportunityData?.employer._id}`}
           bio=""
           about={opportunityData?.employer.description}
         />

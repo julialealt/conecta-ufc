@@ -4,8 +4,8 @@ export type Opportunity = {
   _id: string;
   title: string;
   description: string;
-  salary: Number;
-  weeklyHours: Number;
+  salary: number;
+  weeklyHours: number;
   workLocation: string;
   employer: Employer;
   applicants: [string];

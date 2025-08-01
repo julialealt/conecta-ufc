@@ -5,7 +5,7 @@ import Image from "next/image";
 import logo from "../../../../../public/assets/logo_lg.svg";
 import { useRouter } from "next/navigation";
 import Input from "@/app/components/ui/input";
-import { Button } from "@/app/components/ui/button";
+import Button from "@/app/components/ui/Button";
 import { useParams } from "next/navigation";
 import { AppContext, AppContextType } from "@/context/appContext";
 import { Spinner } from "@/app/components/ui/spinner";

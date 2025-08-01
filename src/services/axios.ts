@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from "axios";
 
 const api: AxiosInstance = axios.create({
-  baseURL: "https://ufc-conecta-backend.onrender.com/api/v1",
+  baseURL: "http://localhost:8080/api/v1",
   timeout: 100000000,
 });
 
@@ -28,7 +28,7 @@ api.interceptors.response.use(
 );
 
 export const authAPi: AxiosInstance = axios.create({
-  baseURL: "https://ufc-conecta-backend.onrender.com/api/v1",
+  baseURL: "http://localhost:8080/api/v1",
   timeout: 100000000,
 });
 
@@ -42,7 +42,7 @@ authAPi.interceptors.request.use((config) => {
 });
 
 export const localApi: AxiosInstance = axios.create({
-  baseURL: "https://ufc-conecta-backend.onrender.com/api/v1",
+  baseURL: "http://localhost:8080/api/v1",
   timeout: 100000000,
 });
 
